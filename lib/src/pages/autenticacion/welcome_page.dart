@@ -9,7 +9,7 @@ class WelcomePage extends StatelessWidget {
         top: true,
         child: Material(
           child: Stack(children: [
-            _fondo(context),
+            _background(context),
             Column(
               children: [
                 _welcomeText(),
@@ -91,7 +91,9 @@ class WelcomePage extends StatelessWidget {
           child: MaterialButton(
             padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
             minWidth: MediaQuery.of(context).size.width,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, 'login');
+            },
             child: Text(
               "Iniciar Sesión",
               textAlign: TextAlign.center,
@@ -115,7 +117,9 @@ class WelcomePage extends StatelessWidget {
           child: MaterialButton(
             padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
             minWidth: MediaQuery.of(context).size.width,
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, 'register');
+            },
             child: Text(
               "Registro",
               textAlign: TextAlign.center,
@@ -132,7 +136,7 @@ class WelcomePage extends StatelessWidget {
     );
   }
 
-  Widget _fondo(BuildContext context) {
+  Widget _background(BuildContext context) {
     final colorPrimary = Theme.of(context).primaryColor;
     return Container(
       height: double.infinity,
