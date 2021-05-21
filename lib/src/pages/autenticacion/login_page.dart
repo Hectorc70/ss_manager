@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ss_manager/src/providers/autenticacion/autenticacion_provider.dart';
 import 'package:ss_manager/src/validations/autenticacion.dart';
 
 class LoginPage extends StatelessWidget {
@@ -49,6 +50,10 @@ class LoginPage extends StatelessWidget {
     final colorSecond2 = Theme.of(context).colorScheme.secondaryVariant;
     final colorPrimary = Theme.of(context).primaryColor;
 
+    final login = Provider.of<UserProvider>(context);
+
+
+    
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -113,8 +118,12 @@ class LoginPage extends StatelessWidget {
                   child: MaterialButton(
                     padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
                     minWidth: width * .50,
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'login');
+                    onPressed: () async{
+                      final resp = await login.loginUser();
+                      if (resp != 'user-not-found' && resp != 'wrong-password'){
+                        Navigator.pushReplacementNamed(context, 'home');
+                      }
+                        
                     },
                     child: Text(
                       "Entrar",

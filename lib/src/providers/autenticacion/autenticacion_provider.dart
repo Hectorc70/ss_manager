@@ -17,12 +17,22 @@ class UserProvider with ChangeNotifier {
   }
 
   Future<dynamic> registerUser() async {
-    Firebase.initializeApp();
     final user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: "hecgarcia.n@gmail.com", 
-        password: "es3sa222",
-        );
+      email: "hecgarcia.n@gmail.com",
+      password: "es3sa222",
+    );
 
     return user;
+  }
+
+  Future<dynamic> loginUser() async {
+    try {
+      final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: 'hecgarcia.n@gmail.com', password: 'es3sa222');
+
+      return '';
+    } on FirebaseAuthException catch (e) {
+      return e.code;
+    }
   }
 }
