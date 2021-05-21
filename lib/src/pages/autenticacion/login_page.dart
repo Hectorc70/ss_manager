@@ -46,8 +46,9 @@ class LoginPage extends StatelessWidget {
   Widget _formLogin(BuildContext context) {
     final validationService = Provider.of<SignupValidation>(context);
     final width = MediaQuery.of(context).size.width;
-    final colorSecond = Color.fromRGBO(57, 62, 70, 1);
+    final colorSecond2 = Theme.of(context).colorScheme.secondaryVariant;
     final colorPrimary = Theme.of(context).primaryColor;
+
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -56,7 +57,7 @@ class LoginPage extends StatelessWidget {
             width: width * .95,
             padding: EdgeInsets.all(15.0),
             decoration: BoxDecoration(
-                color: colorSecond,
+                color: colorSecond2,
                 borderRadius: BorderRadius.circular(10.0),
                 boxShadow: <BoxShadow>[
                   BoxShadow(
@@ -75,8 +76,6 @@ class LoginPage extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       fontSize: 22.0),
                 ),
-                
-                
                 TextFormField(
                   onChanged: (String value) {
                     validationService.changeName(value);
@@ -130,8 +129,25 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 3.0,
+                  height: 5.0,
                 ),
+                Container(
+                  width: double.infinity,
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.vpn_key_sharp,
+                        color: colorPrimary,
+                      ),
+                      TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Recuperar Contraseña',
+                            style: TextStyle(fontSize: 15.0),
+                          ))
+                    ],
+                  ),
+                )
               ],
             ),
           ),
@@ -141,7 +157,7 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _background(BuildContext context) {
-    final colorSecond = Color.fromRGBO(57, 62, 70, 1);
+    final colorSecond = Theme.of(context).colorScheme.secondary;
     return Container(
       height: double.infinity,
       width: double.infinity,

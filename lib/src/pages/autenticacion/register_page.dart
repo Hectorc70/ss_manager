@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ss_manager/src/providers/autenticacion/autenticacion_provider.dart';
 import 'package:ss_manager/src/validations/autenticacion.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -27,7 +28,7 @@ class RegisterPage extends StatelessWidget {
               children: [
                 IconButton(
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/');
+                    Navigator.pushReplacementNamed(context, 'home');
                   },
                   icon: Icon(Icons.arrow_back_rounded),
                   color: Colors.white,
@@ -45,8 +46,10 @@ class RegisterPage extends StatelessWidget {
 
   Widget _formRegister(BuildContext context) {
     final validationService = Provider.of<SignupValidation>(context);
+    final registerUser = Provider.of<UserProvider>(context);
+
     final width = MediaQuery.of(context).size.width;
-    final colorSecond = Color.fromRGBO(57, 62, 70, 1);
+    final colorSecond = Theme.of(context).colorScheme.secondaryVariant;
     final colorPrimary = Theme.of(context).primaryColor;
     return SingleChildScrollView(
       child: Column(
@@ -154,8 +157,10 @@ class RegisterPage extends StatelessWidget {
                   child: MaterialButton(
                     padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
                     minWidth: width * .50,
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'login');
+                    onPressed: () async {
+                      Navigator.pushNamed(context, 'home');
+                      final user = await registerUser.registerUser();
+                      print(user);
                     },
                     child: Text(
                       "Registrarse",
@@ -181,7 +186,7 @@ class RegisterPage extends StatelessWidget {
   }
 
   Widget _background(BuildContext context) {
-    final colorSecond = Color.fromRGBO(57, 62, 70, 1);
+    final colorSecond = Theme.of(context).colorScheme.secondary;
     return Container(
       height: double.infinity,
       width: double.infinity,
