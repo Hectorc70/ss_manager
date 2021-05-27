@@ -52,8 +52,6 @@ class LoginPage extends StatelessWidget {
 
     final login = Provider.of<UserProvider>(context);
 
-
-    
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -82,10 +80,14 @@ class LoginPage extends StatelessWidget {
                       fontSize: 22.0),
                 ),
                 TextFormField(
+                  
+                  style: TextStyle(color: Colors.white),
                   onChanged: (String value) {
                     validationService.changeName(value);
                   },
+                  
                   decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(bottom: 0.0),
                     enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white)),
                     labelText: 'Correo Electronico',
@@ -95,11 +97,14 @@ class LoginPage extends StatelessWidget {
                     errorText: validationService.name.error,
                   ),
                 ),
+                SizedBox(height: 15.0,),
                 TextFormField(
+                  style: TextStyle(color: Colors.white),
                   onChanged: (String value) {
                     validationService.changeName(value);
                   },
                   decoration: InputDecoration(
+                    contentPadding: EdgeInsets.only(bottom: 0.0),
                     enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white)),
                     labelText: 'Contraseña',
@@ -118,12 +123,12 @@ class LoginPage extends StatelessWidget {
                   child: MaterialButton(
                     padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
                     minWidth: width * .50,
-                    onPressed: () async{
+                    onPressed: () async {
                       final resp = await login.loginUser();
-                      if (resp != 'user-not-found' && resp != 'wrong-password'){
+                      if (resp != 'user-not-found' &&
+                          resp != 'wrong-password') {
                         Navigator.pushReplacementNamed(context, 'home');
                       }
-                        
                     },
                     child: Text(
                       "Entrar",
