@@ -55,7 +55,9 @@ class LoginPage extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          SafeArea(child: Container(height: 250.0)),
+          SafeArea(
+            child: Container(height: 250.0)
+            ),
           Container(
             width: width * .95,
             padding: EdgeInsets.all(15.0),
@@ -80,12 +82,10 @@ class LoginPage extends StatelessWidget {
                       fontSize: 22.0),
                 ),
                 TextFormField(
-                  
                   style: TextStyle(color: Colors.white),
                   onChanged: (String value) {
                     validationService.changeName(value);
                   },
-                  
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(bottom: 0.0),
                     enabledBorder: UnderlineInputBorder(
@@ -97,7 +97,9 @@ class LoginPage extends StatelessWidget {
                     errorText: validationService.name.error,
                   ),
                 ),
-                SizedBox(height: 15.0,),
+                SizedBox(
+                  height: 15.0,
+                ),
                 TextFormField(
                   style: TextStyle(color: Colors.white),
                   onChanged: (String value) {
