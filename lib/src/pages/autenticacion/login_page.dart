@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_manager/src/providers/autenticacion/autenticacion_provider.dart';
 import 'package:ss_manager/src/validations/autenticacion.dart';
+import 'package:ss_manager/src/widgets/fields_widgets.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -81,41 +82,17 @@ class LoginPage extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       fontSize: 22.0),
                 ),
-                TextFormField(
-                  style: TextStyle(color: Colors.white),
-                  onChanged: (String value) {
-                    validationService.changeName(value);
-                  },
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(bottom: 0.0),
-                    enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white)),
-                    labelText: 'Correo Electronico',
-                    labelStyle: TextStyle(color: Colors.white),
-                    hintText: 'correo_99@gmail.com',
-                    hintStyle: TextStyle(color: Colors.grey[400]),
-                    errorText: validationService.name.error,
+                FieldInputCustom(
+                  hintTextC: 'hintTextC', 
+                  labelTextInput: ''
                   ),
-                ),
                 SizedBox(
                   height: 15.0,
                 ),
-                TextFormField(
-                  style: TextStyle(color: Colors.white),
-                  onChanged: (String value) {
-                    validationService.changeName(value);
-                  },
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(bottom: 0.0),
-                    enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white)),
-                    labelText: 'Contraseña',
-                    labelStyle: TextStyle(color: Colors.white),
-                    hintText: '2435fdg65#',
-                    hintStyle: TextStyle(color: Colors.grey[400]),
-                    errorText: validationService.name.error,
+                FieldInputCustom(
+                  hintTextC: '******', 
+                  labelTextInput: 'Contraseña'
                   ),
-                ),
                 SizedBox(
                   height: 30.0,
                 ),
