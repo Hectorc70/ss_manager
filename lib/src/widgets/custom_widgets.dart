@@ -26,39 +26,3 @@ class AppBarHomeCustom extends StatelessWidget {
   }
 }
 
-class BottomNavBarCustom extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final colorSecond = Theme.of(context).colorScheme.secondary;
-
-    return Container(
-        height: 200.0,
-        color: colorSecond,
-        child: BottomNavigationBar(
-          backgroundColor: colorSecond,
-          elevation: 0.0,
-          
-          items: [
-            BottomNavigationBarItem(
-                icon: _bottomNavBarItemCustom(context), label: ''),
-            BottomNavigationBarItem(
-                icon: _bottomNavBarItemCustom(context), label: ''),
-          ],
-        ));
-  }
-
-  Widget _bottomNavBarItemCustom(BuildContext context) {
-    final colorPrimary = Theme.of(context).primaryColor;
-    return Container(
-      width: 100.0,
-      height: 100.0,
-      color: colorPrimary,
-      child: Column(
-        children: [
-          Icon(Icons.access_alarm),
-          Text('Holas'),
-        ],
-      ),
-    );
-  }
-}

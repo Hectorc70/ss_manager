@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_manager/src/validations/autenticacion.dart';
+import 'package:ss_manager/src/widgets/bottom_nav_widge.dart';
 import 'package:ss_manager/src/widgets/custom_widgets.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorSecond = Theme.of(context).colorScheme.secondary;
+    final colorAcent = Theme.of(context).accentColor;
+    final colorP = Theme.of(context).primaryColor;
     final width = MediaQuery.of(context).size.width;
 
     return Material(
@@ -20,6 +23,17 @@ class HomePage extends StatelessWidget {
                 ),
                 body: BodyHome(),
                 bottomNavigationBar: BottomNavBarCustom(),
+                floatingActionButton: FloatingActionButton(
+                  onPressed: () {},
+                  elevation: 0.0,
+                  backgroundColor: colorP,
+                  child: Icon(
+                    Icons.add,
+                    color: colorAcent,
+                  ),
+                ),
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerDocked,
               ),
               onWillPop: () {
                 return new Future(() => false);
@@ -65,20 +79,6 @@ class BodyHome extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  Widget _bottomBar(BuildContext context) {
-    final cardOptionReportar = Container(
-      color: Colors.red,
-      child: Column(
-        children: [Icon(Icons.report), Text('Reportar Error')],
-      ),
-    );
-    return Container(
-        child: ListView(
-      scrollDirection: Axis.horizontal,
-      children: [cardOptionReportar],
-    ));
   }
 }
 
