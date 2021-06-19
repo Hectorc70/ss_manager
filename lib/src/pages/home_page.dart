@@ -27,62 +27,11 @@ class HomePage extends StatelessWidget {
           Column(
             children: [
               SafeArea(child: Container(height: 150.0)),
-              _cardTotalSold(context),
+              CardSaleToday(),
             ],
           )
         ],
       ),
-    );
-  }
-
-  Widget _cardTotalSold(BuildContext context) {
-    final colorSecond2 = Theme.of(context).colorScheme.secondaryVariant;
-    final width = MediaQuery.of(context).size.width;
-
-    return Container(
-      height: 100.0,
-      width: width * .95,
-      padding: EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-          color: colorSecond2,
-          borderRadius: BorderRadius.circular(10.0),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.black45,
-              blurRadius: 5.0,
-              offset: Offset(0.0, 3.0),
-              spreadRadius: 2.0,
-            )
-          ]),
-      child: Row(children: [
-        Container(
-          color: Colors.redAccent,
-          child: Column(
-            children: [
-              Text(
-                'Total Vendido Hoy',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 22.0),
-              ),
-              Text(
-                "\$ 200.00",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 22.0),
-              )
-            ],
-          ),
-        ),
-        Expanded(child: SizedBox()),
-        Container(
-          child: Column(
-            children: [TextButton(onPressed: () {}, child: Icon(Icons.add))],
-          ),
-        )
-      ]),
     );
   }
 }
@@ -130,5 +79,52 @@ class BodyHome extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       children: [cardOptionReportar],
     ));
+  }
+}
+
+class CardSaleToday extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final widthScreen = MediaQuery.of(context).size.width;
+    final colorSecond2 = Theme.of(context).colorScheme.secondaryVariant;
+    final colorP = Theme.of(context).primaryColor;
+
+    return Container(
+      height: 100.0,
+      width: widthScreen * .95,
+      padding: EdgeInsets.all(10.0),
+      decoration: BoxDecoration(
+          color: colorSecond2,
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Colors.black45,
+              blurRadius: 5.0,
+              offset: Offset(0.0, 3.0),
+              spreadRadius: 2.0,
+            )
+          ]),
+      child: Row(children: [
+        Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Total Vendido Hoy',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 18.0),
+              ),
+              Text(
+                "\$ 200.00",
+                style: TextStyle(
+                    color: colorP, fontWeight: FontWeight.w600, fontSize: 25.0),
+              )
+            ],
+          ),
+        ),
+      ]),
+    );
   }
 }
