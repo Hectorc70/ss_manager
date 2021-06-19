@@ -7,45 +7,41 @@ import 'package:ss_manager/src/widgets/custom_widgets.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final colorSecond = Theme.of(context).colorScheme.secondary;
-    final colorAcent = Theme.of(context).accentColor;
     final colorP = Theme.of(context).primaryColor;
+    final colorAcent = Theme.of(context).accentColor;
     final width = MediaQuery.of(context).size.width;
 
     return Material(
-      child: Stack(
-        children: [
-          WillPopScope(
-              child: Scaffold(
-                appBar: PreferredSize(
-                  preferredSize: Size(double.infinity, 200),
-                  child: AppBarHomeCustom(),
+      child: WillPopScope(
+          child: Scaffold(
+            appBar: PreferredSize(
+              preferredSize: Size(double.infinity, 200),
+              child: AppBarHomeCustom(),
+            ),
+            body: Stack(
+              children: [
+                Container(
+                  color: colorP,
                 ),
-                body: BodyHome(),
-                bottomNavigationBar: BottomNavBarCustom(),
-                floatingActionButton: FloatingActionButton(
-                  onPressed: () {},
-                  elevation: 0.0,
-                  backgroundColor: colorP,
-                  child: Icon(
-                    Icons.add,
-                    color: colorAcent,
-                  ),
-                ),
-                floatingActionButtonLocation:
-                    FloatingActionButtonLocation.centerDocked,
+                BodyHome(),
+              ],
+            ),
+            bottomNavigationBar: BottomNavBarCustom(),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {},
+              elevation: 0.0,
+              backgroundColor: colorP,
+              child: Icon(
+                Icons.add,
+                color: colorAcent,
               ),
-              onWillPop: () {
-                return new Future(() => false);
-              }),
-          Column(
-            children: [
-              SafeArea(child: Container(height: 150.0)),
-              CardSaleToday(),
-            ],
-          )
-        ],
-      ),
+            ),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerDocked,
+          ),
+          onWillPop: () {
+            return new Future(() => false);
+          }),
     );
   }
 }
@@ -53,10 +49,17 @@ class HomePage extends StatelessWidget {
 class BodyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final colorSecond = Theme.of(context).colorScheme.secondary;
+    final colorP = Theme.of(context).colorScheme.secondaryVariant;
+
     return Container(
+      decoration: BoxDecoration(
+        color: colorP,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(40.0),
+          topRight: Radius.circular(40.0),
+        ),
+      ),
       width: double.infinity,
-      color: colorSecond,
       child: Column(
         children: [
           _title(context),
