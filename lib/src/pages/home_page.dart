@@ -26,7 +26,6 @@ class HomePage extends StatelessWidget {
               ],
             ),
             bottomNavigationBar: BottomNavBarCustom(),
-                            
             floatingActionButton: FloatingActionButton(
               onPressed: () {},
               elevation: 0.0,
@@ -70,24 +69,17 @@ class BodyHome extends StatelessWidget {
 
   Widget _title(BuildContext context) {
     return Container(
-      child: Column(
-        children: [
-          Text(
-            "Ultimas Ventas",
-            style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 22.0),
-          ),
-        ],
+      width: double.infinity,
+      color: Colors.amber,
+      child: Text(
+        "Ventas Recientes",
+        style: TextStyle(
+            color: Colors.white, fontWeight: FontWeight.w600, fontSize: 22.0),
+        textAlign: TextAlign.left,
       ),
     );
   }
 }
-
-
-
-
 
 class CardSaleToday extends StatelessWidget {
   @override
