@@ -4,6 +4,7 @@ import 'package:ss_manager/src/providers/autenticacion/autenticacion_provider.da
 import 'package:ss_manager/src/routes/routes.dart';
 import 'package:ss_manager/src/validations/autenticacion.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -26,13 +27,13 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: Color.fromRGBO(41, 161, 156, 1),
+          primaryColor: Color.fromRGBO(225, 70, 88, 1),
           accentColor: Colors.white,
           colorScheme: ColorScheme(
-            primary: Color.fromRGBO(41, 161, 156, 1),
-            primaryVariant: Color.fromRGBO(41, 161, 156, 1),
-            secondary: Color.fromRGBO(75, 77, 79, 1),
-            secondaryVariant: Color.fromRGBO(44, 48, 54, 1),
+            primary: Color.fromRGBO(225, 70, 88, 1),
+            primaryVariant: Color.fromRGBO(225, 70, 88, 1),
+            secondary: Color.fromRGBO(63, 73, 95, 1),
+            secondaryVariant: Color.fromRGBO(34, 37, 44, 1),
             surface: Color.fromRGBO(57, 62, 70, 1),
             background: Color.fromRGBO(57, 62, 70, 1),
             error: Color.fromRGBO(57, 62, 70, 1),

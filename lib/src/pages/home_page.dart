@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:ss_manager/src/validations/autenticacion.dart';
+
 import 'package:ss_manager/src/widgets/bottom_nav_widge.dart';
 import 'package:ss_manager/src/widgets/custom_widgets.dart';
 
@@ -27,6 +26,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
             bottomNavigationBar: BottomNavBarCustom(),
+                            
             floatingActionButton: FloatingActionButton(
               onPressed: () {},
               elevation: 0.0,
@@ -84,6 +84,10 @@ class BodyHome extends StatelessWidget {
     );
   }
 }
+
+
+
+
 
 class CardSaleToday extends StatelessWidget {
   @override
