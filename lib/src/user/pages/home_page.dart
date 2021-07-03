@@ -31,7 +31,7 @@ class HomePage extends StatelessWidget {
             bottomNavigationBar: BottomNavBarCustom(),
             floatingActionButton: FloatingActionButton(
               onPressed: () async {
-                await order.createNewOrder();
+                await order.getLastOrders();
               },
               elevation: 0.0,
               backgroundColor: colorP,
