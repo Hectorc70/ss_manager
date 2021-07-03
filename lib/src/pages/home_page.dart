@@ -51,6 +51,7 @@ class BodyHome extends StatelessWidget {
     final colorP = Theme.of(context).colorScheme.secondaryVariant;
 
     return Container(
+      padding: EdgeInsets.all(25.0),
       decoration: BoxDecoration(
         color: colorP,
         borderRadius: BorderRadius.only(
@@ -70,11 +71,10 @@ class BodyHome extends StatelessWidget {
   Widget _title(BuildContext context) {
     return Container(
       width: double.infinity,
-      color: Colors.amber,
       child: Text(
         "Ventas Recientes",
         style: TextStyle(
-            color: Colors.white, fontWeight: FontWeight.w600, fontSize: 22.0),
+            color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20.0),
         textAlign: TextAlign.left,
       ),
     );
