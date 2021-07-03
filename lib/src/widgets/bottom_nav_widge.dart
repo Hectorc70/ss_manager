@@ -5,7 +5,7 @@ class BottomNavBarCustom extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorP = Theme.of(context).primaryColor;
     final colorS2 = Theme.of(context).colorScheme.secondaryVariant;
-    final colorA = Theme.of(context).accentColor;
+    final colorA = Theme.of(context).colorScheme.primaryVariant;
 
     final widthScreen = MediaQuery.of(context).size.width;
 

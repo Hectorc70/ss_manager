@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ss_manager/src/providers/autenticacion/autenticacion_provider.dart';
+import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
 import 'package:ss_manager/src/validations/autenticacion.dart';
 import 'package:ss_manager/src/widgets/fields_widgets.dart';
 
@@ -46,7 +46,6 @@ class LoginPage extends StatelessWidget {
   }
 
   Widget _formLogin(BuildContext context) {
-    final validationService = Provider.of<SignupValidation>(context);
     final width = MediaQuery.of(context).size.width;
     final colorSecond2 = Theme.of(context).colorScheme.secondaryVariant;
     final colorPrimary = Theme.of(context).primaryColor;

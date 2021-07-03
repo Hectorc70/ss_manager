@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:ss_manager/src/user/providers/orders_provider.dart';
 
 import 'package:ss_manager/src/widgets/bottom_nav_widge.dart';
 import 'package:ss_manager/src/widgets/custom_widgets.dart';
@@ -7,8 +9,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorP = Theme.of(context).primaryColor;
-    final colorAcent = Theme.of(context).accentColor;
+    final colorAcent = Theme.of(context).colorScheme.primaryVariant;
     final width = MediaQuery.of(context).size.width;
+    final order = Provider.of<OrderProvider>(context);
 
     return Material(
       child: WillPopScope(
@@ -27,7 +30,9 @@ class HomePage extends StatelessWidget {
             ),
             bottomNavigationBar: BottomNavBarCustom(),
             floatingActionButton: FloatingActionButton(
-              onPressed: () {},
+              onPressed: () async {
+                await order.createNewOrder();
+              },
               elevation: 0.0,
               backgroundColor: colorP,
               child: Icon(

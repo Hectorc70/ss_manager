@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'package:ss_manager/src/pages/autenticacion/login_page.dart';
-import 'package:ss_manager/src/pages/autenticacion/register_page.dart';
-import 'package:ss_manager/src/pages/autenticacion/welcome_page.dart';
-import 'package:ss_manager/src/pages/home_page.dart';
+import 'package:ss_manager/src/autenticacion/pages/login_page.dart';
+import 'package:ss_manager/src/autenticacion/pages/register_page.dart';
+import 'package:ss_manager/src/autenticacion/pages/welcome_page.dart';
+import 'package:ss_manager/src/user/pages/home_page.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
