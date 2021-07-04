@@ -6,30 +6,40 @@ class FieldInputCustom extends StatelessWidget {
     this.typeInput = TextInputType.text,
     this.textNotVisible = false,
     @required this.labelTextInput,
+    @required this.controllerField,
   });
 
   final hintTextC;
   final typeInput;
   final labelTextInput;
   final textNotVisible;
+  final controllerField;
 
-  
   @override
   Widget build(BuildContext context) {
+    final colorError = Theme.of(context).colorScheme.error;
     return TextFormField(
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(bottom: 0.0),
-                    enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white)),
-                    labelText: labelTextInput,
-                    labelStyle: TextStyle(color: Colors.white),
-                    hintText: hintTextC,
-                    hintStyle: TextStyle(color: Colors.grey[400]),
-                    
-                  ),
-                  obscureText: textNotVisible,
-                  keyboardType: typeInput,
-                  );
+      controller: this.controllerField,
+      style: TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.only(bottom: 0.0),
+        enabledBorder:
+            UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+        labelText: labelTextInput,
+        labelStyle: TextStyle(color: Colors.white),
+        hintText: hintTextC,
+        hintStyle: TextStyle(color: Colors.grey[400]),
+        errorStyle: TextStyle(color: colorError),
+      ),
+      obscureText: textNotVisible,
+      keyboardType: typeInput,
+      validator: (value) {
+        if (value == '' || value == null) {
+          return 'Ingrese datos en campo';
+        }
+
+        return null;
+      },
+    );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ss_manager/src/autenticacion/forms/login_form.dart';
 import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
 import 'package:ss_manager/src/validations/autenticacion.dart';
 import 'package:ss_manager/src/widgets/fields_widgets.dart';
@@ -53,99 +54,24 @@ class LoginPage extends StatelessWidget {
     final login = Provider.of<UserProvider>(context);
 
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          SafeArea(
-            child: Container(height: 250.0)
-            ),
-          Container(
-            width: width * .95,
-            padding: EdgeInsets.all(15.0),
-            decoration: BoxDecoration(
-                color: colorSecond2,
-                borderRadius: BorderRadius.circular(10.0),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    color: Colors.black45,
-                    blurRadius: 5.0,
-                    offset: Offset(0.0, 3.0),
-                    spreadRadius: 2.0,
-                  )
-                ]),
-            child: Column(
-              children: [
-                Text(
-                  'Iniciar Sesión',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 22.0),
-                ),
-                FieldInputCustom(
-                  hintTextC: 'hintTextC', 
-                  labelTextInput: ''
-                  ),
-                SizedBox(
-                  height: 15.0,
-                ),
-                FieldInputCustom(
-                  hintTextC: '******', 
-                  labelTextInput: 'Contraseña'
-                  ),
-                SizedBox(
-                  height: 30.0,
-                ),
-                Material(
-                  color: colorPrimary,
-                  borderRadius: BorderRadius.circular(30.0),
-                  child: MaterialButton(
-                    padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-                    minWidth: width * .50,
-                    onPressed: () async {
-                      final resp = await login.loginUser();
-                      if (resp != 'user-not-found' &&
-                          resp != 'wrong-password') {
-                        Navigator.pushReplacementNamed(context, 'home');
-                      }
-                    },
-                    child: Text(
-                      "Entrar",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w600,
-                          decoration: TextDecoration.none,
-                          color: Colors.white),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 5.0,
-                ),
-                Container(
-                  width: double.infinity,
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.vpn_key_sharp,
-                        color: colorPrimary,
-                      ),
-                      TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Recuperar Contraseña',
-                            style: TextStyle(fontSize: 15.0),
-                          ))
-                    ],
-                  ),
+        child: Column(children: [
+      SafeArea(child: Container(height: 250.0)),
+      Container(
+          width: width * .95,
+          padding: EdgeInsets.all(15.0),
+          decoration: BoxDecoration(
+              color: colorSecond2,
+              borderRadius: BorderRadius.circular(10.0),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                  color: Colors.black45,
+                  blurRadius: 5.0,
+                  offset: Offset(0.0, 3.0),
+                  spreadRadius: 2.0,
                 )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+              ]),
+          child: LoginForm())
+    ]));
   }
 
   Widget _background(BuildContext context) {
