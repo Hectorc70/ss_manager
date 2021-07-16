@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
 import 'package:ss_manager/src/routes/routes.dart';
 import 'package:ss_manager/src/user/providers/orders_provider.dart';
-import 'package:ss_manager/src/validations/autenticacion.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {

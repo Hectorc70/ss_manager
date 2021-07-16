@@ -1,30 +1,84 @@
-
 import 'package:flutter/material.dart';
+import 'package:ss_manager/src/widgets/buttons_widget.dart';
+import 'package:ss_manager/src/widgets/fields_widgets.dart';
 
-class OrderForm extends StatefulWidget {
+class SaleForm extends StatefulWidget {
   @override
-  OrderFormState createState() {
-    return OrderFormState();
+  SaleFormState createState() {
+    return SaleFormState();
   }
 }
 
-class OrderFormState extends State<OrderForm> {
+class SaleFormState extends State<SaleForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final controller = TextEditingController();
+  final controllerMount = TextEditingController();
+  final controllerTotal = TextEditingController();
+
+  @override
+  void dispose() {
+    controller.dispose();
+    controllerMount.dispose();
+    controllerTotal.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Form(
       key: _formKey,
       child: Column(
         children: [
-          Text('context'),
-          
+          FieldInputCustom(
+            controllerField: controller,
+            hintTextC: '',
+            labelTextInput: 'Nombre de Producto',
+          ),
+          Row(children: [
+            FieldInputMountCustom(
+              controllerField: controllerMount,
+              labelTextInput: 'Cantidad de Pzs',
+              widthForm: width * .30,
+            ),
+            Expanded(child: SizedBox()),
+            FieldInputMountCustom(
+              controllerField: controllerTotal,
+              labelTextInput: 'Cantidad de Pzs',
+              widthForm: width * .30,
+            ),
+          ]),
+          SizedBox(
+            height: 30.0,
+          ),
+          _buttonsActionsForm()
         ],
       ),
     );
   }
 
-  _form(){
-    
+  _buttonsActionsForm() {
+    final colorPrimary = Theme.of(context).primaryColor;
+    final colorSecond = Theme.of(context).colorScheme.secondary;
+
+    return Row(
+      children: [
+        ButtonCustomForm(
+          textName: 'Cancelar',
+          colorBtn: colorSecond,
+          functionAction: _cancelAction,
+          width: 150.0,
+        ),
+        Expanded(child: SizedBox()),
+        ButtonCustomForm(
+          textName: 'Guardar',
+          colorBtn: colorPrimary,
+          functionAction: _cancelAction,
+          width: 150.0,
+        ),
+      ],
+    );
   }
+
+  _cancelAction(BuildContext context) {}
 }

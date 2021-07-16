@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_manager/src/autenticacion/forms/login_form.dart';
 import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
-import 'package:ss_manager/src/validations/autenticacion.dart';
 import 'package:ss_manager/src/widgets/fields_widgets.dart';
 
 class LoginPage extends StatelessWidget {

@@ -58,7 +58,7 @@ class LoginFormState extends State<LoginForm> {
 
   _validateForm(BuildContext) {
     if (_formKey.currentState!.validate()) {
-      Navigator.pushReplacementNamed(context, 'DataDelivery');
+      Navigator.pushReplacementNamed(context, 'home');
     }
   }
 }

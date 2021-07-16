@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
-import 'package:ss_manager/src/validations/autenticacion.dart';
 
 class RegisterPage extends StatelessWidget {
   @override
@@ -45,7 +44,6 @@ class RegisterPage extends StatelessWidget {
   }
 
   Widget _formRegister(BuildContext context) {
-    final validationService = Provider.of<SignupValidation>(context);
     final registerUser = Provider.of<UserProvider>(context);
 
     final width = MediaQuery.of(context).size.width;
@@ -79,9 +77,7 @@ class RegisterPage extends StatelessWidget {
                       fontSize: 22.0),
                 ),
                 TextFormField(
-                  onChanged: (String value) {
-                    validationService.changeName(value);
-                  },
+                  onChanged: (String value) {},
                   decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white)),
@@ -89,13 +85,10 @@ class RegisterPage extends StatelessWidget {
                     labelStyle: TextStyle(color: Colors.white),
                     hintText: 'Daniel',
                     hintStyle: TextStyle(color: Colors.grey[400]),
-                    errorText: validationService.name.error,
                   ),
                 ),
                 TextFormField(
-                  onChanged: (String value) {
-                    validationService.changeName(value);
-                  },
+                  onChanged: (String value) {},
                   decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white)),
@@ -103,13 +96,10 @@ class RegisterPage extends StatelessWidget {
                     labelStyle: TextStyle(color: Colors.white),
                     hintText: 'García',
                     hintStyle: TextStyle(color: Colors.grey[400]),
-                    errorText: validationService.name.error,
                   ),
                 ),
                 TextFormField(
-                  onChanged: (String value) {
-                    validationService.changeName(value);
-                  },
+                  onChanged: (String value) {},
                   decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white)),
@@ -117,13 +107,10 @@ class RegisterPage extends StatelessWidget {
                     labelStyle: TextStyle(color: Colors.white),
                     hintText: 'correo_99@gmail.com',
                     hintStyle: TextStyle(color: Colors.grey[400]),
-                    errorText: validationService.name.error,
                   ),
                 ),
                 TextFormField(
-                  onChanged: (String value) {
-                    validationService.changeName(value);
-                  },
+                  onChanged: (String value) {},
                   decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white)),
@@ -131,13 +118,10 @@ class RegisterPage extends StatelessWidget {
                     labelStyle: TextStyle(color: Colors.white),
                     hintText: '2435fdg65#',
                     hintStyle: TextStyle(color: Colors.grey[400]),
-                    errorText: validationService.name.error,
                   ),
                 ),
                 TextFormField(
-                  onChanged: (String value) {
-                    validationService.changeName(value);
-                  },
+                  onChanged: (String value) {},
                   decoration: InputDecoration(
                     enabledBorder: UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white)),
@@ -145,7 +129,6 @@ class RegisterPage extends StatelessWidget {
                     labelStyle: TextStyle(color: Colors.white),
                     hintText: '2435fdg65%#',
                     hintStyle: TextStyle(color: Colors.grey[400]),
-                    errorText: validationService.name.error,
                   ),
                 ),
                 SizedBox(

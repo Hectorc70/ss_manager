@@ -43,3 +43,44 @@ class FieldInputCustom extends StatelessWidget {
     );
   }
 }
+
+class FieldInputMountCustom extends StatelessWidget {
+  FieldInputMountCustom({
+    this.typeInput = TextInputType.number,
+    @required this.labelTextInput,
+    @required this.controllerField,
+    this.widthForm,
+  });
+
+  final typeInput;
+  final labelTextInput;
+  final widthForm;
+  final controllerField;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorError = Theme.of(context).colorScheme.error;
+    return Container(
+      width: widthForm,
+        child: TextFormField(
+      controller: this.controllerField,
+      style: TextStyle(color: Colors.white),
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.only(bottom: 0.0),
+        enabledBorder:
+            UnderlineInputBorder(borderSide: BorderSide(color: Colors.white)),
+        labelText: labelTextInput,
+        labelStyle: TextStyle(color: Colors.white),
+        errorStyle: TextStyle(color: colorError),
+      ),
+      keyboardType: typeInput,
+      validator: (value) {
+        if (value == '' || value == null) {
+          return 'Ingrese datos en campo';
+        }
+
+        return null;
+      },
+    ));
+  }
+}
