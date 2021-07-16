@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ss_manager/src/providers/autenticacion/autenticacion_provider.dart';
+import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
 import 'package:ss_manager/src/routes/routes.dart';
-import 'package:ss_manager/src/validations/autenticacion.dart';
+import 'package:ss_manager/src/user/providers/orders_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -17,25 +18,24 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => SignupValidation(),
+          create: (context) => UserProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => UserProvider(),
+          create: (context) => OrderProvider(),
         ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: Color.fromRGBO(41, 161, 156, 1),
-          accentColor: Colors.white,
+          primaryColor: Color.fromRGBO(191, 64, 79, 1),
           colorScheme: ColorScheme(
-            primary: Color.fromRGBO(41, 161, 156, 1),
-            primaryVariant: Color.fromRGBO(41, 161, 156, 1),
-            secondary: Color.fromRGBO(75, 77, 79, 1),
-            secondaryVariant: Color.fromRGBO(44, 48, 54, 1),
+            primary: Color.fromRGBO(225, 70, 88, 1),
+            primaryVariant: Colors.white,
+            secondary: Color.fromRGBO(63, 73, 95, 1),
+            secondaryVariant: Color.fromRGBO(34, 37, 44, 1),
             surface: Color.fromRGBO(57, 62, 70, 1),
             background: Color.fromRGBO(57, 62, 70, 1),
-            error: Color.fromRGBO(57, 62, 70, 1),
+            error: Colors.white,
             onPrimary: Color.fromRGBO(57, 62, 70, 1),
             onSecondary: Color.fromRGBO(57, 62, 70, 1),
             onSurface: Color.fromRGBO(57, 62, 70, 1),
