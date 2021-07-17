@@ -14,10 +14,10 @@ class ButtonCustomSubmit extends StatelessWidget {
     final colorPrimary = Theme.of(context).primaryColor;
     return Material(
         color: colorPrimary,
-        borderRadius: BorderRadius.circular(30.0),
+        borderRadius: BorderRadius.circular(7.0),
         child: MaterialButton(
           padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-          minWidth: double.infinity * .85,
+          minWidth: double.infinity,
           onPressed: () async {
             functionAction(context);
           },
@@ -27,7 +27,7 @@ class ButtonCustomSubmit extends StatelessWidget {
             style: TextStyle(
                 fontFamily: 'Poppins',
                 fontSize: 20.0,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w500,
                 decoration: TextDecoration.none,
                 color: Colors.white),
           ),
