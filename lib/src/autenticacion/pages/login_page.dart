@@ -22,6 +22,7 @@ class LoginPage extends StatelessWidget {
           BodyCustomWidget(
             childWidget: LoginForm(),
             heightW: heightScreen - 250,
+            widthtW: widthScreen,
           )
         ],
       )
@@ -54,16 +55,6 @@ class LoginPage extends StatelessWidget {
             _logo(context),
           ],
         ));
-  }
-
-  Widget _formLogin(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final colorSecond2 = Theme.of(context).colorScheme.secondaryVariant;
-    final colorPrimary = Theme.of(context).primaryColor;
-
-    final login = Provider.of<UserProvider>(context);
-
-    return ListView(children: []);
   }
 
   Widget _background(BuildContext context) {
