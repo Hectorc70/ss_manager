@@ -50,10 +50,38 @@ class LoginFormState extends State<LoginForm> {
             textNotVisible: true,
           ),
           SizedBox(
+            height: 2.0,
+          ),
+          _buttonChangePassword(context),
+          SizedBox(
             height: 30.0,
           ),
           ButtonCustomSubmit(textName: 'Login', functionAction: _validateForm),
+          _buttonRegister(context)
         ]));
+  }
+
+  _buttonRegister(BuildContext context) {
+    return Row(
+      children: [
+        Text('No tienes Cuenta?'),
+        TextButton(
+            onPressed: () {},
+            child: Text(
+              'Registrate',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ))
+      ],
+    );
+  }
+
+  _buttonChangePassword(BuildContext context) {
+    return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+      Text('Recuperar Contraseña'),
+      TextButton(
+          onPressed: () {},
+          child: Text('Aqui', style: TextStyle(fontWeight: FontWeight.w600)))
+    ]);
   }
 
   _validateForm(BuildContext) {

@@ -17,11 +17,11 @@ class LoginPage extends StatelessWidget {
         children: [
           HeaderCustomWidget(
             childWidget: _logo(context),
-            heightW: 200.0,
+            heightW: 250.0,
           ),
           BodyCustomWidget(
             childWidget: LoginForm(),
-            heightW: heightScreen - 200,
+            heightW: heightScreen - 250,
           )
         ],
       )
