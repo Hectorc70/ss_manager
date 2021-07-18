@@ -4,48 +4,49 @@ import 'package:ss_manager/src/user/providers/orders_provider.dart';
 
 import 'package:ss_manager/src/widgets/bottom_nav_widge.dart';
 import 'package:ss_manager/src/widgets/custom_widgets.dart';
+import 'package:ss_manager/src/widgets/page_widget.dart';
+import 'package:ss_manager/src/widgets/widgets_body.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorP = Theme.of(context).primaryColor;
     final colorAcent = Theme.of(context).colorScheme.primaryVariant;
-    final width = MediaQuery.of(context).size.width;
+    final widthScreen = MediaQuery.of(context).size.width;
+    final heightScreen = MediaQuery.of(context).size.height;
     final order = Provider.of<OrderProvider>(context);
 
     return Material(
-      child: WillPopScope(
-          child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size(double.infinity, 200),
-              child: AppBarHomeCustom(),
-            ),
-            body: Stack(
+        child: WillPopScope(
+            child: Stack(
               children: [
-                Container(
-                  color: colorP,
+                _background(context),
+                Column(
+                  children: [
+                    HeaderCustomWidget(
+                      childWidget: Text(''),
+                      heightW: 150.0,
+                    ),
+                    BodyCustomWidget(
+                      childWidget: Text(''),
+                      heightW: heightScreen - 150,
+                      widthtW: widthScreen,
+                    ),
+                  ],
                 ),
-                BodyHome(),
               ],
             ),
-            bottomNavigationBar: BottomNavBarCustom(),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () async {
-                Navigator.of(context).pushReplacementNamed('NewSale');
-              },
-              elevation: 0.0,
-              backgroundColor: colorP,
-              child: Icon(
-                Icons.add,
-                color: colorAcent,
-              ),
-            ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
-          ),
-          onWillPop: () {
-            return new Future(() => false);
-          }),
+            onWillPop: () {
+              return new Future(() => false);
+            }));
+  }
+
+  Widget _background(BuildContext context) {
+    final colorP = Theme.of(context).colorScheme.primary;
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      decoration: BoxDecoration(color: colorP),
     );
   }
 }
@@ -67,20 +68,10 @@ class BodyHome extends StatelessWidget {
       width: double.infinity,
       child: Column(
         children: [
-          _title(context),
+          NameSection(
+            textW: 'Ventas Recientes',
+          )
         ],
-      ),
-    );
-  }
-
-  Widget _title(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Text(
-        "Ventas Recientes",
-        style: TextStyle(
-            color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20.0),
-        textAlign: TextAlign.left,
       ),
     );
   }

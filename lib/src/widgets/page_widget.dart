@@ -25,7 +25,7 @@ class _BodyCustomWidgetState extends State<BodyCustomWidget> {
   double childOpacity = 0.0;
   void initState() {
     super.initState();
-    Timer(Duration(milliseconds: 1), () {
+    Timer(Duration(microseconds: 0), () {
       setState(() {
         widthContainer = widget.widthtW;
         heightContainer = widget.heightW;
@@ -81,7 +81,9 @@ class HeaderCustomWidget extends StatelessWidget {
   final widthW;
   @override
   Widget build(BuildContext context) {
+    final colorP = Theme.of(context).colorScheme.primary;
     return Container(
+      color: colorP,
       height: this.heightW,
       width: this.widthW,
       child: this.childWidget,

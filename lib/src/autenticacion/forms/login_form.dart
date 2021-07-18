@@ -66,7 +66,7 @@ class LoginFormState extends State<LoginForm> {
       children: [
         Text('No tienes Cuenta?'),
         TextButton(
-            onPressed: () {},
+            onPressed: () => Navigator.of(context).pushNamed('register'),
             child: Text(
               'Registrate',
               style: TextStyle(fontWeight: FontWeight.w600),

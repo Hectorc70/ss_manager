@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:ss_manager/src/autenticacion/forms/login_form.dart';
 import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
 import 'package:ss_manager/src/widgets/fields_widgets.dart';
+import 'package:ss_manager/src/widgets/logo.dart';
 import 'package:ss_manager/src/widgets/page_widget.dart';
 
 class LoginPage extends StatelessWidget {
@@ -16,7 +17,7 @@ class LoginPage extends StatelessWidget {
       Column(
         children: [
           HeaderCustomWidget(
-            childWidget: _logo(context),
+            childWidget: logoApp(context, _welcomeText()),
             heightW: 250.0,
           ),
           BodyCustomWidget(
@@ -28,35 +29,6 @@ class LoginPage extends StatelessWidget {
       )
     ]));
   }
-
-  Widget _header(BuildContext context) {
-    final colorPrimary = Theme.of(context).primaryColor;
-    final heigth = MediaQuery.of(context).size.height;
-    return Container(
-        width: double.infinity,
-        child: Column(
-          children: [
-            SizedBox(height: 20.0),
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/');
-                  },
-                  icon: Icon(Icons.arrow_back_rounded),
-                  color: Colors.white,
-                  iconSize: 30.0,
-                )
-              ],
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-            _logo(context),
-          ],
-        ));
-  }
-
   Widget _background(BuildContext context) {
     final colorP = Theme.of(context).colorScheme.primary;
     return Container(
@@ -83,40 +55,5 @@ class LoginPage extends StatelessWidget {
     );
   }
 
-  Widget _logo(BuildContext context) {
-    return Container(
-        width: double.infinity,
-        alignment: Alignment.center,
-        height: 130.0,
-        child: Column(
-          children: [
-            _welcomeText(),
-            SizedBox(
-              height: 20.0,
-            ),
-            RichText(
-                text: TextSpan(
-                    style: TextStyle(
-                        fontFamily: 'Post',
-                        fontSize: 25.0,
-                        fontWeight: FontWeight.normal,
-                        decoration: TextDecoration.none,
-                        height: 0.6,
-                        color: Colors.white),
-                    children: <TextSpan>[
-                  TextSpan(
-                      text: "SS\n",
-                      style: TextStyle(
-                        fontSize: 50.0,
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 15.0,
-                      )),
-                  TextSpan(
-                    text: 'Manager',
-                    style: TextStyle(letterSpacing: 5.0, fontSize: 14.0),
-                  )
-                ]))
-          ],
-        ));
-  }
+  
 }

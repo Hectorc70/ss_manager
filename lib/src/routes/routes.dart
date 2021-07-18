@@ -10,6 +10,6 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     '/': (BuildContext context) => LoginPage(),
     'register': (BuildContext context) => RegisterPage(),
     'home': (BuildContext context) => HomePage(),
-    'NewSale': (BuildContext context) => NewOrdePage(),
+    'newSale': (BuildContext context) => NewOrdePage(),
   };
 }
