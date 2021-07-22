@@ -8,12 +8,12 @@ class BodyCustomWidget extends StatefulWidget {
     @required this.childWidget,
     @required this.heightW,
     @required this.widthtW,
-    this.paddingW,
+    @required this.paddingW,
   });
   final childWidget;
   final heightW;
   final widthtW;
-  EdgeInsets? paddingW = EdgeInsets.all(40.0);
+  final paddingW;
 
   @override
   State<BodyCustomWidget> createState() => _BodyCustomWidgetState();

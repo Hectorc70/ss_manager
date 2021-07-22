@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_manager/src/autenticacion/forms/login_form.dart';
-import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
+
 import 'package:ss_manager/src/widgets/logo.dart';
 import 'package:ss_manager/src/widgets/page_widget.dart';
 
@@ -23,6 +23,7 @@ class RegisterPage extends StatelessWidget {
             childWidget: LoginForm(),
             heightW: heightScreen - 150,
             widthtW: widthScreen,
+            paddingW: EdgeInsets.all(30.0),
           ),
         ],
       )
@@ -68,8 +69,6 @@ class RegisterPage extends StatelessWidget {
   }
 
   Widget _formRegister(BuildContext context) {
-    final registerUser = Provider.of<UserProvider>(context);
-
     final width = MediaQuery.of(context).size.width;
     final colorSecond = Theme.of(context).colorScheme.secondaryVariant;
     final colorPrimary = Theme.of(context).primaryColor;
@@ -166,8 +165,6 @@ class RegisterPage extends StatelessWidget {
                     minWidth: width * .50,
                     onPressed: () async {
                       Navigator.pushNamed(context, 'home');
-                      final user = await registerUser.registerUser();
-                      print(user);
                     },
                     child: Text(
                       "Registrarse",

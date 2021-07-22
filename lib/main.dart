@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
+import 'package:ss_manager/src/autenticacion/providers/user_provider.dart';
 import 'package:ss_manager/src/routes/routes.dart';
-import 'package:ss_manager/src/user/providers/orders_provider.dart';
+import 'package:ss_manager/src/user/providers/sales_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 void main() async {
@@ -18,10 +19,13 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
+          create: (context) => AuthProvider(),
+        ),
+        ChangeNotifierProvider(
           create: (context) => UserProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => OrderProvider(),
+          create: (context) => SaleProvider(),
         ),
       ],
       child: MaterialApp(
@@ -32,7 +36,7 @@ class MyApp extends StatelessWidget {
             primary: Color.fromRGBO(9, 64, 74, 1),
             primaryVariant: Colors.white,
             secondary: Color.fromRGBO(0, 135, 159, 1),
-            secondaryVariant: Color.fromARGB(100, 0, 135, 159),
+            secondaryVariant: Color.fromRGBO(74, 9, 6, 1),
             surface: Color.fromRGBO(57, 62, 70, 1),
             background: Color.fromRGBO(57, 62, 70, 1),
             error: Colors.red.shade300,

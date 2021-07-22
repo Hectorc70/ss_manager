@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_manager/Manager_icons_.dart';
-import 'package:ss_manager/src/user/providers/orders_provider.dart';
+import 'package:ss_manager/src/user/providers/sales_provider.dart';
 
 import 'package:ss_manager/src/widgets/bottom_nav_widget.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
     final colorAcent = Theme.of(context).colorScheme.primaryVariant;
     final widthScreen = MediaQuery.of(context).size.width;
     final heightScreen = MediaQuery.of(context).size.height;
-    final order = Provider.of<OrderProvider>(context);
+    final order = Provider.of<SaleProvider>(context);
 
     return Material(
         child: WillPopScope(
@@ -37,7 +37,7 @@ class HomePage extends StatelessWidget {
                     ),
                     Expanded(
                         child: BodyCustomWidget(
-                      childWidget: BodyHome(),
+                      childWidget: _BodyHome(),
                       heightW: heightScreen - 180.0,
                       widthtW: widthScreen,
                       paddingW: EdgeInsets.all(35.0),
@@ -96,7 +96,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class BodyHome extends StatelessWidget {
+class _BodyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorP = Theme.of(context).colorScheme.secondaryVariant;

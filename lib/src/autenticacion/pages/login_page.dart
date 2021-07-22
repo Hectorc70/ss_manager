@@ -24,11 +24,13 @@ class LoginPage extends StatelessWidget {
             childWidget: LoginForm(),
             heightW: heightScreen - 250,
             widthtW: widthScreen,
+            paddingW: EdgeInsets.all(40.0),
           )
         ],
       )
     ]));
   }
+
   Widget _background(BuildContext context) {
     final colorP = Theme.of(context).colorScheme.primary;
     return Container(
@@ -54,6 +56,4 @@ class LoginPage extends StatelessWidget {
       ),
     );
   }
-
-  
 }

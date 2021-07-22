@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-class UserProvider with ChangeNotifier {
+class AuthProvider with ChangeNotifier {
   String _email = '';
   String _password = '';
 
@@ -25,14 +25,28 @@ class UserProvider with ChangeNotifier {
     return user;
   }
 
-  Future<dynamic> loginUser() async {
+  Future<List<dynamic>> loginUser() async {
     try {
-      final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: 'hecgarcia.n@gmail.com', password: 'es3sa222');
+      final resp = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: this._email, password: this._password);
 
-      return '';
+      String? idUser = resp.user?.uid;
+
+      return [1, idUser ?? ''];
     } on FirebaseAuthException catch (e) {
-      return e.code;
+      String errorDesc = _errorConvert(e.code);
+
+      return [0, errorDesc];
+    }
+  }
+
+  _errorConvert(String error) {
+    if (error == 'wrong-password') {
+      return 'Contraseña incorrecta';
+    } else if (error == 'user-not-found') {
+      return 'No existe usuario con el correo proporcionado';
+    } else {
+      return error;
     }
   }
 }

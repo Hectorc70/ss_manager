@@ -33,13 +33,3 @@ class NameSection extends StatelessWidget {
   }
 }
 
-class ButtonAddTitle extends StatelessWidget {
-  const ButtonAddTitle({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: null,
-    );
-  }
-}
