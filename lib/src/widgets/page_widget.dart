@@ -8,10 +8,12 @@ class BodyCustomWidget extends StatefulWidget {
     @required this.childWidget,
     @required this.heightW,
     @required this.widthtW,
+    this.paddingW,
   });
   final childWidget;
   final heightW;
   final widthtW;
+  EdgeInsets? paddingW = EdgeInsets.all(40.0);
 
   @override
   State<BodyCustomWidget> createState() => _BodyCustomWidgetState();
@@ -47,7 +49,7 @@ class _BodyCustomWidgetState extends State<BodyCustomWidget> {
       transformAlignment: AlignmentDirectional.center,
       alignment: Alignment.center,
       curve: Curves.bounceIn,
-      padding: EdgeInsets.all(40.0),
+      padding: widget.paddingW,
       decoration: BoxDecoration(
         color: colorPV,
         borderRadius: BorderRadius.only(

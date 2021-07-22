@@ -70,6 +70,10 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+    - family: ManagerIcons
+      fonts:
+        - asset: assets/icons/menu_custom_icon.ttf
+
     - family: Poppins
       fonts:
         - asset: assets/fonts/Poppins/Poppins-SemiBold.ttf

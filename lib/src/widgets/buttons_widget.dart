@@ -73,3 +73,30 @@ class ButtonCustomForm extends StatelessWidget {
         ));
   }
 }
+
+class ButtonTitleAdd extends StatelessWidget {
+  ButtonTitleAdd({
+    @required this.functionAction,
+  });
+
+  final functionAction;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorPrimary = Theme.of(context).primaryColor;
+    return Container(
+        width: 35,
+        height: 35,
+        decoration: BoxDecoration(
+          color: colorPrimary,
+          borderRadius: BorderRadius.all(
+            Radius.circular(10.0),
+          ),
+        ),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 25.0,
+        ));
+  }
+}
