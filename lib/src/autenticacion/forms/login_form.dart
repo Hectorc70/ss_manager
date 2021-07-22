@@ -29,16 +29,19 @@ class LoginFormState extends State<LoginForm> {
           Text(
             'Iniciar Sesión',
             style: TextStyle(
-                color: Colors.white,
+                color: Color.fromRGBO(46, 46, 46, 1),
                 fontWeight: FontWeight.w600,
                 fontSize: 22.0),
+          ),
+          SizedBox(
+            height: 30.0,
           ),
           FieldInputCustom(
               controllerField: controllerEmail,
               hintTextC: 'correo@gmail.com',
               labelTextInput: 'Correo Electronico'),
           SizedBox(
-            height: 15.0,
+            height: 25.0,
           ),
           FieldInputCustom(
             controllerField: controllerPass,
@@ -47,13 +50,38 @@ class LoginFormState extends State<LoginForm> {
             textNotVisible: true,
           ),
           SizedBox(
+            height: 2.0,
+          ),
+          _buttonChangePassword(context),
+          SizedBox(
             height: 30.0,
           ),
-          Container(
-              width: width * .60,
-              child: ButtonCustomSubmit(
-                  textName: 'login', functionAction: _validateForm)),
+          ButtonCustomSubmit(textName: 'Login', functionAction: _validateForm),
+          _buttonRegister(context)
         ]));
+  }
+
+  _buttonRegister(BuildContext context) {
+    return Row(
+      children: [
+        Text('No tienes Cuenta?'),
+        TextButton(
+            onPressed: () => Navigator.of(context).pushNamed('register'),
+            child: Text(
+              'Registrate',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ))
+      ],
+    );
+  }
+
+  _buttonChangePassword(BuildContext context) {
+    return Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+      Text('Recuperar Contraseña'),
+      TextButton(
+          onPressed: () {},
+          child: Text('Aqui', style: TextStyle(fontWeight: FontWeight.w600)))
+    ]);
   }
 
   _validateForm(BuildContext) {

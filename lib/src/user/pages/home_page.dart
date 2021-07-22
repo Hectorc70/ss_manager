@@ -1,51 +1,97 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ss_manager/Manager_icons_.dart';
 import 'package:ss_manager/src/user/providers/orders_provider.dart';
 
-import 'package:ss_manager/src/widgets/bottom_nav_widge.dart';
-import 'package:ss_manager/src/widgets/custom_widgets.dart';
+import 'package:ss_manager/src/widgets/bottom_nav_widget.dart';
+import 'package:ss_manager/src/widgets/buttons_widget.dart';
+import 'package:ss_manager/src/widgets/page_widget.dart';
+import 'package:ss_manager/src/widgets/widgets_body.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorP = Theme.of(context).primaryColor;
     final colorAcent = Theme.of(context).colorScheme.primaryVariant;
-    final width = MediaQuery.of(context).size.width;
+    final widthScreen = MediaQuery.of(context).size.width;
+    final heightScreen = MediaQuery.of(context).size.height;
     final order = Provider.of<OrderProvider>(context);
 
     return Material(
-      child: WillPopScope(
-          child: Scaffold(
-            appBar: PreferredSize(
-              preferredSize: Size(double.infinity, 200),
-              child: AppBarHomeCustom(),
-            ),
-            body: Stack(
+        child: WillPopScope(
+            child: Stack(
               children: [
-                Container(
-                  color: colorP,
+                _background(context),
+                Column(
+                  children: [
+                    HeaderCustomWidget(
+                      childWidget: Stack(
+                        children: [
+                          SafeArea(child: Container()),
+                          Column(
+                            children: [_appBarHome(), _dataSaleToday(context)],
+                          )
+                        ],
+                      ),
+                      heightW: 180.0,
+                    ),
+                    Expanded(
+                        child: BodyCustomWidget(
+                      childWidget: BodyHome(),
+                      heightW: heightScreen - 180.0,
+                      widthtW: widthScreen,
+                      paddingW: EdgeInsets.all(35.0),
+                    )),
+                  ],
                 ),
-                BodyHome(),
               ],
             ),
-            bottomNavigationBar: BottomNavBarCustom(),
-            floatingActionButton: FloatingActionButton(
-              onPressed: () async {
-                Navigator.of(context).pushReplacementNamed('NewSale');
-              },
-              elevation: 0.0,
-              backgroundColor: colorP,
-              child: Icon(
-                Icons.add,
-                color: colorAcent,
-              ),
-            ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
+            onWillPop: () {
+              return new Future(() => false);
+            }));
+  }
+
+  Widget _background(BuildContext context) {
+    final colorP = Theme.of(context).colorScheme.primary;
+    return Container(
+      height: double.infinity,
+      width: double.infinity,
+      decoration: BoxDecoration(color: colorP),
+    );
+  }
+
+  Widget _appBarHome() {
+    return AppBar(
+        elevation: 0.0,
+        toolbarHeight: 60.0,
+        title: Text('Hola Hector Bienvenido'),
+        centerTitle: true,
+        leading: IconButton(onPressed: () {}, icon: Icon(Manager.menuCustom)));
+  }
+
+  Widget _dataSaleToday(BuildContext context) {
+    final widthScreen = MediaQuery.of(context).size.width;
+    return Container(
+      padding: EdgeInsets.only(left: 40.0),
+      width: widthScreen,
+      alignment: AlignmentDirectional.topStart,
+      height: 70.0,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Total vendido Hoy',
+            style: TextStyle(color: Colors.white, fontSize: 16.0),
           ),
-          onWillPop: () {
-            return new Future(() => false);
-          }),
+          Text(
+            '\$ 50.0',
+            style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+                fontSize: 24.0),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -54,81 +100,27 @@ class BodyHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorP = Theme.of(context).colorScheme.secondaryVariant;
-
+    final widthScreen = MediaQuery.of(context).size.width;
+    final heightScreen = MediaQuery.of(context).size.height;
     return Container(
-      padding: EdgeInsets.all(25.0),
-      decoration: BoxDecoration(
-        color: colorP,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(40.0),
-          topRight: Radius.circular(40.0),
-        ),
-      ),
+      alignment: AlignmentDirectional.center,
       width: double.infinity,
       child: Column(
         children: [
-          _title(context),
+          NameSection(
+            textW: 'Ventas Recientes',
+            childWidget: ButtonTitleAdd(
+              functionAction: _addNewSale,
+            ),
+          )
         ],
       ),
     );
   }
 
-  Widget _title(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      child: Text(
-        "Ventas Recientes",
-        style: TextStyle(
-            color: Colors.white, fontWeight: FontWeight.w600, fontSize: 20.0),
-        textAlign: TextAlign.left,
-      ),
-    );
-  }
+  _addNewSale(BuildContext context) {}
 }
 
-class CardSaleToday extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final widthScreen = MediaQuery.of(context).size.width;
-    final colorSecond2 = Theme.of(context).colorScheme.secondaryVariant;
-    final colorP = Theme.of(context).primaryColor;
 
-    return Container(
-      height: 100.0,
-      width: widthScreen * .95,
-      padding: EdgeInsets.all(10.0),
-      decoration: BoxDecoration(
-          color: colorSecond2,
-          borderRadius: BorderRadius.circular(10.0),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Colors.black45,
-              blurRadius: 5.0,
-              offset: Offset(0.0, 3.0),
-              spreadRadius: 2.0,
-            )
-          ]),
-      child: Row(children: [
-        Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Total Vendido Hoy',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 18.0),
-              ),
-              Text(
-                "\$ 200.00",
-                style: TextStyle(
-                    color: colorP, fontWeight: FontWeight.w600, fontSize: 25.0),
-              )
-            ],
-          ),
-        ),
-      ]),
-    );
-  }
-}
+
+
