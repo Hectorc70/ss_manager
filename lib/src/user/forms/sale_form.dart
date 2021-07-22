@@ -11,13 +11,13 @@ class SaleForm extends StatefulWidget {
 
 class SaleFormState extends State<SaleForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final controller = TextEditingController();
+  final controllerName = TextEditingController();
   final controllerMount = TextEditingController();
   final controllerTotal = TextEditingController();
 
   @override
   void dispose() {
-    controller.dispose();
+    controllerName.dispose();
     controllerMount.dispose();
     controllerTotal.dispose();
     super.dispose();
@@ -31,20 +31,23 @@ class SaleFormState extends State<SaleForm> {
       child: Column(
         children: [
           FieldInputCustom(
-            controllerField: controller,
+            controllerField: controllerName,
             hintTextC: '',
+            typeInput: TextInputType.name,
             labelTextInput: 'Nombre de Producto',
           ),
           Row(children: [
             FieldInputMountCustom(
               controllerField: controllerMount,
               labelTextInput: 'Cantidad de Pzs',
+              typeInput: TextInputType.number,
               widthForm: width * .30,
             ),
             Expanded(child: SizedBox()),
             FieldInputMountCustom(
               controllerField: controllerTotal,
-              labelTextInput: 'Cantidad de Pzs',
+              labelTextInput: 'Total',
+              typeInput: TextInputType.number,
               widthForm: width * .30,
             ),
           ]),

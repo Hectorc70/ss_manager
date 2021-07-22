@@ -118,9 +118,7 @@ class _BodyHome extends StatelessWidget {
     );
   }
 
-  _addNewSale(BuildContext context) {}
+  _addNewSale(BuildContext context) {
+    Navigator.of(context).pushNamed('newSale');
+  }
 }
-
-
-
-

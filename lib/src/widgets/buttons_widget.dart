@@ -85,6 +85,7 @@ class ButtonTitleAdd extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorPrimary = Theme.of(context).primaryColor;
     return Container(
+        alignment: AlignmentDirectional.center,
         width: 35,
         height: 35,
         decoration: BoxDecoration(
@@ -93,10 +94,16 @@ class ButtonTitleAdd extends StatelessWidget {
             Radius.circular(10.0),
           ),
         ),
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
-          size: 25.0,
-        ));
+        child: IconButton(
+        
+            alignment: AlignmentDirectional.center,
+            onPressed: () {
+              this.functionAction(context);
+            },
+            icon: Icon(
+              Icons.add,
+              color: Colors.white,
+              size: 25.0,
+            )));
   }
 }
