@@ -9,6 +9,7 @@ import 'package:ss_manager/src/widgets/page_widget.dart';
 import 'package:ss_manager/src/widgets/widgets_body.dart';
 
 class HomePage extends StatelessWidget {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final colorP = Theme.of(context).primaryColor;
@@ -17,66 +18,62 @@ class HomePage extends StatelessWidget {
     final heightScreen = MediaQuery.of(context).size.height;
     final order = Provider.of<SaleProvider>(context);
 
-    return Material(
-        child: WillPopScope(
-            child: Stack(
-              children: [
-                _background(context),
-                Column(
+    return WillPopScope(
+        child: Scaffold(
+          key: _scaffoldKey,
+          drawer: _drawer(context),
+          appBar: AppBar(
+              elevation: 0.0,
+              toolbarHeight: 140.0,
+              flexibleSpace: Container(
+                padding: EdgeInsets.only(left: 20.0, top: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    HeaderCustomWidget(
-                      childWidget: Stack(
-                        children: [
-                          SafeArea(child: Container()),
-                          Column(
-                            children: [_appBarHome(), _dataSaleToday(context)],
-                          )
-                        ],
-                      ),
-                      heightW: 180.0,
+                    Text(
+                      'Hola Hector Bienvenido',
+                      style: Theme.of(context).textTheme.headline6,
                     ),
-                    Expanded(
-                        child: BodyCustomWidget(
-                      childWidget: _BodyHome(),
-                      heightW: heightScreen - 180.0,
-                      widthtW: widthScreen,
-                      paddingW: EdgeInsets.all(35.0),
-                    )),
-                    Align(
-                      alignment: AlignmentDirectional.bottomCenter,
-                      child: Container(
-                        color: Colors.amber,
-                        width: widthScreen,
-                        height: 60.0,
-                        child: BottomNavBarCustom(),
-                      ),
-                    )
+                    SizedBox(
+                      height: 20,
+                    ),
+                    _dataSaleToday(context),
                   ],
                 ),
-              ],
+              ),
+              leading: IconButton(
+                  alignment: AlignmentDirectional.topStart,
+                  onPressed: () => _scaffoldKey.currentState!.openDrawer(),
+                  icon: Icon(Manager.menuCustom))),
+          body: Stack(children: [
+            Container(
+              color: colorP,
+              height: heightScreen,
             ),
-            onWillPop: () {
-              return new Future(() => false);
-            }));
+            BodyCustomWidget(
+              childWidget: _BodyHome(),
+              heightW: heightScreen,
+              widthtW: widthScreen,
+              paddingW: EdgeInsets.all(35.0),
+            )
+          ]),
+          bottomNavigationBar: BottomNavBarCustom(),
+        ),
+        onWillPop: () {
+          return new Future(() => false);
+        });
   }
 
-  Widget _background(BuildContext context) {
-    final colorP = Theme.of(context).colorScheme.primary;
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      decoration: BoxDecoration(color: colorP),
-    );
+  Widget _drawer(BuildContext context) {
+    final colorBack = Color.fromARGB(190, 236, 244, 255);
+    //final colorBackCard = Colors.red;
+    final widthScreen = MediaQuery.of(context).size.width;
+    final heightScreen = MediaQuery.of(context).size.height;
+    return Drawer();
   }
 
-  Widget _appBarHome() {
-    return AppBar(
-        elevation: 0.0,
-        toolbarHeight: 60.0,
-        title: Text('Hola Hector Bienvenido'),
-        centerTitle: true,
-        leading: IconButton(onPressed: () {}, icon: Icon(Manager.menuCustom)));
-  }
+
 
   Widget _dataSaleToday(BuildContext context) {
     final widthScreen = MediaQuery.of(context).size.width;

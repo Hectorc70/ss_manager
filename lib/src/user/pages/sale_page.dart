@@ -18,36 +18,27 @@ class NewSalePage extends StatelessWidget {
     final heightScreen = MediaQuery.of(context).size.height;
     final order = Provider.of<SaleProvider>(context);
 
-    return Material(
-        child: WillPopScope(
-            child: Stack(
-              children: [
-                _background(context),
-                Column(
-                  children: [
-                    HeaderCustomWidget(
-                      childWidget: AppBar(
-                        elevation: 0.0,
-                        toolbarHeight: 100.0,
-                        title: Text('Hola Hector Bienvenido'),
-                        centerTitle: true,
-                      ),
-                      heightW: 180.0,
-                    ),
-                    Expanded(
-                        child: BodyCustomWidget(
-                      childWidget: _Body(),
-                      heightW: heightScreen - 180.0,
-                      widthtW: widthScreen,
-                      paddingW: EdgeInsets.all(35.0),
-                    )),
-                  ],
-                ),
-              ],
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0.0,
+        toolbarHeight: 100.0,
+        title: Text('Hola Hector Bienvenido'),
+        centerTitle: true,
+      ),
+      body: Stack(
+        children: [
+          _background(context),
+          Expanded(
+            child: BodyCustomWidget(
+              childWidget: _Body(),
+              heightW: heightScreen,
+              widthtW: widthScreen,
+              paddingW: EdgeInsets.all(35.0),
             ),
-            onWillPop: () {
-              return new Future(() => false);
-            }));
+          )
+        ],
+      ),
+    );
   }
 
   Widget _background(BuildContext context) {
