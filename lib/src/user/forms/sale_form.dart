@@ -26,38 +26,44 @@ class SaleFormState extends State<SaleForm> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return Form(
+    return Flexible(
+        child: Form(
       key: _formKey,
       child: Column(
         children: [
           FieldInputCustom(
-            controllerField: controllerName,
-            hintTextC: '',
-            typeInput: TextInputType.name,
             labelTextInput: 'Nombre de Producto',
+            controllerField: controllerName,
+            hintTextC: 'Producto',
+            typeInput: TextInputType.name,
           ),
-          Row(children: [
-            FieldInputMountCustom(
-              controllerField: controllerMount,
-              labelTextInput: 'Cantidad de Pzs',
-              typeInput: TextInputType.number,
-              widthForm: width * .30,
-            ),
-            Expanded(child: SizedBox()),
-            FieldInputMountCustom(
-              controllerField: controllerTotal,
-              labelTextInput: 'Total',
-              typeInput: TextInputType.number,
-              widthForm: width * .30,
-            ),
-          ]),
+          SizedBox(height: 15.0),
+          FieldInputCustom(
+            labelTextInput: 'Piezas',
+            controllerField: controllerName,
+            hintTextC: 'Producto',
+            typeInput: TextInputType.number,
+          ),
+          SizedBox(height: 15.0),
+          FieldInputCustom(
+            labelTextInput: 'Monto Total',
+            controllerField: controllerName,
+            hintTextC: 'Producto',
+            typeInput: TextInputType.number,
+          ),
+          FieldInputCustom(
+            labelTextInput: 'Monto Total',
+            controllerField: controllerName,
+            hintTextC: 'Producto',
+            typeInput: TextInputType.number,
+          ),
           SizedBox(
             height: 30.0,
           ),
           _buttonsActionsForm()
         ],
       ),
-    );
+    ));
   }
 
   _buttonsActionsForm() {

@@ -3,6 +3,7 @@ import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
 import 'package:ss_manager/src/autenticacion/providers/user_provider.dart';
+import 'package:ss_manager/src/utils/preferences_user.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
 import 'package:ss_manager/src/widgets/fields_widgets.dart';
 import 'package:ss_manager/src/widgets/utils_widgets.dart';
@@ -18,6 +19,14 @@ class LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final controllerPass = TextEditingController();
   final controllerEmail = TextEditingController();
+
+  LoginFormState() {
+    final user = PreferencesUser();
+    if (user.dataUser.length != 0) {
+      controllerEmail.text = user.dataUser[0];
+      controllerPass.text = user.dataUser[1];
+    }
+  }
   @override
   void dispose() {
     controllerPass.dispose();
@@ -104,6 +113,8 @@ class LoginFormState extends State<LoginForm> {
         messageError(respLogin[1], 1);
       } else {
         user.idUser = respLogin[1];
+        final prefs = PreferencesUser();
+        prefs.dataUser = [controllerEmail.text, controllerPass.text];
         Navigator.pushReplacementNamed(context, 'home');
       }
     }

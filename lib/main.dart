@@ -3,10 +3,15 @@ import 'package:provider/provider.dart';
 import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
 import 'package:ss_manager/src/autenticacion/providers/user_provider.dart';
 import 'package:ss_manager/src/routes/routes.dart';
+import 'package:ss_manager/src/user/providers/nav_ui.dart';
 import 'package:ss_manager/src/user/providers/sales_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:ss_manager/src/utils/preferences_user.dart';
 
 void main() async {
+  final prefs = new PreferencesUser();
+  WidgetsFlutterBinding.ensureInitialized();
+  await prefs.initiPrefs();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
@@ -18,6 +23,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider(
+          create: (context) => UiProvider(),
+        ),
         ChangeNotifierProvider(
           create: (context) => AuthProvider(),
         ),

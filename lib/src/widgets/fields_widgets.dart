@@ -7,6 +7,7 @@ class FieldInputCustom extends StatelessWidget {
     this.textNotVisible = false,
     @required this.labelTextInput,
     @required this.controllerField,
+    this.focusNode,
   });
 
   final hintTextC;
@@ -14,6 +15,7 @@ class FieldInputCustom extends StatelessWidget {
   final labelTextInput;
   final textNotVisible;
   final controllerField;
+  final focusNode;
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +45,9 @@ class FieldInputCustom extends StatelessWidget {
                 fontWeight: FontWeight.w600),
           ),
         ),
-        
         TextFormField(
           controller: this.controllerField,
+          focusNode: this.focusNode,
           style: TextStyle(color: Color.fromRGBO(119, 115, 115, 1)),
           decoration: InputDecoration(
             contentPadding: EdgeInsets.only(bottom: 0.0),

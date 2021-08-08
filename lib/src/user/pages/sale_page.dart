@@ -70,7 +70,13 @@ class _Body extends StatelessWidget {
       alignment: AlignmentDirectional.center,
       width: double.infinity,
       child: Column(
-        children: [NameSection(textW: 'Nueva Venta', childWidget: Text(''))],
+        children: [
+          NameSection(textW: 'Nueva Venta', childWidget: Text('')),
+          SizedBox(
+            height: 30.0,
+          ),
+          SaleForm()
+        ],
       ),
     );
   }

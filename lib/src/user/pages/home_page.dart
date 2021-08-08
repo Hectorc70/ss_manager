@@ -42,6 +42,15 @@ class HomePage extends StatelessWidget {
                       widthtW: widthScreen,
                       paddingW: EdgeInsets.all(35.0),
                     )),
+                    Align(
+                      alignment: AlignmentDirectional.bottomCenter,
+                      child: Container(
+                        color: Colors.amber,
+                        width: widthScreen,
+                        height: 60.0,
+                        child: BottomNavBarCustom(),
+                      ),
+                    )
                   ],
                 ),
               ],
