@@ -11,13 +11,13 @@ class SaleForm extends StatefulWidget {
 
 class SaleFormState extends State<SaleForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final controller = TextEditingController();
+  final controllerName = TextEditingController();
   final controllerMount = TextEditingController();
   final controllerTotal = TextEditingController();
 
   @override
   void dispose() {
-    controller.dispose();
+    controllerName.dispose();
     controllerMount.dispose();
     controllerTotal.dispose();
     super.dispose();
@@ -26,35 +26,44 @@ class SaleFormState extends State<SaleForm> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return Form(
+    return Flexible(
+        child: Form(
       key: _formKey,
       child: Column(
         children: [
           FieldInputCustom(
-            controllerField: controller,
-            hintTextC: '',
             labelTextInput: 'Nombre de Producto',
+            controllerField: controllerName,
+            hintTextC: 'Producto',
+            typeInput: TextInputType.name,
           ),
-          Row(children: [
-            FieldInputMountCustom(
-              controllerField: controllerMount,
-              labelTextInput: 'Cantidad de Pzs',
-              widthForm: width * .30,
-            ),
-            Expanded(child: SizedBox()),
-            FieldInputMountCustom(
-              controllerField: controllerTotal,
-              labelTextInput: 'Cantidad de Pzs',
-              widthForm: width * .30,
-            ),
-          ]),
+          SizedBox(height: 15.0),
+          FieldInputCustom(
+            labelTextInput: 'Piezas',
+            controllerField: controllerName,
+            hintTextC: 'Producto',
+            typeInput: TextInputType.number,
+          ),
+          SizedBox(height: 15.0),
+          FieldInputCustom(
+            labelTextInput: 'Monto Total',
+            controllerField: controllerName,
+            hintTextC: 'Producto',
+            typeInput: TextInputType.number,
+          ),
+          FieldInputCustom(
+            labelTextInput: 'Monto Total',
+            controllerField: controllerName,
+            hintTextC: 'Producto',
+            typeInput: TextInputType.number,
+          ),
           SizedBox(
             height: 30.0,
           ),
           _buttonsActionsForm()
         ],
       ),
-    );
+    ));
   }
 
   _buttonsActionsForm() {

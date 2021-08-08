@@ -11,13 +11,12 @@ class NameSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: AlignmentDirectional.topCenter,
       width: double.infinity,
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            "Ventas Recientes",
+            this.textW,
             style: TextStyle(
                 color: Color.fromRGBO(46, 46, 46, 1),
                 fontWeight: FontWeight.w600,
@@ -29,17 +28,6 @@ class NameSection extends StatelessWidget {
           childWidget,
         ],
       ),
-    );
-  }
-}
-
-class ButtonAddTitle extends StatelessWidget {
-  const ButtonAddTitle({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: null,
     );
   }
 }

@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
+import 'package:provider/provider.dart';
+import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
+import 'package:ss_manager/src/autenticacion/providers/user_provider.dart';
+import 'package:ss_manager/src/utils/preferences_user.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
 import 'package:ss_manager/src/widgets/fields_widgets.dart';
+import 'package:ss_manager/src/widgets/utils_widgets.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -13,6 +19,14 @@ class LoginFormState extends State<LoginForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final controllerPass = TextEditingController();
   final controllerEmail = TextEditingController();
+
+  LoginFormState() {
+    final user = PreferencesUser();
+    if (user.dataUser.length != 0) {
+      controllerEmail.text = user.dataUser[0];
+      controllerPass.text = user.dataUser[1];
+    }
+  }
   @override
   void dispose() {
     controllerPass.dispose();
@@ -84,9 +98,25 @@ class LoginFormState extends State<LoginForm> {
     ]);
   }
 
-  _validateForm(BuildContext) {
+  _validateForm(BuildContext context) async {
+    final auth = Provider.of<AuthProvider>(context, listen: false);
+    final user = Provider.of<UserProvider>(context, listen: false);
+    final color = Theme.of(context).colorScheme.secondaryVariant;
     if (_formKey.currentState!.validate()) {
-      Navigator.pushReplacementNamed(context, 'home');
+      loaderView(context);
+      auth.setEmail = controllerEmail.text;
+      auth.setPassword = controllerPass.text;
+      final respLogin = await auth.loginUser();
+
+      Loader.hide();
+      if (respLogin[0] == 0) {
+        messageError(respLogin[1], 1);
+      } else {
+        user.idUser = respLogin[1];
+        final prefs = PreferencesUser();
+        prefs.dataUser = [controllerEmail.text, controllerPass.text];
+        Navigator.pushReplacementNamed(context, 'home');
+      }
     }
   }
 }
