@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ss_manager/Manager_icons_.dart';
 import 'package:ss_manager/src/user/forms/sale_form.dart';
 import 'package:ss_manager/src/user/providers/sales_provider.dart';
 

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ss_manager/Manager_icons_.dart';
+import 'package:ss_manager/manager_icons_icons.dart';
 import 'package:ss_manager/src/user/providers/sales_provider.dart';
+import 'package:ss_manager/src/utils/preferences_user.dart';
 
 import 'package:ss_manager/src/widgets/bottom_nav_widget.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
+import 'package:ss_manager/src/widgets/logo.dart';
 import 'package:ss_manager/src/widgets/page_widget.dart';
 import 'package:ss_manager/src/widgets/widgets_body.dart';
 
@@ -21,7 +23,7 @@ class HomePage extends StatelessWidget {
     return WillPopScope(
         child: Scaffold(
           key: _scaffoldKey,
-          drawer: _drawer(context),
+          drawer: LateralMain(),
           appBar: AppBar(
               elevation: 0.0,
               toolbarHeight: 140.0,
@@ -45,7 +47,7 @@ class HomePage extends StatelessWidget {
               leading: IconButton(
                   alignment: AlignmentDirectional.topStart,
                   onPressed: () => _scaffoldKey.currentState!.openDrawer(),
-                  icon: Icon(Manager.menuCustom))),
+                  icon: Icon(ManagerIcons.menuCustom))),
           body: Stack(children: [
             Container(
               color: colorP,
@@ -64,16 +66,6 @@ class HomePage extends StatelessWidget {
           return new Future(() => false);
         });
   }
-
-  Widget _drawer(BuildContext context) {
-    final colorBack = Color.fromARGB(190, 236, 244, 255);
-    //final colorBackCard = Colors.red;
-    final widthScreen = MediaQuery.of(context).size.width;
-    final heightScreen = MediaQuery.of(context).size.height;
-    return Drawer();
-  }
-
-
 
   Widget _dataSaleToday(BuildContext context) {
     final widthScreen = MediaQuery.of(context).size.width;
@@ -126,5 +118,61 @@ class _BodyHome extends StatelessWidget {
 
   _addNewSale(BuildContext context) {
     Navigator.of(context).pushNamed('newSale');
+  }
+}
+
+class LateralMain extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    // final infoApp = Provider.of<AppInfo>(context);
+    //final colorBackCard = Colors.red;
+    final widthScreen = MediaQuery.of(context).size.width;
+    final heightScreen = MediaQuery.of(context).size.height;
+    final colorPrimary = Theme.of(context).primaryColor;
+    final colorB = Color.fromRGBO(163, 136, 197, 1);
+    return Drawer(
+        elevation: 5.0,
+        child: Column(children: [
+          DrawerHeader(
+            margin: EdgeInsets.zero,
+            padding: EdgeInsets.zero,
+            child: Container(
+              padding: EdgeInsets.zero,
+              margin: EdgeInsets.zero,
+              width: widthScreen,
+              height: 140.0,
+              color: colorPrimary,
+              child: logoApp(context, Text('')),
+            ),
+          ),
+          Expanded(
+              child: ListView(children: [
+            _opcionMenu(
+                context, 'Mis Negocios', ManagerIcons.market, colorB, _func),
+          ]))
+        ]));
+  }
+
+  _func(BuildContext context) {}
+
+  _opcionMenu(
+      BuildContext context, String text, IconData icon, colorIcon, function) {
+    final colorPrimary = Theme.of(context).primaryColor;
+    final functionAction = function;
+    return ListTile(
+      leading: Icon(
+        icon,
+        color: colorIcon,
+      ),
+      title: Text(text,
+          style: TextStyle(
+              color: Colors.grey.shade700,
+              fontFamily: 'Poppins',
+              fontSize: 16.0,
+              fontWeight: FontWeight.w400)),
+      onTap: () {
+        functionAction(context);
+      },
+    );
   }
 }
