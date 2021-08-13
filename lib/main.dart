@@ -55,6 +55,22 @@ class MyApp extends StatelessWidget {
             onError: Colors.red.shade300,
             brightness: Brightness.light,
           ),
+          textTheme: TextTheme(
+              bodyText1: TextStyle(
+                  color: Colors.grey,
+                  fontFamily: 'Poppins',
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w500),
+              bodyText2: TextStyle(
+                  color: Colors.grey.shade400,
+                  fontFamily: 'Poppins',
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.w400),
+              headline6: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Poppins',
+                  fontSize: 14.0,
+                  fontWeight: FontWeight.w500)),
           fontFamily: 'Poppins',
         ),
         routes: getApplicationRoutes(),

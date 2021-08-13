@@ -79,7 +79,7 @@ flutter:
   fonts:
     - family: ManagerIcons
       fonts:
-        - asset: assets/icons/menu_custom_icon.ttf
+        - asset: assets/icons/ManagerIcons.ttf
 
     - family: Poppins
       fonts:
