@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ss_manager/manager_icons_icons.dart';
 import 'package:ss_manager/src/widgets/bottom_nav_widget.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
 import 'package:ss_manager/src/widgets/main_lateral.dart';
+import 'package:ss_manager/src/widgets/manager_icons_icons.dart';
 import 'package:ss_manager/src/widgets/page_widget.dart';
 import 'package:ss_manager/src/widgets/widgets_body.dart';
 
@@ -67,6 +67,7 @@ class _BodyInventory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorIcons = const Color.fromRGBO(193, 199, 255, 1);
     return Container(
       alignment: AlignmentDirectional.center,
       width: double.infinity,
@@ -86,8 +87,8 @@ class _BodyInventory extends StatelessWidget {
               children: [
                 CardItem(
                     heightWidget: 80.0,
-                    iconCard: ManagerIcons.market,
-                    colorIconConte: Colors.cyan)
+                    iconCard: ManagerIcons.products,
+                    colorIconConte: colorIcons)
               ],
             ),
           )

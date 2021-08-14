@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ss_manager/manager_icons_icons.dart';
 import 'package:ss_manager/src/widgets/logo.dart';
+import 'package:ss_manager/src/widgets/manager_icons_icons.dart';
 
 class LateralMain extends StatelessWidget {
   @override

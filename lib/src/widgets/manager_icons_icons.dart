@@ -22,5 +22,6 @@ class ManagerIcons {
   static const String? _kFontPkg = null;
 
   static const IconData market = IconData(0xe808, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData products = IconData(0xe809, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData menuCustom = IconData(0xe827, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

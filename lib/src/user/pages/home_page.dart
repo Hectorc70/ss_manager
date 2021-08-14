@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:ss_manager/manager_icons_icons.dart';
+
 import 'package:ss_manager/src/user/providers/sales_provider.dart';
 import 'package:ss_manager/src/utils/preferences_user.dart';
 
@@ -8,6 +8,7 @@ import 'package:ss_manager/src/widgets/bottom_nav_widget.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
 import 'package:ss_manager/src/widgets/logo.dart';
 import 'package:ss_manager/src/widgets/main_lateral.dart';
+import 'package:ss_manager/src/widgets/manager_icons_icons.dart';
 import 'package:ss_manager/src/widgets/page_widget.dart';
 import 'package:ss_manager/src/widgets/widgets_body.dart';
 
