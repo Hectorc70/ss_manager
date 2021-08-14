@@ -99,7 +99,7 @@ class _BodyInventory extends StatelessWidget {
     );
   }
 
-  _addNewProduct(BuildContext context) {
+  _addNewProduct(BuildContext context) async{
     conteDialogBottom(context, ProductForm());
   }
 }

@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-messageError( String msg, int seconds) {
-
+messageError(String msg, int seconds) {
   return Fluttertoast.showToast(
       msg: msg,
       toastLength: Toast.LENGTH_LONG,
@@ -27,11 +26,10 @@ loaderView(BuildContext context) {
       ));
 }
 
-
 void conteDialogBottom(BuildContext context, Widget conteWidget) {
   final widthScreen = MediaQuery.of(context).size.width;
   final heightScreen = MediaQuery.of(context).size.height;
-  final colorP = Theme.of(context).colorScheme.secondary;
+  final colorP = Theme.of(context).colorScheme.primary;
   Color colorShadows = const Color.fromARGB(150, 198, 215, 226);
   showGeneralDialog(
     barrierLabel: "Barrier",
@@ -41,19 +39,19 @@ void conteDialogBottom(BuildContext context, Widget conteWidget) {
     context: context,
     pageBuilder: (_, __, ___) {
       return Container(
-        height: heightScreen,
+        height: heightScreen * .90,
         width: widthScreen,
         child: Container(
           padding: EdgeInsets.only(top: 40.0),
           child: Column(
             children: [
               Align(
-                  alignment: Alignment.topLeft,
+                  alignment: Alignment.topRight,
                   child: TextButton(
                     onPressed: () => Navigator.pop(context),
                     child: Icon(
                       Icons.close,
-                      color: colorP,
+                      color: Colors.grey.shade400,
                       size: 30.0,
                     ),
                   )),
