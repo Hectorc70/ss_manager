@@ -26,3 +26,51 @@ loaderView(BuildContext context) {
         color: colorP,
       ));
 }
+
+
+void conteDialogBottom(BuildContext context, Widget conteWidget) {
+  final widthScreen = MediaQuery.of(context).size.width;
+  final heightScreen = MediaQuery.of(context).size.height;
+  final colorP = Theme.of(context).colorScheme.secondary;
+  Color colorShadows = const Color.fromARGB(150, 198, 215, 226);
+  showGeneralDialog(
+    barrierLabel: "Barrier",
+    barrierDismissible: true,
+    barrierColor: Colors.black.withOpacity(0.5),
+    transitionDuration: Duration(milliseconds: 200),
+    context: context,
+    pageBuilder: (_, __, ___) {
+      return Container(
+        height: heightScreen,
+        width: widthScreen,
+        child: Container(
+          padding: EdgeInsets.only(top: 40.0),
+          child: Column(
+            children: [
+              Align(
+                  alignment: Alignment.topLeft,
+                  child: TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Icon(
+                      Icons.close,
+                      color: colorP,
+                      size: 30.0,
+                    ),
+                  )),
+              conteWidget
+            ],
+          ),
+        ),
+        decoration: BoxDecoration(
+          color: Colors.white,
+        ),
+      );
+    },
+    transitionBuilder: (_, anim, __, child) {
+      return SlideTransition(
+        position: Tween(begin: Offset(0, 1), end: Offset(0, 0)).animate(anim),
+        child: child,
+      );
+    },
+  );
+}

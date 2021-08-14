@@ -57,9 +57,9 @@ class MyApp extends StatelessWidget {
           ),
           textTheme: TextTheme(
               bodyText1: TextStyle(
-                  color: Colors.grey,
-                  fontFamily: 'Poppins',
-                  fontSize: 14.0,
+                  color: Color.fromRGBO(236, 162, 171, 1),
+                  fontFamily: 'PoppinsBold',
+                  fontSize: 18.0,
                   fontWeight: FontWeight.w500),
               bodyText2: TextStyle(
                   color: Colors.grey.shade400,

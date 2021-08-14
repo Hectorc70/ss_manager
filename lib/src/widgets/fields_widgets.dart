@@ -40,7 +40,7 @@ class FieldInputCustom extends StatelessWidget {
           child: Text(
             this.labelTextInput,
             style: TextStyle(
-                color: Colors.black,
+                color: Colors.grey.shade500,
                 fontSize: 18.0,
                 fontWeight: FontWeight.w600),
           ),

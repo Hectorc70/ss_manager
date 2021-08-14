@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ss_manager/src/user/forms/product_form.dart';
 import 'package:ss_manager/src/widgets/bottom_nav_widget.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
 import 'package:ss_manager/src/widgets/main_lateral.dart';
 import 'package:ss_manager/src/widgets/manager_icons_icons.dart';
 import 'package:ss_manager/src/widgets/page_widget.dart';
+import 'package:ss_manager/src/widgets/utils_widgets.dart';
 import 'package:ss_manager/src/widgets/widgets_body.dart';
 
 class InventoryPage extends StatelessWidget {
@@ -98,6 +100,6 @@ class _BodyInventory extends StatelessWidget {
   }
 
   _addNewProduct(BuildContext context) {
-    Navigator.of(context).pushNamed('newSale');
+    conteDialogBottom(context, ProductForm());
   }
 }
