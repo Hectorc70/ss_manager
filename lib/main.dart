@@ -39,11 +39,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: Color.fromRGBO(9, 64, 74, 1),
+          primaryColor: Color.fromRGBO(236, 162, 171, 1),
           colorScheme: ColorScheme(
-            primary: Color.fromRGBO(9, 64, 74, 1),
+            primary: Color.fromRGBO(236, 162, 171, 1),
             primaryVariant: Colors.white,
-            secondary: Color.fromRGBO(0, 135, 159, 1),
+            secondary: Colors.white,
             secondaryVariant: Color.fromRGBO(74, 9, 6, 1),
             surface: Color.fromRGBO(57, 62, 70, 1),
             background: Color.fromRGBO(57, 62, 70, 1),

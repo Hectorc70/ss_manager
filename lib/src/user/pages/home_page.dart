@@ -15,6 +15,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorP = Theme.of(context).primaryColor;
+    final colorSecond = Theme.of(context).colorScheme.secondary;
     final colorAcent = Theme.of(context).colorScheme.primaryVariant;
     final widthScreen = MediaQuery.of(context).size.width;
     final heightScreen = MediaQuery.of(context).size.height;
@@ -47,7 +48,10 @@ class HomePage extends StatelessWidget {
               leading: IconButton(
                   alignment: AlignmentDirectional.topStart,
                   onPressed: () => _scaffoldKey.currentState!.openDrawer(),
-                  icon: Icon(ManagerIcons.menuCustom))),
+                  icon: Icon(
+                    ManagerIcons.menuCustom,
+                    color: colorSecond,
+                  ))),
           body: Stack(children: [
             Container(
               color: colorP,
@@ -147,13 +151,15 @@ class LateralMain extends StatelessWidget {
           ),
           Expanded(
               child: ListView(children: [
-            _opcionMenu(
-                context, 'Mis Negocios', ManagerIcons.market, colorB, _func),
+            _opcionMenu(context, 'Mis Negocios', ManagerIcons.market, colorB,
+                _goToBusiness),
           ]))
         ]));
   }
 
-  _func(BuildContext context) {}
+  _goToBusiness(BuildContext context) {
+    Navigator.of(context).pushReplacementNamed('business');
+  }
 
   _opcionMenu(
       BuildContext context, String text, IconData icon, colorIcon, function) {

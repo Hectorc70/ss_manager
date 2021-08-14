@@ -17,7 +17,7 @@ class BottomNavBarCustom extends StatelessWidget {
       backgroundColor: colorA,
       elevation: 0.0,
       iconSize: 25.0,
-      selectedItemColor: Theme.of(context).colorScheme.secondary,
+      selectedItemColor: Theme.of(context).colorScheme.primary,
       currentIndex: indexSelect,
       onTap: (index) async {
         if (index == 0) {

@@ -84,26 +84,31 @@ class ButtonTitleAdd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorPrimary = Theme.of(context).primaryColor;
-    return Container(
-        alignment: AlignmentDirectional.center,
+
+    return TextButton(
+      onPressed: () {
+        this.functionAction(context);
+      },
+      child: Container(
         width: 35,
         height: 35,
         decoration: BoxDecoration(
-          color: colorPrimary,
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
+            color: colorPrimary,
+            borderRadius: BorderRadius.all(
+              Radius.circular(10.0),
+            ),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                  color: Colors.grey.shade200,
+                  blurRadius: 10.0,
+                  spreadRadius: 1.0)
+            ]),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 30.0,
         ),
-        child: IconButton(
-        
-            alignment: AlignmentDirectional.center,
-            onPressed: () {
-              this.functionAction(context);
-            },
-            icon: Icon(
-              Icons.add,
-              color: Colors.white,
-              size: 25.0,
-            )));
+      ),
+    );
   }
 }
