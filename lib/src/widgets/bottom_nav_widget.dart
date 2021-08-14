@@ -22,8 +22,10 @@ class BottomNavBarCustom extends StatelessWidget {
       onTap: (index) async {
         if (index == 0) {
           uiprovider.selectOption = index;
+          Navigator.of(context).popAndPushNamed('home');
         } else if (index == 1) {
           uiprovider.selectOption = index;
+          Navigator.of(context).popAndPushNamed('inventory');
         } else if (index == 2) {
           uiprovider.selectOption = index;
         }

@@ -4,6 +4,7 @@ import 'package:ss_manager/src/autenticacion/pages/login_page.dart';
 import 'package:ss_manager/src/autenticacion/pages/register_page.dart';
 import 'package:ss_manager/src/user/pages/business_page.dart';
 import 'package:ss_manager/src/user/pages/home_page.dart';
+import 'package:ss_manager/src/user/pages/inventory_page.dart';
 import 'package:ss_manager/src/user/pages/sale_page.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
@@ -11,7 +12,9 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     '/': (BuildContext context) => LoginPage(),
     'register': (BuildContext context) => RegisterPage(),
     'home': (BuildContext context) => HomePage(),
+    'inventory': (BuildContext context) => InventoryPage(),
     'newSale': (BuildContext context) => NewSalePage(),
+
     'business': (BuildContext context) => BusinessPage(),
   };
 }
