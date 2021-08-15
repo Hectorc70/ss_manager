@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_manager/src/autenticacion/forms/login_form.dart';
+import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
 
 import 'package:ss_manager/src/widgets/logo.dart';
@@ -58,14 +59,16 @@ class _BodyOptions extends StatelessWidget {
       child: Column(
         children: [
           NameSection(
-            textW: 'Opciones de Registro',
+            textW: 'Registro',
             childWidget: Text(''),
           ),
           SizedBox(
             height: 20.0,
           ),
           OptionRegister(
-              text: 'Registrarse con Google', path: 'assets/images/google.png'),
+              functionAction: _googleRegister,
+              text: 'Registrarse con Google',
+              path: 'assets/images/google.png'),
           SizedBox(
             height: 20.0,
           ),
@@ -75,18 +78,27 @@ class _BodyOptions extends StatelessWidget {
       ),
     );
   }
+
+  _googleRegister(BuildContext context) async {
+    final auth = Provider.of<AuthProvider>(context, listen: false);
+    final resp = await auth.registerGoogle();
+  }
 }
 
 class OptionRegister extends StatelessWidget {
-  OptionRegister({Key? key, this.text, this.path}) : super(key: key);
+  OptionRegister({Key? key, this.text, this.path, this.functionAction})
+      : super(key: key);
 
   final path;
   final text;
+  final functionAction;
   @override
   Widget build(BuildContext context) {
     final widthScreen = MediaQuery.of(context).size.width;
     return TextButton(
-        onPressed: () {},
+        onPressed: () async {
+          functionAction(context);
+        },
         child: Container(
           width: widthScreen,
           height: 55.0,
