@@ -40,7 +40,7 @@ class FieldInputCustom extends StatelessWidget {
           child: Text(
             this.labelTextInput,
             style: TextStyle(
-                color: Colors.black,
+                color: Colors.grey.shade500,
                 fontSize: 18.0,
                 fontWeight: FontWeight.w600),
           ),
@@ -76,41 +76,102 @@ class FieldInputCustom extends StatelessWidget {
 
 class FieldInputMountCustom extends StatelessWidget {
   FieldInputMountCustom({
+    this.hintTextC,
     this.typeInput = TextInputType.number,
     @required this.labelTextInput,
     @required this.controllerField,
+    @required this.functionAdd,
+    @required this.functionRemove,
     this.widthForm,
   });
 
+  final hintTextC;
   final typeInput;
   final labelTextInput;
   final widthForm;
   final controllerField;
+  final functionAdd;
+  final functionRemove;
 
   @override
   Widget build(BuildContext context) {
     final colorError = Theme.of(context).colorScheme.error;
+    final colorPV = Theme.of(context).colorScheme.primaryVariant;
+    final widthScreen = MediaQuery.of(context).size.width;
     return Container(
-        width: widthForm,
-        child: TextFormField(
-          controller: this.controllerField,
-          style: TextStyle(color: Colors.white),
-          decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(bottom: 0.0),
-            enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.white)),
-            labelText: labelTextInput,
-            labelStyle: TextStyle(color: Colors.white),
-            errorStyle: TextStyle(color: colorError),
+      padding: EdgeInsetsDirectional.only(top: 4.0, start: 10.0, end: 10.0),
+      decoration: BoxDecoration(
+          color: colorPV,
+          borderRadius: BorderRadius.circular(7.0),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Colors.grey.shade200,
+              blurRadius: 5.0,
+              offset: Offset(0.0, 3.0),
+              spreadRadius: 5.0,
+            )
+          ]),
+      child: Column(children: [
+        Container(
+          alignment: AlignmentDirectional.topStart,
+          child: Text(
+            labelTextInput,
+            style: TextStyle(
+                color: Colors.grey.shade500,
+                fontSize: 18.0,
+                fontWeight: FontWeight.w600),
           ),
-          keyboardType: typeInput,
-          validator: (value) {
-            if (value == '' || value == null) {
-              return 'Ingrese datos en campo';
-            }
+        ),
+        Row(
+          children: [
+            IconButton(
+                alignment: AlignmentDirectional.centerStart,
+                color: Color.fromRGBO(119, 115, 115, 1),
+                iconSize: 25.0,
+                onPressed: () async {
+                  functionAdd(context);
+                },
+                icon: Icon(Icons.add)),
+            Container(
+              width: widthScreen * .15,
+              alignment: AlignmentDirectional.center,
+              child: TextFormField(
+                controller: controllerField,
+                style: TextStyle(
+                  color: Color.fromRGBO(119, 115, 115, 1),
+                ),
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(bottom: 0.0),
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  errorBorder: InputBorder.none,
+                  focusedErrorBorder: InputBorder.none,
+                  hintText: hintTextC,
+                  hintStyle: TextStyle(color: Color.fromRGBO(119, 115, 115, 1)),
+                  errorStyle: TextStyle(color: colorError),
+                ),
+                keyboardType: typeInput,
+                validator: (value) {
+                  if (value == '0' || value == '0.0') {
+                    return 'El monto no puede ser 0';
+                  }
 
-            return null;
-          },
-        ));
+                  return null;
+                },
+              ),
+            ),
+            IconButton(
+                alignment: AlignmentDirectional.centerStart,
+                color: Color.fromRGBO(119, 115, 115, 1),
+                iconSize: 25.0,
+                onPressed: () async {
+                  functionRemove(context);
+                },
+                icon: Icon(Icons.remove))
+          ],
+        )
+      ]),
+    );
   }
 }

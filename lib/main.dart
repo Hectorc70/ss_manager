@@ -39,11 +39,11 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          primaryColor: Color.fromRGBO(9, 64, 74, 1),
+          primaryColor: Color.fromRGBO(236, 162, 171, 1),
           colorScheme: ColorScheme(
-            primary: Color.fromRGBO(9, 64, 74, 1),
+            primary: Color.fromRGBO(236, 162, 171, 1),
             primaryVariant: Colors.white,
-            secondary: Color.fromRGBO(0, 135, 159, 1),
+            secondary: Colors.white,
             secondaryVariant: Color.fromRGBO(74, 9, 6, 1),
             surface: Color.fromRGBO(57, 62, 70, 1),
             background: Color.fromRGBO(57, 62, 70, 1),
@@ -57,9 +57,9 @@ class MyApp extends StatelessWidget {
           ),
           textTheme: TextTheme(
               bodyText1: TextStyle(
-                  color: Colors.grey,
-                  fontFamily: 'Poppins',
-                  fontSize: 14.0,
+                  color: Color.fromRGBO(236, 162, 171, 1),
+                  fontFamily: 'PoppinsBold',
+                  fontSize: 18.0,
                   fontWeight: FontWeight.w500),
               bodyText2: TextStyle(
                   color: Colors.grey.shade400,
@@ -69,7 +69,12 @@ class MyApp extends StatelessWidget {
               headline6: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Poppins',
-                  fontSize: 14.0,
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w500),
+              headline5: TextStyle(
+                  color: Color.fromRGBO(97, 95, 95, 1),
+                  fontFamily: 'PoppinsBold',
+                  fontSize: 20.0,
                   fontWeight: FontWeight.w500)),
           fontFamily: 'Poppins',
         ),

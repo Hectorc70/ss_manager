@@ -17,13 +17,15 @@ class BottomNavBarCustom extends StatelessWidget {
       backgroundColor: colorA,
       elevation: 0.0,
       iconSize: 25.0,
-      selectedItemColor: Theme.of(context).colorScheme.secondary,
+      selectedItemColor: Theme.of(context).colorScheme.primary,
       currentIndex: indexSelect,
       onTap: (index) async {
         if (index == 0) {
           uiprovider.selectOption = index;
+          Navigator.of(context).popAndPushNamed('home');
         } else if (index == 1) {
           uiprovider.selectOption = index;
+          Navigator.of(context).popAndPushNamed('inventory');
         } else if (index == 2) {
           uiprovider.selectOption = index;
         }
