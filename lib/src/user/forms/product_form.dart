@@ -16,6 +16,14 @@ class _ProductFormState extends State<ProductForm> {
   final controllerPieces = TextEditingController();
   final controllerMount = TextEditingController();
 
+  @override
+  @override
+  void initState() {
+    super.initState();
+    controllerMount.text = '0.0';
+    controllerPieces.text = '0';
+  }
+
   void dispose() {
     controllerName.dispose();
     controllerMount.dispose();
@@ -43,6 +51,25 @@ class _ProductFormState extends State<ProductForm> {
                 FieldInputCustom(
                   labelTextInput: 'Nombre Producto',
                   hintTextC: 'Paleta',
+                  controllerField: controllerName,
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                FieldInputMountCustom(
+                  controllerField: controllerMount,
+                  labelTextInput: 'Precio de Producto',
+                  functionAdd: _addMount,
+                  functionRemove: _removeMount,
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                FieldInputMountCustom(
+                  controllerField: controllerPieces,
+                  labelTextInput: 'Piezas de Producto',
+                  functionAdd: _addPiece,
+                  functionRemove: _removePiece,
                 ),
                 SizedBox(
                   height: 20.0,
@@ -62,6 +89,40 @@ class _ProductFormState extends State<ProductForm> {
             ),
           )),
     );
+  }
+
+  _addMount(BuildContext context) {
+    final mount = controllerMount.text;
+    double mountF = double.parse(mount);
+    mountF = mountF + 1;
+    controllerMount.text = mountF.toString();
+  }
+
+  _removeMount(BuildContext context) {
+    final mount = controllerMount.text;
+    double mountF = double.parse(mount);
+
+    if (mountF > 0.0) {
+      mountF = mountF - 1;
+
+      controllerMount.text = mountF.toString();
+    }
+  }
+
+  _addPiece(BuildContext context) {
+    final mount = controllerPieces.text;
+    int mountF = int.parse(mount);
+    mountF = mountF + 1;
+    controllerPieces.text = mountF.toString();
+  }
+
+  _removePiece(BuildContext context) {
+    final mount = controllerPieces.text;
+    int mountF = int.parse(mount);
+    if (mountF > 0) {
+      mountF = mountF - 1;
+      controllerPieces.text = mountF.toString();
+    }
   }
 
   _submitProduct() {

@@ -87,7 +87,7 @@ class ButtonFormCancel extends StatelessWidget {
   Widget build(BuildContext context) {
     Color colorBtn = const Color.fromRGBO(232, 171, 171, 1);
     return TextButton(
-        onPressed: () {},
+        onPressed: () => Navigator.pop(context),
         child: Container(
           width: 120.0,
           height: 50,

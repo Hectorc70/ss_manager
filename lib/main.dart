@@ -70,6 +70,11 @@ class MyApp extends StatelessWidget {
                   color: Colors.white,
                   fontFamily: 'Poppins',
                   fontSize: 24.0,
+                  fontWeight: FontWeight.w500),
+              headline5: TextStyle(
+                  color: Color.fromRGBO(97, 95, 95, 1),
+                  fontFamily: 'PoppinsBold',
+                  fontSize: 20.0,
                   fontWeight: FontWeight.w500)),
           fontFamily: 'Poppins',
         ),

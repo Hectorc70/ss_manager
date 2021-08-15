@@ -15,13 +15,7 @@ class NameSection extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            this.textW,
-            style: TextStyle(
-                color: Color.fromRGBO(46, 46, 46, 1),
-                fontWeight: FontWeight.w600,
-                fontSize: 20.0),
-          ),
+          Text(this.textW, style: Theme.of(context).textTheme.headline5),
           SizedBox(
             width: 10.0,
           ),
