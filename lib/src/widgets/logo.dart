@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-Widget logoApp(BuildContext context, child) {
+Widget logoApp(BuildContext context, Widget child) {
+  // Funcion que retorna el logo 
   return Column(
     children: [
       SafeArea(child: Container()),

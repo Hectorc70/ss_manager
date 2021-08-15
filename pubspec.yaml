@@ -49,15 +49,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
 
-  # The following line ensures that the Material Icons font is
-  # included with your application, so that you can use the icons in
-  # the material Icons class.
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
@@ -79,12 +72,15 @@ flutter:
   fonts:
     - family: ManagerIcons
       fonts:
-        - asset: assets/icons/menu_custom_icon.ttf
+        - asset: assets/icons/ManagerIcons.ttf
 
     - family: Poppins
       fonts:
-        - asset: assets/fonts/Poppins/Poppins-SemiBold.ttf
         - asset: assets/fonts/Poppins/Poppins-Regular.ttf
+
+    
+    - family: PoppinsBold
+      fonts:
         - asset: assets/fonts/Poppins/Poppins-Bold.ttf
 
     - family: Post

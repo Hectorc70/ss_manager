@@ -35,6 +35,84 @@ class ButtonCustomSubmit extends StatelessWidget {
   }
 }
 
+class ButtonFormOk extends StatelessWidget {
+  ButtonFormOk({
+    @required this.textName,
+    @required this.functionAction,
+  });
+
+  final textName;
+  final functionAction;
+
+  @override
+  Widget build(BuildContext context) {
+    Color colorBtn = const Color.fromRGBO(186, 232, 171, 1);
+    return TextButton(
+        onPressed: () {},
+        child: Container(
+          width: 120.0,
+          height: 50,
+          padding: EdgeInsets.only(left: 10.0, right: 15.0),
+          decoration: BoxDecoration(
+            color: colorBtn,
+            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                Icons.save,
+                color: Colors.white,
+              ),
+              Expanded(child: SizedBox()),
+              Text(
+                textName,
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
+        ));
+  }
+}
+
+class ButtonFormCancel extends StatelessWidget {
+  ButtonFormCancel({
+    @required this.textName,
+    @required this.functionAction,
+  });
+
+  final textName;
+  final functionAction;
+
+  @override
+  Widget build(BuildContext context) {
+    Color colorBtn = const Color.fromRGBO(232, 171, 171, 1);
+    return TextButton(
+        onPressed: () => Navigator.pop(context),
+        child: Container(
+          width: 120.0,
+          height: 50,
+          padding: EdgeInsets.only(left: 10.0, right: 10.0),
+          decoration: BoxDecoration(
+            color: colorBtn,
+            borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+          ),
+          child: Row(
+            children: [
+              Icon(
+                Icons.cancel,
+                color: Colors.white,
+              ),
+              Expanded(child: SizedBox()),
+              Text(
+                textName,
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
+        ));
+  }
+}
+
 class ButtonCustomForm extends StatelessWidget {
   ButtonCustomForm({
     @required this.textName,
@@ -84,26 +162,31 @@ class ButtonTitleAdd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorPrimary = Theme.of(context).primaryColor;
-    return Container(
-        alignment: AlignmentDirectional.center,
+
+    return TextButton(
+      onPressed: () {
+        this.functionAction(context);
+      },
+      child: Container(
         width: 35,
         height: 35,
         decoration: BoxDecoration(
-          color: colorPrimary,
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
+            color: colorPrimary,
+            borderRadius: BorderRadius.all(
+              Radius.circular(10.0),
+            ),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                  color: Colors.grey.shade200,
+                  blurRadius: 10.0,
+                  spreadRadius: 1.0)
+            ]),
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+          size: 30.0,
         ),
-        child: IconButton(
-        
-            alignment: AlignmentDirectional.center,
-            onPressed: () {
-              this.functionAction(context);
-            },
-            icon: Icon(
-              Icons.add,
-              color: Colors.white,
-              size: 25.0,
-            )));
+      ),
+    );
   }
 }
