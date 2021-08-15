@@ -1,191 +1,124 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_manager/src/autenticacion/forms/login_form.dart';
+import 'package:ss_manager/src/widgets/buttons_widget.dart';
 
 import 'package:ss_manager/src/widgets/logo.dart';
 import 'package:ss_manager/src/widgets/page_widget.dart';
+import 'package:ss_manager/src/widgets/widgets_body.dart';
 
 class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final widthScreen = MediaQuery.of(context).size.width;
     final heightScreen = MediaQuery.of(context).size.height;
-    return Material(
-        child: Stack(children: [
-      _background(context),
-      Column(
-        children: [
-          HeaderCustomWidget(
-            childWidget: logoApp(context, Text('')),
-            heightW: 150.0,
+    final colorP = Theme.of(context).primaryColor;
+    final colorSecond = Theme.of(context).colorScheme.secondary;
+    return Scaffold(
+        appBar: AppBar(
+          elevation: 0.0,
+          toolbarHeight: 140.0,
+          flexibleSpace: Container(
+              padding: EdgeInsets.only(left: 20.0, top: 20.0),
+              child: logoApp(context, Text(''))),
+          leading: IconButton(
+            alignment: AlignmentDirectional.topStart,
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: colorSecond,
+              size: 30.0,
+            ),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
+        ),
+        body: Stack(children: [
+          Container(
+            color: colorP,
+            height: heightScreen,
           ),
           BodyCustomWidget(
-            childWidget: LoginForm(),
-            heightW: heightScreen - 150,
+            childWidget: _BodyOptions(),
+            heightW: heightScreen,
             widthtW: widthScreen,
-            paddingW: EdgeInsets.all(30.0),
-          ),
-        ],
-      )
-    ]));
+            paddingW: EdgeInsets.all(35.0),
+          )
+        ]));
   }
+}
 
-  Widget _background(BuildContext context) {
-    final colorP = Theme.of(context).colorScheme.primary;
+class _BodyOptions extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final colorP = Theme.of(context).colorScheme.secondaryVariant;
+    final widthScreen = MediaQuery.of(context).size.width;
+    final heightScreen = MediaQuery.of(context).size.height;
     return Container(
-      height: double.infinity,
+      alignment: AlignmentDirectional.center,
       width: double.infinity,
-      decoration: BoxDecoration(color: colorP),
-    );
-  }
-
-  Widget _header(BuildContext context) {
-    final colorPrimary = Theme.of(context).primaryColor;
-    final heigth = MediaQuery.of(context).size.height;
-    return Container(
-        color: colorPrimary,
-        width: double.infinity,
-        height: heigth / 2.5,
-        child: Column(
-          children: [
-            SizedBox(height: 20.0),
-            Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, 'home');
-                  },
-                  icon: Icon(Icons.arrow_back_rounded),
-                  color: Colors.white,
-                  iconSize: 30.0,
-                )
-              ],
-            ),
-            SizedBox(
-              height: 10.0,
-            ),
-          ],
-        ));
-  }
-
-  Widget _formRegister(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final colorSecond = Theme.of(context).colorScheme.secondaryVariant;
-    final colorPrimary = Theme.of(context).primaryColor;
-    return SingleChildScrollView(
       child: Column(
         children: [
-          SafeArea(child: Container(height: 200.0)),
-          Container(
-            width: width * .85,
-            padding: EdgeInsets.all(15.0),
-            decoration: BoxDecoration(
-                color: colorSecond,
-                borderRadius: BorderRadius.circular(20.0),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    color: Colors.black45,
-                    blurRadius: 5.0,
-                    offset: Offset(0.0, 3.0),
-                    spreadRadius: 2.0,
-                  )
-                ]),
-            child: Column(
-              children: [
-                Text(
-                  'Registro',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 22.0),
-                ),
-                TextFormField(
-                  onChanged: (String value) {},
-                  decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white)),
-                    labelText: 'Nombre',
-                    labelStyle: TextStyle(color: Colors.white),
-                    hintText: 'Daniel',
-                    hintStyle: TextStyle(color: Colors.grey[400]),
-                  ),
-                ),
-                TextFormField(
-                  onChanged: (String value) {},
-                  decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white)),
-                    labelText: 'Apellido',
-                    labelStyle: TextStyle(color: Colors.white),
-                    hintText: 'García',
-                    hintStyle: TextStyle(color: Colors.grey[400]),
-                  ),
-                ),
-                TextFormField(
-                  onChanged: (String value) {},
-                  decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white)),
-                    labelText: 'Correo Electronico',
-                    labelStyle: TextStyle(color: Colors.white),
-                    hintText: 'correo_99@gmail.com',
-                    hintStyle: TextStyle(color: Colors.grey[400]),
-                  ),
-                ),
-                TextFormField(
-                  onChanged: (String value) {},
-                  decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white)),
-                    labelText: 'Contraseña',
-                    labelStyle: TextStyle(color: Colors.white),
-                    hintText: '2435fdg65#',
-                    hintStyle: TextStyle(color: Colors.grey[400]),
-                  ),
-                ),
-                TextFormField(
-                  onChanged: (String value) {},
-                  decoration: InputDecoration(
-                    enabledBorder: UnderlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white)),
-                    labelText: 'Repetir Contraseña',
-                    labelStyle: TextStyle(color: Colors.white),
-                    hintText: '2435fdg65%#',
-                    hintStyle: TextStyle(color: Colors.grey[400]),
-                  ),
-                ),
-                SizedBox(
-                  height: 30.0,
-                ),
-                Material(
-                  color: colorPrimary,
-                  borderRadius: BorderRadius.circular(30.0),
-                  child: MaterialButton(
-                    padding: EdgeInsets.fromLTRB(0.0, 0.0, 0.0, 0.0),
-                    minWidth: width * .50,
-                    onPressed: () async {
-                      Navigator.pushNamed(context, 'home');
-                    },
-                    child: Text(
-                      "Registrarse",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'Poppins',
-                          fontSize: 20.0,
-                          fontWeight: FontWeight.w600,
-                          decoration: TextDecoration.none,
-                          color: Colors.white),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 3.0,
-                ),
-              ],
-            ),
+          NameSection(
+            textW: 'Opciones de Registro',
+            childWidget: Text(''),
           ),
+          SizedBox(
+            height: 20.0,
+          ),
+          OptionRegister(
+              text: 'Registrarse con Google', path: 'assets/images/google.png'),
+          SizedBox(
+            height: 20.0,
+          ),
+          OptionRegister(
+              text: 'Registrarse con Correo ', path: 'assets/images/email.png')
         ],
       ),
     );
+  }
+}
+
+class OptionRegister extends StatelessWidget {
+  OptionRegister({Key? key, this.text, this.path}) : super(key: key);
+
+  final path;
+  final text;
+  @override
+  Widget build(BuildContext context) {
+    final widthScreen = MediaQuery.of(context).size.width;
+    return TextButton(
+        onPressed: () {},
+        child: Container(
+          width: widthScreen,
+          height: 55.0,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.0),
+            ),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                  color: Colors.grey.shade100,
+                  blurRadius: 10.0,
+                  spreadRadius: 5.0)
+            ],
+          ),
+          child: Row(
+            children: [
+              Container(
+                  padding: EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(25.0),
+                    ),
+                  ),
+                  child: Image.asset(path)),
+              Text(
+                text,
+                style: TextStyle(color: Colors.grey, fontSize: 18.0),
+              )
+            ],
+          ),
+        ));
   }
 }
