@@ -73,7 +73,9 @@ class _BodyOptions extends StatelessWidget {
             height: 20.0,
           ),
           OptionRegister(
-              text: 'Registrarse con Correo ', path: 'assets/images/email.png')
+              functionAction: _emailRegister,
+              text: 'Registrarse con Correo ',
+              path: 'assets/images/email.png')
         ],
       ),
     );
@@ -82,6 +84,11 @@ class _BodyOptions extends StatelessWidget {
   _googleRegister(BuildContext context) async {
     final auth = Provider.of<AuthProvider>(context, listen: false);
     final resp = await auth.registerGoogle();
+  }
+
+  _emailRegister(BuildContext context) async {
+    final auth = Provider.of<AuthProvider>(context, listen: false);
+    final resp = await auth.registerUser();
   }
 }
 
