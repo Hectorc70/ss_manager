@@ -9,7 +9,18 @@ messageError(String msg, int seconds) {
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.TOP,
       timeInSecForIosWeb: seconds,
-      backgroundColor: Color.fromRGBO(74, 9, 6, 10),
+      backgroundColor: Color.fromRGBO(74, 9, 6, 1),
+      textColor: Colors.white,
+      fontSize: 18.0);
+}
+
+messageOk(String msg, int seconds) {
+  return Fluttertoast.showToast(
+      msg: msg,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.TOP,
+      timeInSecForIosWeb: seconds,
+      backgroundColor: Color.fromRGBO(131,197, 244, 1),
       textColor: Colors.white,
       fontSize: 18.0);
 }

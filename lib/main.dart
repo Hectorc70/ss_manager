@@ -4,6 +4,7 @@ import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.da
 import 'package:ss_manager/src/autenticacion/providers/user_provider.dart';
 import 'package:ss_manager/src/routes/routes.dart';
 import 'package:ss_manager/src/user/providers/nav_ui.dart';
+import 'package:ss_manager/src/user/providers/products_provider.dart';
 import 'package:ss_manager/src/user/providers/sales_provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:ss_manager/src/utils/preferences_user.dart';
@@ -31,6 +32,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => UserProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ProductsProvider(),
         ),
         ChangeNotifierProvider(
           create: (context) => SaleProvider(),

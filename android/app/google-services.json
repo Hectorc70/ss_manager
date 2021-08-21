@@ -10,10 +10,18 @@
       "client_info": {
         "mobilesdk_app_id": "1:882743443949:android:b7b8cbfc2ed4a6de0527e4",
         "android_client_info": {
-          "package_name": "com.example.ss_manager"
+          "package_name": "com.hectorgarcian.ssmanager"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "882743443949-s43eeqne4faf2lal2nr52q78slkmv93o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hectorgarcian.ssmanager",
+            "certificate_hash": "f7c9ec4da67e7e69a5c52a26ed1adb19725af144"
+          }
+        },
         {
           "client_id": "882743443949-74u4573unhlg6lt35q21d1pq5ne822n2.apps.googleusercontent.com",
           "client_type": 3
