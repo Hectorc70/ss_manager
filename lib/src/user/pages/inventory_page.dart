@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:ss_manager/src/user/forms/product_form.dart';
+import 'package:ss_manager/src/user/providers/products_provider.dart';
 import 'package:ss_manager/src/widgets/bottom_nav_widget.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
 import 'package:ss_manager/src/widgets/main_lateral.dart';
@@ -84,22 +86,63 @@ class _BodyInventory extends StatelessWidget {
           SizedBox(
             height: 50.0,
           ),
-          Expanded(
-            child: ListView(
-              children: [
-                CardItem(
-                    heightWidget: 80.0,
-                    iconCard: ManagerIcons.products,
-                    colorIconConte: colorIcons)
-              ],
-            ),
-          )
+          Expanded(child: RefresProducts()),
         ],
       ),
     );
   }
 
-  _addNewProduct(BuildContext context) async{
+  _addNewProduct(BuildContext context) async {
     conteDialogBottom(context, ProductForm());
+  }
+}
+
+class RefresProducts extends StatefulWidget {
+  RefresProducts({Key? key}) : super(key: key);
+
+  @override
+  _RefresProductsState createState() => _RefresProductsState();
+}
+
+class _RefresProductsState extends State<RefresProducts> {
+  List<dynamic> _products = [];
+  @override
+  void initState() {
+    super.initState();
+    _getProducts();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colorIcons = const Color.fromRGBO(193, 199, 255, 1);
+    return RefreshIndicator(
+        onRefresh: () {
+          return _getProducts();
+        },
+        child: ListView.builder(
+            itemCount: _products.length,
+            itemBuilder: (BuildContext context, int index) {
+              return CardItem(
+                heightWidget: 80.0,
+                iconCard: ManagerIcons.products,
+                colorIconConte: colorIcons,
+                pieces: _products[index]['pieces'],
+                nameProduct: _products[index]['name'],
+                price: _products[index]['price'],
+                functionAction: _viewDetail,
+              );
+            }));
+  }
+
+  _viewDetail() {}
+  Future _getProducts() async {
+    final products = Provider.of<ProductsProvider>(context, listen: false);
+    await products.getProducts().then((value) {
+      setState(() {
+        if (value[0] == 0) {
+          _products = value[1];
+        }
+      });
+    });
   }
 }

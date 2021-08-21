@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
+import 'package:ss_manager/src/user/providers/products_provider.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
 import 'package:ss_manager/src/widgets/fields_widgets.dart';
+import 'package:ss_manager/src/widgets/utils_widgets.dart';
 
 class ProductForm extends StatefulWidget {
   ProductForm({Key? key}) : super(key: key);
@@ -80,10 +82,12 @@ class _ProductFormState extends State<ProductForm> {
                   children: [
                     ButtonFormCancel(
                       textName: 'Cancelar',
+                      functionAction: _cancel,
                     ),
                     Expanded(child: SizedBox()),
                     ButtonFormOk(
                       textName: 'Guardar',
+                      functionAction: _submitProduct,
                     ),
                   ],
                 )
@@ -127,9 +131,25 @@ class _ProductFormState extends State<ProductForm> {
     }
   }
 
-  _submitProduct() {
+  _cancel() {
+    Navigator.of(context).pop();
+  }
+
+  _submitProduct(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
-      final auth = Provider.of<AuthProvider>(context, listen: false);
+      final products = Provider.of<ProductsProvider>(context, listen: false);
+      products.name = controllerName.text;
+      products.mount = controllerMount.text;
+      products.pieces = controllerPieces.text;
+
+      final resp = await products.newProduct();
+
+      if (resp[0] == 0) {
+        messageOk('Producto Creado', 2);
+        
+      } else {
+        messageError(resp[1], 2);
+      }
     }
   }
 }

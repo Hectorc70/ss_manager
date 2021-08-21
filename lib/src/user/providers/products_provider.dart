@@ -6,31 +6,51 @@ class ProductsProvider extends ChangeNotifier {
   CollectionReference _products =
       FirebaseFirestore.instance.collection('products');
   String _name = '';
-  double _mount = 0.0;
-  double _pieces = 0.0;
+  String _mount = '';
+  String _pieces = '';
 
   set name(String name) {
     _name = name;
     notifyListeners();
   }
 
-  set mount(double mount) {
+  set mount(String mount) {
     _mount = mount;
     notifyListeners();
   }
 
-  set pieces(double piecesMount) {
+  set pieces(String piecesMount) {
     _pieces = piecesMount;
     notifyListeners();
   }
 
-  newProduct() {
+  Future newProduct() {
     final prefs = PreferencesUser();
     final id_user = prefs.dataUser[2];
 
     return _products
-        .add({'name': _name, 'price': _mount, 'pieces': _pieces, 'user':id_user})
+        .add({
+          'name': _name,
+          'price': _mount,
+          'pieces': _pieces,
+          'user': id_user
+        })
         .then((value) => [0, 'Producto Agregado'])
         .catchError((onError) => [1, onError.toString()]);
+  }
+
+  Future getProducts() {
+    final prefs = PreferencesUser();
+    final id_user = prefs.dataUser[2];
+    List<dynamic> data = [];
+
+    return _products.where('user', isEqualTo: id_user).get().then((value) {
+      for (final product in value.docs) {
+        final productData = product.data();
+        data.add(productData);
+      }
+
+      return [0, data];
+    }).catchError((onError) => [1, onError.toString()]);
   }
 }
