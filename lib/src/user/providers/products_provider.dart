@@ -6,20 +6,20 @@ class ProductsProvider extends ChangeNotifier {
   CollectionReference _products =
       FirebaseFirestore.instance.collection('products');
   String _name = '';
-  double _mount = 0.0;
-  double _pieces = 0.0;
+  String _mount = '';
+  String _pieces = '';
 
   set name(String name) {
     _name = name;
     notifyListeners();
   }
 
-  set mount(double mount) {
+  set mount(String mount) {
     _mount = mount;
     notifyListeners();
   }
 
-  set pieces(double piecesMount) {
+  set pieces(String piecesMount) {
     _pieces = piecesMount;
     notifyListeners();
   }
