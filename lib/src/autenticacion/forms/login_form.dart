@@ -114,7 +114,7 @@ class LoginFormState extends State<LoginForm> {
       } else {
         user.idUser = respLogin[1];
         final prefs = PreferencesUser();
-        prefs.dataUser = [controllerEmail.text, controllerPass.text];
+        prefs.dataUser = [controllerEmail.text, controllerPass.text, respLogin[1]];
         Navigator.pushReplacementNamed(context, 'home');
       }
     }
