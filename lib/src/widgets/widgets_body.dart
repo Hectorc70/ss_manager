@@ -30,6 +30,9 @@ class CardItem extends StatelessWidget {
   const CardItem(
       {Key? key,
       this.heightWidget,
+      @required this.pieces,
+      @required this.nameProduct,
+      @required this.price,
       @required this.iconCard,
       @required this.colorIconConte,
       @required this.functionAction})
@@ -39,11 +42,15 @@ class CardItem extends StatelessWidget {
   final iconCard;
   final colorIconConte;
   final functionAction;
+  final pieces;
+  final nameProduct;
+  final price;
   @override
   Widget build(BuildContext context) {
     final widthScreen = MediaQuery.of(context).size.width;
     final heightScreen = MediaQuery.of(context).size.height;
-
+    final colorContePieces = Color.fromRGBO(42, 186, 186, 1);
+    final colorTextName = Color.fromRGBO(119, 115, 115, 1);
     return TextButton(
         onPressed: () async {
           functionAction(context);
@@ -62,7 +69,7 @@ class CardItem extends StatelessWidget {
                     blurRadius: 10.0,
                     spreadRadius: 5.0)
               ]),
-          child: Row(
+          child: Stack(
             children: [
               Container(
                 width: heightWidget,
@@ -77,6 +84,56 @@ class CardItem extends StatelessWidget {
                   iconCard,
                   color: Colors.white,
                   size: 35.0,
+                ),
+              ),
+              Align(
+                  alignment: Alignment.bottomRight,
+                  child: Container(
+                    padding: EdgeInsets.only(right: 15.0),
+                    child: Text(
+                      '\$ $price',
+                      style: TextStyle(
+                          color: colorTextName,
+                          fontFamily: 'Poppins',
+                          fontSize: 18.0),
+                      textAlign: TextAlign.left,
+                    ),
+                  )),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Container(
+                  alignment: Alignment.topCenter,
+                  padding: EdgeInsets.only(top: 5.0),
+                  child: Text(
+                    nameProduct,
+                    style: TextStyle(
+                        color: colorTextName,
+                        fontFamily: 'PoppinsBold',
+                        fontSize: 16.0),
+                    textAlign: TextAlign.left,
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  alignment: Alignment.center,
+                  width: 35.0,
+                  height: 35.0,
+                  decoration: BoxDecoration(
+                    color: colorContePieces,
+                    borderRadius:
+                        BorderRadius.only(topRight: Radius.circular(10.0)),
+                  ),
+                  child: Text(
+                    'X $pieces',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14.0,
+                      fontFamily: 'Poppins',
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               )
             ],

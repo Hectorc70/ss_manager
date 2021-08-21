@@ -145,7 +145,8 @@ class _ProductFormState extends State<ProductForm> {
       final resp = await products.newProduct();
 
       if (resp[0] == 0) {
-        print('ok---------------------');
+        messageOk('Producto Creado', 2);
+        
       } else {
         messageError(resp[1], 2);
       }
