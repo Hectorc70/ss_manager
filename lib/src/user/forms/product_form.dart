@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
 import 'package:ss_manager/src/widgets/fields_widgets.dart';
 
@@ -126,6 +128,8 @@ class _ProductFormState extends State<ProductForm> {
   }
 
   _submitProduct() {
-    if (_formKey.currentState!.validate()) {}
+    if (_formKey.currentState!.validate()) {
+      final auth = Provider.of<AuthProvider>(context, listen: false);
+    }
   }
 }

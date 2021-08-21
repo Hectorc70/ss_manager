@@ -23,7 +23,7 @@ class _BodyCustomWidgetState extends State<BodyCustomWidget> {
   double widthContainer = 0.0;
   double heightContainer = 0.0;
   double transX = 400.0;
-  double transY = 500.0;
+  double transY = 900.0;
   double childOpacity = 0.0;
   void initState() {
     super.initState();
