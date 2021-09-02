@@ -13,7 +13,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     'register': (BuildContext context) => RegisterPage(),
     'home': (BuildContext context) => HomePage(),
     'inventory': (BuildContext context) => InventoryPage(),
-    'newSale': (BuildContext context) => NewSalePage(),
+    'sales': (BuildContext context) => SalePage(),
 
     'business': (BuildContext context) => BusinessPage(),
   };

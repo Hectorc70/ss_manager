@@ -26,44 +26,51 @@ class SaleFormState extends State<SaleForm> {
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    return Flexible(
+    return Material(
         child: Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          FieldInputCustom(
-            labelTextInput: 'Nombre de Producto',
-            controllerField: controllerName,
-            hintTextC: 'Producto',
-            typeInput: TextInputType.name,
-          ),
-          SizedBox(height: 15.0),
-          FieldInputCustom(
-            labelTextInput: 'Piezas',
-            controllerField: controllerName,
-            hintTextC: 'Producto',
-            typeInput: TextInputType.number,
-          ),
-          SizedBox(height: 15.0),
-          FieldInputCustom(
-            labelTextInput: 'Monto Total',
-            controllerField: controllerName,
-            hintTextC: 'Producto',
-            typeInput: TextInputType.number,
-          ),
-          FieldInputCustom(
-            labelTextInput: 'Monto Total',
-            controllerField: controllerName,
-            hintTextC: 'Producto',
-            typeInput: TextInputType.number,
-          ),
-          SizedBox(
-            height: 30.0,
-          ),
-          _buttonsActionsForm()
-        ],
-      ),
-    ));
+            key: _formKey,
+            child: Container(
+              padding: EdgeInsets.only(left: 20.0, right: 20.0),
+              color: Colors.white,
+              child: Column(children: [
+                Text(
+                  'Nueva Venta',
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                FieldInputCustom(
+                  labelTextInput: 'Nombre de Producto',
+                  controllerField: controllerName,
+                  hintTextC: 'Producto',
+                  typeInput: TextInputType.name,
+                ),
+                SizedBox(height: 15.0),
+                FieldInputCustom(
+                  labelTextInput: 'Piezas',
+                  controllerField: controllerName,
+                  hintTextC: 'Producto',
+                  typeInput: TextInputType.number,
+                ),
+                SizedBox(height: 15.0),
+                FieldInputCustom(
+                  labelTextInput: 'Monto Total',
+                  controllerField: controllerName,
+                  hintTextC: 'Producto',
+                  typeInput: TextInputType.number,
+                ),
+                FieldInputCustom(
+                  labelTextInput: 'Monto Total',
+                  controllerField: controllerName,
+                  hintTextC: 'Producto',
+                  typeInput: TextInputType.number,
+                ),
+                SizedBox(
+                  height: 30.0,
+                ),
+              ]),
+            )));
   }
 
   _buttonsActionsForm() {

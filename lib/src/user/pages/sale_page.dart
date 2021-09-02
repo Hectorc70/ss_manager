@@ -5,10 +5,14 @@ import 'package:ss_manager/src/user/providers/sales_provider.dart';
 
 import 'package:ss_manager/src/widgets/bottom_nav_widget.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
+import 'package:ss_manager/src/widgets/main_lateral.dart';
+import 'package:ss_manager/src/widgets/manager_icons_icons.dart';
 import 'package:ss_manager/src/widgets/page_widget.dart';
+import 'package:ss_manager/src/widgets/utils_widgets.dart';
 import 'package:ss_manager/src/widgets/widgets_body.dart';
 
-class NewSalePage extends StatelessWidget {
+class SalePage extends StatelessWidget {
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     final colorP = Theme.of(context).primaryColor;
@@ -16,38 +20,55 @@ class NewSalePage extends StatelessWidget {
     final widthScreen = MediaQuery.of(context).size.width;
     final heightScreen = MediaQuery.of(context).size.height;
     final order = Provider.of<SaleProvider>(context);
+    final colorSecond = Theme.of(context).colorScheme.secondary;
 
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0.0,
-        toolbarHeight: 100.0,
-        title: Text('Hola Hector Bienvenido'),
-        centerTitle: true,
-      ),
-      body: Stack(
-        children: [
-          _background(context),
-          Expanded(
-            child: BodyCustomWidget(
-              childWidget: _Body(),
-              heightW: heightScreen,
-              widthtW: widthScreen,
-              paddingW: EdgeInsets.all(35.0),
-            ),
-          )
-        ],
-      ),
-    );
+    return WillPopScope(
+        child: Scaffold(
+          key: _scaffoldKey,
+          drawer: LateralMain(),
+          appBar: AppBar(
+              elevation: 0.0,
+              toolbarHeight: 140.0,
+              flexibleSpace: Container(
+                  padding: EdgeInsets.only(left: 20.0, top: 5.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Ventas',
+                        style: Theme.of(context).textTheme.headline6,
+                      ),
+                    ],
+                  )),
+              leading: IconButton(
+                  alignment: AlignmentDirectional.topStart,
+                  onPressed: () => _scaffoldKey.currentState!.openDrawer(),
+                  icon: Icon(
+                    ManagerIcons.menuCustom,
+                    color: colorSecond,
+                  ))),
+          body: Stack(
+            children: [
+              Container(
+                color: colorP,
+                height: heightScreen,
+              ),
+              BodyCustomWidget(
+                childWidget: _Body(),
+                heightW: heightScreen,
+                widthtW: widthScreen,
+                paddingW: EdgeInsets.all(35.0),
+              ),
+            ],
+          ),
+          bottomNavigationBar: BottomNavBarCustom(),
+        ),
+        onWillPop: () {
+          return new Future(() => false);
+        });
   }
 
-  Widget _background(BuildContext context) {
-    final colorP = Theme.of(context).colorScheme.primary;
-    return Container(
-      height: double.infinity,
-      width: double.infinity,
-      decoration: BoxDecoration(color: colorP),
-    );
-  }
 }
 
 class _Body extends StatelessWidget {
@@ -61,7 +82,12 @@ class _Body extends StatelessWidget {
       width: double.infinity,
       child: Column(
         children: [
-          NameSection(textW: 'Nueva Venta', childWidget: Text('')),
+          NameSection(
+            textW: 'Nueva Venta',
+            childWidget: ButtonTitleAdd(
+              functionAction: _addNewSale,
+            ),
+          ),
           SizedBox(
             height: 30.0,
           ),
@@ -69,5 +95,9 @@ class _Body extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  _addNewSale(BuildContext context) async {
+    conteDialogBottom(context, SaleForm());
   }
 }
