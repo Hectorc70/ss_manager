@@ -50,28 +50,37 @@ class LoginFormState extends State<LoginForm> {
           SizedBox(
             height: 30.0,
           ),
-          FieldInputCustom(
-              controllerField: controllerEmail,
-              hintTextC: 'correo@gmail.com',
-              labelTextInput: 'Correo Electronico'),
-          SizedBox(
-            height: 25.0,
-          ),
-          FieldInputCustom(
-            controllerField: controllerPass,
-            hintTextC: '******',
-            labelTextInput: 'Contraseña',
-            textNotVisible: true,
-          ),
-          SizedBox(
-            height: 2.0,
-          ),
-          _buttonChangePassword(context),
-          SizedBox(
-            height: 30.0,
-          ),
-          ButtonCustomSubmit(textName: 'Login', functionAction: _validateForm),
-          _buttonRegister(context)
+          Expanded(
+              child: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: ListView(
+                    children: [
+                      FieldInputCustom(
+                          controllerField: controllerEmail,
+                          hintTextC: 'correo@gmail.com',
+                          labelTextInput: 'Correo Electronico'),
+                      SizedBox(
+                        height: 25.0,
+                      ),
+                      FieldInputCustom(
+                        controllerField: controllerPass,
+                        hintTextC: '******',
+                        labelTextInput: 'Contraseña',
+                        textNotVisible: true,
+                      ),
+                      SizedBox(
+                        height: 2.0,
+                      ),
+                      _buttonChangePassword(context),
+                      SizedBox(
+                        height: 30.0,
+                      ),
+                      ButtonCustomSubmit(
+                          textName: 'Login', functionAction: _validateForm),
+                      _buttonRegister(context)
+                    ],
+                  )))
         ]));
   }
 
@@ -114,7 +123,11 @@ class LoginFormState extends State<LoginForm> {
       } else {
         user.idUser = respLogin[1];
         final prefs = PreferencesUser();
-        prefs.dataUser = [controllerEmail.text, controllerPass.text, respLogin[1]];
+        prefs.dataUser = [
+          controllerEmail.text,
+          controllerPass.text,
+          respLogin[1]
+        ];
         Navigator.pushReplacementNamed(context, 'home');
       }
     }
