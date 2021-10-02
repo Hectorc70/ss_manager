@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ss_manager/src/user/forms/sale_form.dart';
 
 import 'package:ss_manager/src/user/providers/sales_provider.dart';
 import 'package:ss_manager/src/utils/preferences_user.dart';
@@ -10,6 +11,7 @@ import 'package:ss_manager/src/widgets/logo.dart';
 import 'package:ss_manager/src/widgets/main_lateral.dart';
 import 'package:ss_manager/src/widgets/manager_icons_icons.dart';
 import 'package:ss_manager/src/widgets/page_widget.dart';
+import 'package:ss_manager/src/widgets/utils_widgets.dart';
 import 'package:ss_manager/src/widgets/widgets_body.dart';
 
 class HomePage extends StatelessWidget {
@@ -122,7 +124,7 @@ class _BodyHome extends StatelessWidget {
     );
   }
 
-  _addNewSale(BuildContext context) {
-    Navigator.of(context).pushNamed('newSale');
+  _addNewSale(BuildContext context) async {
+    conteDialogBottom(context, SaleForm());
   }
 }
