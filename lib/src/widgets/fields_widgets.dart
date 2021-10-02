@@ -83,9 +83,11 @@ class FieldInputMountCustom extends StatelessWidget {
     @required this.controllerField,
     @required this.functionAdd,
     @required this.functionRemove,
+    this.enabled = true,
     this.widthForm,
   });
 
+  final enabled;
   final hintTextC;
   final typeInput;
   final labelTextInput;
@@ -142,7 +144,9 @@ class FieldInputMountCustom extends StatelessWidget {
                   color: Color.fromRGBO(119, 115, 115, 1),
                 ),
                 textAlign: TextAlign.center,
+                enabled: enabled,
                 decoration: InputDecoration(
+                  disabledBorder: InputBorder.none,
                   contentPadding: EdgeInsets.only(bottom: 0.0),
                   enabledBorder: InputBorder.none,
                   focusedBorder: InputBorder.none,
@@ -222,6 +226,7 @@ class FieldSelectForm extends StatelessWidget {
             ),
           ),
           SelectFormField(
+            hintText: hintTextC,
             dialogCancelBtn: 'Cancelar',
             dialogTitle: labelTextInput,
             dialogSearchHint: 'Buscar',

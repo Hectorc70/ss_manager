@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:select_form_field/select_form_field.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
 import 'package:ss_manager/src/widgets/fields_widgets.dart';
+import 'package:ss_manager/src/widgets/utils_widgets.dart';
 
 class SaleForm extends StatefulWidget {
   @override
@@ -14,11 +16,20 @@ class SaleFormState extends State<SaleForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final controllerName = TextEditingController();
   final controllerMount = TextEditingController();
+  final controllerPieces = TextEditingController();
   final controllerTotal = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    controllerMount.text = '0.0';
+    controllerPieces.text = '1';
+  }
 
   @override
   void dispose() {
     controllerName.dispose();
+    controllerPieces.dispose();
     controllerMount.dispose();
     controllerTotal.dispose();
     super.dispose();
@@ -42,6 +53,7 @@ class SaleFormState extends State<SaleForm> {
                   height: 20.0,
                 ),
                 FieldSelectForm(
+                  hintTextC: 'Selecciona un Producto',
                   controllerField: controllerName,
                   typeDrop: SelectFormFieldType.dialog,
                   labelTextInput: 'Nombre de Producto',
@@ -49,54 +61,78 @@ class SaleFormState extends State<SaleForm> {
                     {'value': '', 'label': 'sfsd'}
                   ],
                 ),
-                SizedBox(height: 15.0),
-                FieldInputCustom(
+                SizedBox(height: 10.0),
+                FieldInputMountCustom(
+                  controllerField: controllerMount,
+                  labelTextInput: 'Precio de Producto',
+                  enabled: false,
+                  functionAdd: _add,
+                  functionRemove: _add,
+                ),
+                SizedBox(height: 10.0),
+                FieldInputMountCustom(
+                  controllerField: controllerPieces,
                   labelTextInput: 'Piezas',
-                  controllerField: controllerName,
-                  hintTextC: 'Producto',
-                  typeInput: TextInputType.number,
+                  functionAdd: _addPiece,
+                  functionRemove: _removePiece,
                 ),
-                SizedBox(height: 15.0),
-                FieldInputCustom(
-                  labelTextInput: 'Monto Total',
-                  controllerField: controllerName,
-                  hintTextC: 'Producto',
-                  typeInput: TextInputType.number,
+                SizedBox(
+                  height: 10.0,
                 ),
                 FieldInputCustom(
                   labelTextInput: 'Monto Total',
-                  controllerField: controllerName,
+                  controllerField: controllerTotal,
                   hintTextC: 'Producto',
                   typeInput: TextInputType.number,
                 ),
                 SizedBox(
                   height: 30.0,
                 ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Row(
+                  children: [
+                    ButtonFormCancel(
+                      textName: 'Cancelar',
+                      functionAction: _cancel,
+                    ),
+                    Expanded(child: SizedBox()),
+                    ButtonFormOk(
+                      textName: 'Guardar',
+                      functionAction: _submitProduct,
+                    ),
+                  ],
+                )
               ]),
             )));
   }
 
-  _buttonsActionsForm() {
-    final colorPrimary = Theme.of(context).primaryColor;
-    final colorSecond = Theme.of(context).colorScheme.secondary;
+  _add(BuildContext context) {}
 
-    return Row(
-      children: [
-        ButtonCustomForm(
-          textName: 'Cancelar',
-          colorBtn: colorSecond,
-          functionAction: _cancelAction,
-          width: 150.0,
-        ),
-        Expanded(child: SizedBox()),
-        ButtonCustomForm(
-          textName: 'Guardar',
-          colorBtn: colorPrimary,
-          functionAction: _cancelAction,
-          width: 150.0,
-        ),
-      ],
-    );
+  _addPiece(BuildContext context) {
+    final total = controllerTotal.text;
+    final mount = controllerPieces.text;
+    int mountF = int.parse(mount);
+    mountF = mountF + 1;
+    controllerPieces.text = mountF.toString();
+  }
+
+  _removePiece(BuildContext context) {
+    final mount = controllerPieces.text;
+    int mountF = int.parse(mount);
+    if (mountF > 0) {
+      mountF = mountF - 1;
+      controllerPieces.text = mountF.toString();
+    }
+  }
+
+  _cancel() {
+    Navigator.of(context).pop();
+  }
+
+  _submitProduct(BuildContext context) async {
+    if (_formKey.currentState!.validate()) {}
   }
 
   _cancelAction(BuildContext context) {}

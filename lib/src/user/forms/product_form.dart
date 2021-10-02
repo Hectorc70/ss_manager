@@ -21,7 +21,6 @@ class _ProductFormState extends State<ProductForm> {
   final controllerMount = TextEditingController();
 
   @override
-  @override
   void initState() {
     super.initState();
     controllerMount.text = '0.0';
