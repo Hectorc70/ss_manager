@@ -68,7 +68,6 @@ class SalePage extends StatelessWidget {
           return new Future(() => false);
         });
   }
-
 }
 
 class _Body extends StatelessWidget {
@@ -83,7 +82,7 @@ class _Body extends StatelessWidget {
       child: Column(
         children: [
           NameSection(
-            textW: 'Nueva Venta',
+            textW: 'Mis Ventas',
             childWidget: ButtonTitleAdd(
               functionAction: _addNewSale,
             ),
@@ -91,7 +90,6 @@ class _Body extends StatelessWidget {
           SizedBox(
             height: 30.0,
           ),
-          SaleForm()
         ],
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:select_form_field/select_form_field.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
 import 'package:ss_manager/src/widgets/fields_widgets.dart';
 
@@ -40,11 +41,13 @@ class SaleFormState extends State<SaleForm> {
                 SizedBox(
                   height: 20.0,
                 ),
-                FieldInputCustom(
-                  labelTextInput: 'Nombre de Producto',
+                FieldSelectForm(
                   controllerField: controllerName,
-                  hintTextC: 'Producto',
-                  typeInput: TextInputType.name,
+                  typeDrop: SelectFormFieldType.dialog,
+                  labelTextInput: 'Nombre de Producto',
+                  items: [
+                    {'value': '', 'label': 'sfsd'}
+                  ],
                 ),
                 SizedBox(height: 15.0),
                 FieldInputCustom(
