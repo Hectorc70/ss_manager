@@ -87,7 +87,7 @@ class _RegisterFormState extends State<RegisterForm> {
         Loader.hide();
         if (resp[0] == 1) {
           prefs.dataUser = registerResp[1];
-          user.idUser = registerResp[1];
+
           Navigator.of(context).pushReplacementNamed('home');
         } else {
           messageError(resp[1], 2);

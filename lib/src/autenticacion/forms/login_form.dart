@@ -78,6 +78,7 @@ class LoginFormState extends State<LoginForm> {
   }
 
   _validateForm(BuildContext context) async {
+    final prefs = PreferencesUser();
     final auth = Provider.of<AuthProvider>(context, listen: false);
     final user = Provider.of<UserProvider>(context, listen: false);
     final color = Theme.of(context).colorScheme.secondaryVariant;
@@ -91,8 +92,7 @@ class LoginFormState extends State<LoginForm> {
       if (respLogin[0] == 0) {
         messageError(respLogin[1], 1);
       } else {
-        user.idUser = respLogin[1];
-        final prefs = PreferencesUser();
+
         prefs.dataUser = respLogin[1];
 
         Navigator.pushReplacementNamed(context, 'home');
