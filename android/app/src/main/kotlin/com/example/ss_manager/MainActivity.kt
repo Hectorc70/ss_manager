@@ -1,4 +1,4 @@
-package com.example.ss_manager
+package com.hectorgarcian.ssmanager
 
 import io.flutter.embedding.android.FlutterActivity
 
