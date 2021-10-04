@@ -39,63 +39,33 @@ class LoginFormState extends State<LoginForm> {
     final width = MediaQuery.of(context).size.width;
     return Form(
         key: _formKey,
-        child: Column(children: [
-          Text(
-            'Iniciar Sesión',
-            style: TextStyle(
-                color: Color.fromRGBO(46, 46, 46, 1),
-                fontWeight: FontWeight.w600,
-                fontSize: 22.0),
-          ),
-          SizedBox(
-            height: 30.0,
-          ),
-          Expanded(
-              child: Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: ListView(
-                    children: [
-                      FieldInputCustom(
-                          controllerField: controllerEmail,
-                          hintTextC: 'correo@gmail.com',
-                          labelTextInput: 'Correo Electronico'),
-                      SizedBox(
-                        height: 25.0,
-                      ),
-                      FieldInputCustom(
-                        controllerField: controllerPass,
-                        hintTextC: '******',
-                        labelTextInput: 'Contraseña',
-                        textNotVisible: true,
-                      ),
-                      SizedBox(
-                        height: 2.0,
-                      ),
-                      _buttonChangePassword(context),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      ButtonCustomSubmit(
-                          textName: 'Login', functionAction: _validateForm),
-                      _buttonRegister(context)
-                    ],
-                  )))
-        ]));
-  }
-
-  _buttonRegister(BuildContext context) {
-    return Row(
-      children: [
-        Text('No tienes Cuenta?'),
-        TextButton(
-            onPressed: () => Navigator.of(context).pushNamed('register'),
-            child: Text(
-              'Registrate',
-              style: TextStyle(fontWeight: FontWeight.w600),
-            ))
-      ],
-    );
+        child: ListView(
+          padding: EdgeInsetsDirectional.only(start: 25.0, end: 25.0),
+          children: [
+            FieldInputCustom(
+                controllerField: controllerEmail,
+                hintTextC: 'correo@gmail.com',
+                labelTextInput: 'Correo Electronico'),
+            SizedBox(
+              height: 25.0,
+            ),
+            FieldInputCustom(
+              controllerField: controllerPass,
+              hintTextC: '******',
+              labelTextInput: 'Contraseña',
+              textNotVisible: true,
+            ),
+            SizedBox(
+              height: 2.0,
+            ),
+            //_buttonChangePassword(context),
+            SizedBox(
+              height: 30.0,
+            ),
+            ButtonCustomSubmit(
+                textName: 'Login', functionAction: _validateForm),
+          ],
+        ));
   }
 
   _buttonChangePassword(BuildContext context) {
@@ -108,6 +78,7 @@ class LoginFormState extends State<LoginForm> {
   }
 
   _validateForm(BuildContext context) async {
+    final prefs = PreferencesUser();
     final auth = Provider.of<AuthProvider>(context, listen: false);
     final user = Provider.of<UserProvider>(context, listen: false);
     final color = Theme.of(context).colorScheme.secondaryVariant;
@@ -115,19 +86,15 @@ class LoginFormState extends State<LoginForm> {
       loaderView(context);
       auth.setEmail = controllerEmail.text;
       auth.setPassword = controllerPass.text;
-      final respLogin = await auth.loginUser();
+      final respLogin = await auth.loginUserForEmail();
 
       Loader.hide();
       if (respLogin[0] == 0) {
         messageError(respLogin[1], 1);
       } else {
-        user.idUser = respLogin[1];
-        final prefs = PreferencesUser();
-        prefs.dataUser = [
-          controllerEmail.text,
-          controllerPass.text,
-          respLogin[1]
-        ];
+
+        prefs.dataUser = respLogin[1];
+
         Navigator.pushReplacementNamed(context, 'home');
       }
     }

@@ -37,11 +37,12 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.ss_manager"
+        applicationId "com.hectorgarcian.ssmanager"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        multiDexEnabled true
+        versionCode 1
+        versionName "0.0.0001"
     }
 
     buildTypes {

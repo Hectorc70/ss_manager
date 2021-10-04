@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ss_manager/src/utils/preferences_user.dart';
 import 'package:ss_manager/src/widgets/logo.dart';
 import 'package:ss_manager/src/widgets/manager_icons_icons.dart';
 
@@ -28,14 +29,17 @@ class LateralMain extends StatelessWidget {
           ),
           Expanded(
               child: ListView(children: [
-            _opcionMenu(context, 'Mis Negocios', ManagerIcons.market, colorB,
-                _goToBusiness),
+            _opcionMenu(
+                context, 'Cerrar Sesión', Icons.logout, colorB, _logout),
           ]))
         ]));
   }
 
-  _goToBusiness(BuildContext context) {
-    Navigator.of(context).pushReplacementNamed('business');
+  _logout(BuildContext context) {
+    final prefs = PreferencesUser();
+    prefs.removePrefsUser();
+    Navigator.pushNamedAndRemoveUntil(
+        context, 'typeLogin', (Route<dynamic> route) => false);
   }
 
   _opcionMenu(

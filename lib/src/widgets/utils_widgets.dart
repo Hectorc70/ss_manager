@@ -20,7 +20,7 @@ messageOk(String msg, int seconds) {
       toastLength: Toast.LENGTH_LONG,
       gravity: ToastGravity.TOP,
       timeInSecForIosWeb: seconds,
-      backgroundColor: Color.fromRGBO(131,197, 244, 1),
+      backgroundColor: Color.fromRGBO(131, 197, 244, 1),
       textColor: Colors.white,
       fontSize: 18.0);
 }

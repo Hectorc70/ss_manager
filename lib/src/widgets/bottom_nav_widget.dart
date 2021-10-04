@@ -27,6 +27,7 @@ class BottomNavBarCustom extends StatelessWidget {
           uiprovider.selectOption = index;
           Navigator.of(context).popAndPushNamed('inventory');
         } else if (index == 2) {
+          Navigator.of(context).popAndPushNamed('sales');
           uiprovider.selectOption = index;
         }
       },

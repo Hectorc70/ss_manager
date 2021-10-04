@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
+import 'package:ss_manager/src/autenticacion/providers/user_provider.dart';
+import 'package:ss_manager/src/user/models/product_model.dart';
 import 'package:ss_manager/src/user/providers/products_provider.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
 import 'package:ss_manager/src/widgets/fields_widgets.dart';
@@ -20,7 +22,6 @@ class _ProductFormState extends State<ProductForm> {
   final controllerPieces = TextEditingController();
   final controllerMount = TextEditingController();
 
-  @override
   @override
   void initState() {
     super.initState();
@@ -54,7 +55,7 @@ class _ProductFormState extends State<ProductForm> {
                 ),
                 FieldInputCustom(
                   labelTextInput: 'Nombre Producto',
-                  hintTextC: 'Paleta',
+                  hintTextC: 'Escribe el Nombre',
                   controllerField: controllerName,
                 ),
                 SizedBox(
@@ -138,15 +139,21 @@ class _ProductFormState extends State<ProductForm> {
   _submitProduct(BuildContext context) async {
     if (_formKey.currentState!.validate()) {
       final products = Provider.of<ProductsProvider>(context, listen: false);
-      products.name = controllerName.text;
-      products.mount = controllerMount.text;
-      products.pieces = controllerPieces.text;
+      final user = Provider.of<UserProvider>(context, listen: false);
 
-      final resp = await products.newProduct();
+      ProductModel productNew = ProductModel.fromJson({
+        'name': controllerName.text,
+        'price': controllerMount.text,
+        'pieces': controllerPieces.text,
+        'user': user.userData.id
+      }, 'id');
+
+      products.dataNewProduct = productNew;
+      final resp = await products.newProduct(user.userData);
 
       if (resp[0] == 0) {
+        Navigator.of(context).pop();
         messageOk('Producto Creado', 2);
-        
       } else {
         messageError(resp[1], 2);
       }

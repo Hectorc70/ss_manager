@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_manager/src/autenticacion/forms/login_form.dart';
+import 'package:ss_manager/src/autenticacion/forms/register_form.dart';
 import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
+import 'package:ss_manager/src/utils/preferences_user.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
 
 import 'package:ss_manager/src/widgets/logo.dart';
 import 'package:ss_manager/src/widgets/page_widget.dart';
+import 'package:ss_manager/src/widgets/utils_widgets.dart';
 import 'package:ss_manager/src/widgets/widgets_body.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -16,6 +20,7 @@ class RegisterPage extends StatelessWidget {
     final colorP = Theme.of(context).primaryColor;
     final colorSecond = Theme.of(context).colorScheme.secondary;
     return Scaffold(
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           elevation: 0.0,
           toolbarHeight: 140.0,
@@ -41,7 +46,7 @@ class RegisterPage extends StatelessWidget {
             childWidget: _BodyOptions(),
             heightW: heightScreen,
             widthtW: widthScreen,
-            paddingW: EdgeInsets.all(35.0),
+            paddingW: EdgeInsets.only(top: 30.0, bottom: 30.0),
           )
         ]));
   }
@@ -59,36 +64,16 @@ class _BodyOptions extends StatelessWidget {
       child: Column(
         children: [
           NameSection(
-            textW: 'Registro',
+            textW: 'Registro por Email',
             childWidget: Text(''),
           ),
           SizedBox(
             height: 20.0,
           ),
-          OptionRegister(
-              functionAction: _googleRegister,
-              text: 'Registrarse con Google',
-              path: 'assets/images/google.png'),
-          SizedBox(
-            height: 20.0,
-          ),
-          OptionRegister(
-              functionAction: _emailRegister,
-              text: 'Registrarse con Correo ',
-              path: 'assets/images/email.png')
+          Expanded(child: RegisterForm())
         ],
       ),
     );
-  }
-
-  _googleRegister(BuildContext context) async {
-    final auth = Provider.of<AuthProvider>(context, listen: false);
-    final resp = await auth.registerGoogle();
-  }
-
-  _emailRegister(BuildContext context) async {
-    final auth = Provider.of<AuthProvider>(context, listen: false);
-    final resp = await auth.registerUser();
   }
 }
 
@@ -103,9 +88,7 @@ class OptionRegister extends StatelessWidget {
   Widget build(BuildContext context) {
     final widthScreen = MediaQuery.of(context).size.width;
     return TextButton(
-        onPressed: () async {
-          functionAction(context);
-        },
+        onPressed: functionAction,
         child: Container(
           width: widthScreen,
           height: 55.0,

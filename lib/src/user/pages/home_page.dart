@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:ss_manager/src/autenticacion/providers/user_provider.dart';
+import 'package:ss_manager/src/user/forms/sale_form.dart';
+import 'package:ss_manager/src/user/providers/products_provider.dart';
 
 import 'package:ss_manager/src/user/providers/sales_provider.dart';
 import 'package:ss_manager/src/utils/preferences_user.dart';
@@ -10,10 +13,26 @@ import 'package:ss_manager/src/widgets/logo.dart';
 import 'package:ss_manager/src/widgets/main_lateral.dart';
 import 'package:ss_manager/src/widgets/manager_icons_icons.dart';
 import 'package:ss_manager/src/widgets/page_widget.dart';
+import 'package:ss_manager/src/widgets/utils_widgets.dart';
 import 'package:ss_manager/src/widgets/widgets_body.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    _loadData().then((value) {
+      print('');
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final colorP = Theme.of(context).primaryColor;
@@ -73,6 +92,17 @@ class HomePage extends StatelessWidget {
         });
   }
 
+  Future _loadData() async {
+    final prefs = PreferencesUser();
+    final user = Provider.of<UserProvider>(context, listen: false);
+
+    final resp = await user.getDataUser(prefs.dataUser);
+
+    if (resp[0] == 1) {
+      user.userData = resp[1];
+    }
+  }
+
   Widget _dataSaleToday(BuildContext context) {
     final widthScreen = MediaQuery.of(context).size.width;
     return Container(
@@ -122,7 +152,7 @@ class _BodyHome extends StatelessWidget {
     );
   }
 
-  _addNewSale(BuildContext context) {
-    Navigator.of(context).pushNamed('newSale');
+  _addNewSale(BuildContext context) async {
+    conteDialogBottom(context, SaleForm());
   }
 }

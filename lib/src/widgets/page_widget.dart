@@ -56,7 +56,7 @@ class _BodyCustomWidgetState extends State<BodyCustomWidget> {
           topLeft: Radius.circular(100.0),
         ),
       ),
-      duration: Duration(seconds: 1),
+      duration: Duration(milliseconds: 300),
       onEnd: () {
         setState(() {
           childOpacity = 1.0;
