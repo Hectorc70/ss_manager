@@ -70,7 +70,11 @@ class _BodyOptions extends StatelessWidget {
             height: 20.0,
           ),
           OptionRegister(
-              text: 'Loguearse con Google', path: 'assets/images/google.png'),
+              functionAction: () async {
+                await _loginGoogle(context);
+              },
+              text: 'Loguearse con Google',
+              path: 'assets/images/google.png'),
           SizedBox(
             height: 20.0,
           ),
@@ -85,6 +89,29 @@ class _BodyOptions extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future _loginGoogle(BuildContext context) async {
+    final auth = Provider.of<AuthProvider>(context, listen: false);
+    final user = Provider.of<UserProvider>(context, listen: false);
+
+    loaderView(context);
+    final dataGoogle = await auth.getDataGoogle();
+    Loader.hide();
+
+    if (dataGoogle[0] == 1) {
+      auth.setEmail = dataGoogle[1][0];
+      auth.nameUser = dataGoogle[1][1];
+      loaderView(context);
+      final resp = await auth.loginForGoogle(dataGoogle[1][2]);
+      Loader.hide();
+
+      if (resp[0] == 1) {
+        auth.idUser = resp[1];
+        user.idUser = resp[1];
+        Navigator.of(context).pushReplacementNamed('home');
+      }
+    }
   }
 
   _buttonRegister(BuildContext context) {
@@ -192,7 +219,7 @@ class _BodyOptionsRegister extends StatelessWidget {
       auth.setEmail = dataGoogle[1][0];
       auth.nameUser = dataGoogle[1][1];
       loaderView(context);
-      final resp = await auth.loginGoogle(dataGoogle[1][2]);
+      final resp = await auth.registerGoogle(dataGoogle[1][2]);
       Loader.hide();
       if (resp[0] == 1) {
         auth.idUser = resp[1];

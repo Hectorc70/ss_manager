@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:ss_manager/src/utils/preferences_user.dart';
+import 'package:ss_manager/src/widgets/utils_widgets.dart';
 
 class AuthProvider with ChangeNotifier {
   CollectionReference _users = FirebaseFirestore.instance.collection('users');
@@ -82,7 +83,7 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<dynamic> loginGoogle(credential) async {
+  Future<dynamic> registerGoogle(credential) async {
     try {
       final resp = await FirebaseAuth.instance.signInWithCredential(credential);
 
@@ -91,6 +92,36 @@ class AuthProvider with ChangeNotifier {
     } catch (e) {
       return [0, ''];
     }
+  }
+
+  Future<dynamic> loginForGoogle(credential) async {
+    final prefs = PreferencesUser();
+    try {
+      final resp = await FirebaseAuth.instance.signInWithCredential(credential);
+
+      String? idUser = resp.user?.uid;
+
+      final user = await _getUser(idUser);
+
+      if (user[0] == 0 && user[1].docs.length == 0) {
+        _idUser = idUser.toString();
+        final respSave = await saveUser();
+        if (respSave[0] == 1) {
+          messageOk('usuario Creado', 2);
+          return [1, idUser];
+        }
+      } else {
+        return [1, idUser];
+      }
+    } catch (e) {
+      return [0, ''];
+    }
+  }
+
+  Future _getUser(idUser) {
+    return _users.where('id', isEqualTo: idUser).get().then((value) {
+      return [0, value];
+    }).catchError((onError) => [1, onError.toString()]);
   }
 
   Future saveUser() {

@@ -7,11 +7,21 @@ import 'package:ss_manager/src/user/pages/business_page.dart';
 import 'package:ss_manager/src/user/pages/home_page.dart';
 import 'package:ss_manager/src/user/pages/inventory_page.dart';
 import 'package:ss_manager/src/user/pages/sale_page.dart';
+import 'package:ss_manager/src/utils/preferences_user.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
+    Map _initRoute = {};
+  final prefs = PreferencesUser();
+
+  if (prefs.dataUser == '') {
+    _initRoute['init'] = (BuildContext context) => TypeAuthPage();
+  } else {
+    _initRoute['init'] = (BuildContext context) => HomePage();
+  }
+
   
   return <String, WidgetBuilder>{
-    '/': (BuildContext context) => TypeAuthPage(),
+    '/': _initRoute['init'],
     'login': (BuildContext context) => LoginPage(),
     'typeRegister': (BuildContext context) => TypeRegisterPage(),
     'register': (BuildContext context) => RegisterPage(),
