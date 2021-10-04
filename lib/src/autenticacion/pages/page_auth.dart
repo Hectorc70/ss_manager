@@ -87,6 +87,7 @@ class _BodyOptions extends StatelessWidget {
   }
 
   Future _loginGoogle(BuildContext context) async {
+    final prefs = PreferencesUser();
     final auth = Provider.of<AuthProvider>(context, listen: false);
     final user = Provider.of<UserProvider>(context, listen: false);
 
@@ -103,6 +104,7 @@ class _BodyOptions extends StatelessWidget {
 
       if (resp[0] == 1) {
         auth.idUser = resp[1];
+        prefs.dataUser = resp[1];
         Navigator.of(context).pushReplacementNamed('home');
       }
     }
@@ -220,7 +222,7 @@ class _BodyOptionsRegister extends StatelessWidget {
         final respSave = await auth.saveUser();
         if (respSave[0] == 1) {
           prefs.dataUser = resp[1];
-
+      
           Navigator.of(context).pushReplacementNamed('home');
         } else {
           messageError(respSave[1], 2);

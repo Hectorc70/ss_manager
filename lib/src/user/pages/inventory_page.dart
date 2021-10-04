@@ -28,7 +28,6 @@ class _InventoryPageState extends State<InventoryPage> {
     super.initState();
 
     _loadData().then((value) {
-      print('');
     });
   }
 

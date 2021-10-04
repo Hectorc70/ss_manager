@@ -32,7 +32,7 @@ class ProductsProvider extends ChangeNotifier {
           'name': _dataNewProd.name,
           'price': _dataNewProd.price,
           'pieces': _dataNewProd.pieces,
-          'user': idUser,
+          'user':  _dataNewProd.idUser,
         })
         .then((value) => [0, 'Producto Agregado'])
         .catchError((onError) => [1, onError.toString()]);
