@@ -38,9 +38,9 @@ class PreferencesUser {
     this._prefs.setStringList('server', data);
   }
 
-  set dataUser(List<String> data) {
-    this._prefs.setStringList('dataUserAuth', data);
+  set dataUser(String data) {
+    this._prefs.setString('dataUserAuth', data);
   }
 
-  List<String> get dataUser => this._prefs.getStringList('dataUserAuth') ?? [];
+  String get dataUser => this._prefs.getString('dataUserAuth') ??'';
 }

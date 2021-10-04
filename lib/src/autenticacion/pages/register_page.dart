@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_manager/src/autenticacion/forms/login_form.dart';
 import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
+import 'package:ss_manager/src/utils/preferences_user.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
 
 import 'package:ss_manager/src/widgets/logo.dart';
 import 'package:ss_manager/src/widgets/page_widget.dart';
+import 'package:ss_manager/src/widgets/utils_widgets.dart';
 import 'package:ss_manager/src/widgets/widgets_body.dart';
 
 class RegisterPage extends StatelessWidget {
@@ -66,14 +69,16 @@ class _BodyOptions extends StatelessWidget {
             height: 20.0,
           ),
           OptionRegister(
-              functionAction: _googleRegister,
+              functionAction: () async {
+                await _googleRegister(context);
+              },
               text: 'Registrarse con Google',
               path: 'assets/images/google.png'),
           SizedBox(
             height: 20.0,
           ),
           OptionRegister(
-              functionAction: _emailRegister,
+              functionAction: () {},
               text: 'Registrarse con Correo ',
               path: 'assets/images/email.png')
         ],
@@ -81,14 +86,39 @@ class _BodyOptions extends StatelessWidget {
     );
   }
 
-  _googleRegister(BuildContext context) async {
+  Future _googleRegister(BuildContext context) async {
     final auth = Provider.of<AuthProvider>(context, listen: false);
-    final resp = await auth.registerGoogle();
+    PreferencesUser prefs = PreferencesUser();
+
+    loaderView(context);
+    final dataGoogle = await auth.getDataGoogle();
+    Loader.hide();
+
+    if (dataGoogle[0] == 1) {
+      auth.setEmail = dataGoogle[1][0];
+      auth.nameUser = dataGoogle[1][1];
+      loaderView(context);
+      final resp = await auth.loginGoogle(dataGoogle[1][2]);
+      Loader.hide();
+      if (resp[0] == 1) {
+        auth.idUser = resp[1];
+        final respSave = await auth.saveUser();
+        if (respSave[0] == 1) {
+          prefs.dataUser = resp[1];
+          Navigator.of(context).pushReplacementNamed('home');
+        } else {
+          messageError(respSave[1], 2);
+        }
+      } else {
+        Loader.hide();
+        messageError('No se pudo obtener informacion', 2);
+      }
+    }
   }
 
   _emailRegister(BuildContext context) async {
     final auth = Provider.of<AuthProvider>(context, listen: false);
-    final resp = await auth.registerUser();
+    final resp = await auth.registerUserForEmailFirebase();
   }
 }
 
@@ -103,9 +133,7 @@ class OptionRegister extends StatelessWidget {
   Widget build(BuildContext context) {
     final widthScreen = MediaQuery.of(context).size.width;
     return TextButton(
-        onPressed: () async {
-          functionAction(context);
-        },
+        onPressed: functionAction,
         child: Container(
           width: widthScreen,
           height: 55.0,

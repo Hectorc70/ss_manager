@@ -78,24 +78,9 @@ class LoginFormState extends State<LoginForm> {
                       ),
                       ButtonCustomSubmit(
                           textName: 'Login', functionAction: _validateForm),
-                      _buttonRegister(context)
                     ],
                   )))
         ]));
-  }
-
-  _buttonRegister(BuildContext context) {
-    return Row(
-      children: [
-        Text('No tienes Cuenta?'),
-        TextButton(
-            onPressed: () => Navigator.of(context).pushNamed('register'),
-            child: Text(
-              'Registrate',
-              style: TextStyle(fontWeight: FontWeight.w600),
-            ))
-      ],
-    );
   }
 
   _buttonChangePassword(BuildContext context) {
@@ -115,7 +100,7 @@ class LoginFormState extends State<LoginForm> {
       loaderView(context);
       auth.setEmail = controllerEmail.text;
       auth.setPassword = controllerPass.text;
-      final respLogin = await auth.loginUser();
+      final respLogin = await auth.loginUserForEmail();
 
       Loader.hide();
       if (respLogin[0] == 0) {
@@ -123,11 +108,8 @@ class LoginFormState extends State<LoginForm> {
       } else {
         user.idUser = respLogin[1];
         final prefs = PreferencesUser();
-        prefs.dataUser = [
-          controllerEmail.text,
-          controllerPass.text,
-          respLogin[1]
-        ];
+        prefs.dataUser = respLogin[1];
+
         Navigator.pushReplacementNamed(context, 'home');
       }
     }

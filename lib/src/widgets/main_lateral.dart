@@ -28,8 +28,8 @@ class LateralMain extends StatelessWidget {
           ),
           Expanded(
               child: ListView(children: [
-            _opcionMenu(context, 'Mis Negocios', ManagerIcons.market, colorB,
-                _goToBusiness),
+            _opcionMenu(
+                context, 'Cerrar Sesión', Icons.logout, colorB, _goToBusiness),
           ]))
         ]));
   }
