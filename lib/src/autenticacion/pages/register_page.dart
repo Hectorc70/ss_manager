@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_manager/src/autenticacion/forms/login_form.dart';
+import 'package:ss_manager/src/autenticacion/forms/register_form.dart';
 import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
 import 'package:ss_manager/src/utils/preferences_user.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
@@ -19,6 +20,7 @@ class RegisterPage extends StatelessWidget {
     final colorP = Theme.of(context).primaryColor;
     final colorSecond = Theme.of(context).colorScheme.secondary;
     return Scaffold(
+        resizeToAvoidBottomInset: true,
         appBar: AppBar(
           elevation: 0.0,
           toolbarHeight: 140.0,
@@ -44,7 +46,7 @@ class RegisterPage extends StatelessWidget {
             childWidget: _BodyOptions(),
             heightW: heightScreen,
             widthtW: widthScreen,
-            paddingW: EdgeInsets.all(35.0),
+            paddingW: EdgeInsets.only(top: 30.0, bottom: 30.0),
           )
         ]));
   }
@@ -62,63 +64,16 @@ class _BodyOptions extends StatelessWidget {
       child: Column(
         children: [
           NameSection(
-            textW: 'Registro',
+            textW: 'Registro por Email',
             childWidget: Text(''),
           ),
           SizedBox(
             height: 20.0,
           ),
-          OptionRegister(
-              functionAction: () async {
-                await _googleRegister(context);
-              },
-              text: 'Registrarse con Google',
-              path: 'assets/images/google.png'),
-          SizedBox(
-            height: 20.0,
-          ),
-          OptionRegister(
-              functionAction: () {},
-              text: 'Registrarse con Correo ',
-              path: 'assets/images/email.png')
+          Expanded(child: RegisterForm())
         ],
       ),
     );
-  }
-
-  Future _googleRegister(BuildContext context) async {
-    final auth = Provider.of<AuthProvider>(context, listen: false);
-    PreferencesUser prefs = PreferencesUser();
-
-    loaderView(context);
-    final dataGoogle = await auth.getDataGoogle();
-    Loader.hide();
-
-    if (dataGoogle[0] == 1) {
-      auth.setEmail = dataGoogle[1][0];
-      auth.nameUser = dataGoogle[1][1];
-      loaderView(context);
-      final resp = await auth.loginGoogle(dataGoogle[1][2]);
-      Loader.hide();
-      if (resp[0] == 1) {
-        auth.idUser = resp[1];
-        final respSave = await auth.saveUser();
-        if (respSave[0] == 1) {
-          prefs.dataUser = resp[1];
-          Navigator.of(context).pushReplacementNamed('home');
-        } else {
-          messageError(respSave[1], 2);
-        }
-      } else {
-        Loader.hide();
-        messageError('No se pudo obtener informacion', 2);
-      }
-    }
-  }
-
-  _emailRegister(BuildContext context) async {
-    final auth = Provider.of<AuthProvider>(context, listen: false);
-    final resp = await auth.registerUserForEmailFirebase();
   }
 }
 

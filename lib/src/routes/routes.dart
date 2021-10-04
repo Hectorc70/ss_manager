@@ -13,6 +13,7 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
   return <String, WidgetBuilder>{
     '/': (BuildContext context) => TypeAuthPage(),
     'login': (BuildContext context) => LoginPage(),
+    'typeRegister': (BuildContext context) => TypeRegisterPage(),
     'register': (BuildContext context) => RegisterPage(),
     'home': (BuildContext context) => HomePage(),
     'inventory': (BuildContext context) => InventoryPage(),
