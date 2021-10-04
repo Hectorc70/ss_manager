@@ -19,35 +19,30 @@ class TypeAuthPage extends StatelessWidget {
     final heightScreen = MediaQuery.of(context).size.height;
     final colorP = Theme.of(context).primaryColor;
     final colorSecond = Theme.of(context).colorScheme.secondary;
-    return Scaffold(
-        appBar: AppBar(
-          elevation: 0.0,
-          toolbarHeight: 140.0,
-          flexibleSpace: Container(
-              padding: EdgeInsets.only(left: 20.0, top: 20.0),
-              child: logoApp(context, Text(''))),
-          leading: IconButton(
-            alignment: AlignmentDirectional.topStart,
-            icon: Icon(
-              Icons.arrow_back_ios_new,
-              color: colorSecond,
-              size: 30.0,
+    return WillPopScope(
+        child: Scaffold(
+            appBar: AppBar(
+              elevation: 0.0,
+              toolbarHeight: 140.0,
+              flexibleSpace: Container(
+                  padding: EdgeInsets.only(left: 20.0, top: 20.0),
+                  child: logoApp(context, Text(''))),
             ),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-        ),
-        body: Stack(children: [
-          Container(
-            color: colorP,
-            height: heightScreen,
-          ),
-          BodyCustomWidget(
-            childWidget: _BodyOptions(),
-            heightW: heightScreen,
-            widthtW: widthScreen,
-            paddingW: EdgeInsets.all(35.0),
-          )
-        ]));
+            body: Stack(children: [
+              Container(
+                color: colorP,
+                height: heightScreen,
+              ),
+              BodyCustomWidget(
+                childWidget: _BodyOptions(),
+                heightW: heightScreen,
+                widthtW: widthScreen,
+                paddingW: EdgeInsets.all(35.0),
+              )
+            ])),
+        onWillPop: () {
+          return new Future(() => false);
+        });
   }
 }
 

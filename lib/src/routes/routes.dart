@@ -10,7 +10,7 @@ import 'package:ss_manager/src/user/pages/sale_page.dart';
 import 'package:ss_manager/src/utils/preferences_user.dart';
 
 Map<String, WidgetBuilder> getApplicationRoutes() {
-    Map _initRoute = {};
+  Map _initRoute = {};
   final prefs = PreferencesUser();
 
   if (prefs.dataUser == '') {
@@ -19,16 +19,15 @@ Map<String, WidgetBuilder> getApplicationRoutes() {
     _initRoute['init'] = (BuildContext context) => HomePage();
   }
 
-  
   return <String, WidgetBuilder>{
     '/': _initRoute['init'],
     'login': (BuildContext context) => LoginPage(),
+    'typeLogin': (BuildContext context) => TypeAuthPage(),
     'typeRegister': (BuildContext context) => TypeRegisterPage(),
     'register': (BuildContext context) => RegisterPage(),
     'home': (BuildContext context) => HomePage(),
     'inventory': (BuildContext context) => InventoryPage(),
     'sales': (BuildContext context) => SalePage(),
-
     'business': (BuildContext context) => BusinessPage(),
   };
 }

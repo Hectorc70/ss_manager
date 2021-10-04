@@ -39,48 +39,33 @@ class LoginFormState extends State<LoginForm> {
     final width = MediaQuery.of(context).size.width;
     return Form(
         key: _formKey,
-        child: Column(children: [
-          Text(
-            'Iniciar Sesión',
-            style: TextStyle(
-                color: Color.fromRGBO(46, 46, 46, 1),
-                fontWeight: FontWeight.w600,
-                fontSize: 22.0),
-          ),
-          SizedBox(
-            height: 30.0,
-          ),
-          Expanded(
-              child: Padding(
-                  padding: EdgeInsets.only(
-                      bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: ListView(
-                    children: [
-                      FieldInputCustom(
-                          controllerField: controllerEmail,
-                          hintTextC: 'correo@gmail.com',
-                          labelTextInput: 'Correo Electronico'),
-                      SizedBox(
-                        height: 25.0,
-                      ),
-                      FieldInputCustom(
-                        controllerField: controllerPass,
-                        hintTextC: '******',
-                        labelTextInput: 'Contraseña',
-                        textNotVisible: true,
-                      ),
-                      SizedBox(
-                        height: 2.0,
-                      ),
-                      _buttonChangePassword(context),
-                      SizedBox(
-                        height: 30.0,
-                      ),
-                      ButtonCustomSubmit(
-                          textName: 'Login', functionAction: _validateForm),
-                    ],
-                  )))
-        ]));
+        child: ListView(
+          padding: EdgeInsetsDirectional.only(start: 25.0, end: 25.0),
+          children: [
+            FieldInputCustom(
+                controllerField: controllerEmail,
+                hintTextC: 'correo@gmail.com',
+                labelTextInput: 'Correo Electronico'),
+            SizedBox(
+              height: 25.0,
+            ),
+            FieldInputCustom(
+              controllerField: controllerPass,
+              hintTextC: '******',
+              labelTextInput: 'Contraseña',
+              textNotVisible: true,
+            ),
+            SizedBox(
+              height: 2.0,
+            ),
+            //_buttonChangePassword(context),
+            SizedBox(
+              height: 30.0,
+            ),
+            ButtonCustomSubmit(
+                textName: 'Login', functionAction: _validateForm),
+          ],
+        ));
   }
 
   _buttonChangePassword(BuildContext context) {

@@ -42,5 +42,9 @@ class PreferencesUser {
     this._prefs.setString('dataUserAuth', data);
   }
 
-  String get dataUser => this._prefs.getString('dataUserAuth') ??'';
+  String get dataUser => this._prefs.getString('dataUserAuth') ?? '';
+
+  Future removePrefsUser() async {
+    await this._prefs.remove('dataUserAuth');
+  }
 }
