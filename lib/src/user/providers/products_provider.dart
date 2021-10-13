@@ -9,11 +9,6 @@ class ProductsProvider extends ChangeNotifier {
 
   ProductModel _dataNewProd = ProductModel();
   List<ProductModel> _productsDB = [];
-
-  String _name = '';
-  String _mount = '';
-  String _pieces = '';
-
   set productsDB(List<ProductModel> prods) {
     _productsDB = prods;
     notifyListeners();
@@ -26,7 +21,7 @@ class ProductsProvider extends ChangeNotifier {
 
   List<ProductModel> get productsDB => _productsDB;
 
-  Future newProduct(idUser) {
+  Future newProduct() {
     return _products
         .add({
           'name': _dataNewProd.name,

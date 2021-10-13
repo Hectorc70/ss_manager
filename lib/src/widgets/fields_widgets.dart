@@ -187,6 +187,7 @@ class FieldSelectForm extends StatelessWidget {
       @required this.labelTextInput,
       @required this.controllerField,
       @required this.items,
+      this.functionOnChanged,
       this.typeDrop = SelectFormFieldType.dialog,
       Key? key})
       : super(key: key);
@@ -194,6 +195,7 @@ class FieldSelectForm extends StatelessWidget {
   final hintTextC;
   final labelTextInput;
   final controllerField;
+  final functionOnChanged;
   List<Map<String, String>>? items;
   SelectFormFieldType typeDrop;
 
@@ -226,6 +228,9 @@ class FieldSelectForm extends StatelessWidget {
             ),
           ),
           SelectFormField(
+            onChanged: (value) async {
+              await functionOnChanged(context);
+            },
             hintText: hintTextC,
             dialogCancelBtn: 'Cancelar',
             dialogTitle: labelTextInput,

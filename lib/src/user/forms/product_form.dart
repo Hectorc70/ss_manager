@@ -149,7 +149,7 @@ class _ProductFormState extends State<ProductForm> {
       }, 'id');
 
       products.dataNewProduct = productNew;
-      final resp = await products.newProduct(user.userData);
+      final resp = await products.newProduct();
 
       if (resp[0] == 0) {
         Navigator.of(context).pop();

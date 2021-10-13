@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:select_form_field/select_form_field.dart';
+import 'package:ss_manager/src/user/providers/products_provider.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
 import 'package:ss_manager/src/widgets/fields_widgets.dart';
 import 'package:ss_manager/src/widgets/utils_widgets.dart';
@@ -22,6 +23,7 @@ class SaleFormState extends State<SaleForm> {
   @override
   void initState() {
     super.initState();
+
     controllerMount.text = '0.0';
     controllerPieces.text = '1';
   }
@@ -54,6 +56,7 @@ class SaleFormState extends State<SaleForm> {
                 ),
                 FieldSelectForm(
                   hintTextC: 'Selecciona un Producto',
+                  functionOnChanged: _loadDataProduct,
                   controllerField: controllerName,
                   typeDrop: SelectFormFieldType.dialog,
                   labelTextInput: 'Nombre de Producto',
@@ -106,6 +109,10 @@ class SaleFormState extends State<SaleForm> {
                 )
               ]),
             )));
+  }
+
+  _loadDataProduct(BuildContext context) {
+    final products = Provider.of<ProductsProvider>(context, listen: false);
   }
 
   _add(BuildContext context) {}
