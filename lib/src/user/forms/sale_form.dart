@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:provider/provider.dart';
 import 'package:select_form_field/select_form_field.dart';
+import 'package:ss_manager/src/autenticacion/providers/user_provider.dart';
 import 'package:ss_manager/src/user/providers/products_provider.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
 import 'package:ss_manager/src/widgets/fields_widgets.dart';
@@ -39,7 +41,7 @@ class SaleFormState extends State<SaleForm> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
+    final products = Provider.of<ProductsProvider>(context);
     return Material(
         child: Form(
             key: _formKey,
@@ -55,15 +57,12 @@ class SaleFormState extends State<SaleForm> {
                   height: 20.0,
                 ),
                 FieldSelectForm(
-                  hintTextC: 'Selecciona un Producto',
-                  functionOnChanged: _loadDataProduct,
-                  controllerField: controllerName,
-                  typeDrop: SelectFormFieldType.dialog,
-                  labelTextInput: 'Nombre de Producto',
-                  items: [
-                    {'value': '', 'label': 'sfsd'}
-                  ],
-                ),
+                    hintTextC: 'Selecciona un Producto',
+                    functionOnChanged: _loadDataProduct,
+                    controllerField: controllerName,
+                    typeDrop: SelectFormFieldType.dialog,
+                    labelTextInput: 'Nombre de Producto',
+                    items: products.productsSelect),
                 SizedBox(height: 10.0),
                 FieldInputMountCustom(
                   controllerField: controllerMount,
@@ -111,26 +110,37 @@ class SaleFormState extends State<SaleForm> {
             )));
   }
 
-  _loadDataProduct(BuildContext context) {
+  Future _loadDataProduct(BuildContext context, value) async {
     final products = Provider.of<ProductsProvider>(context, listen: false);
+    final prodSelect = products.productsDBMap[value];
+
+    controllerMount.text = prodSelect!.price;
+    final total =
+        double.parse(prodSelect.price) * int.parse(controllerPieces.text);
+    controllerTotal.text = total.toString();
   }
 
   _add(BuildContext context) {}
 
   _addPiece(BuildContext context) {
-    final total = controllerTotal.text;
+    final price = controllerMount.text;
     final mount = controllerPieces.text;
     int mountF = int.parse(mount);
     mountF = mountF + 1;
+    final newTotal = double.parse(price) * mountF;
     controllerPieces.text = mountF.toString();
+    controllerTotal.text = newTotal.toString();
   }
 
   _removePiece(BuildContext context) {
     final mount = controllerPieces.text;
+    final price = controllerMount.text;
     int mountF = int.parse(mount);
-    if (mountF > 0) {
+    if (mountF > 1) {
       mountF = mountF - 1;
+      final newTotal = double.parse(price) * mountF;
       controllerPieces.text = mountF.toString();
+      controllerTotal.text = newTotal.toString();
     }
   }
 

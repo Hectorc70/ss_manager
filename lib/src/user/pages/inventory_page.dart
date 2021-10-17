@@ -27,8 +27,7 @@ class _InventoryPageState extends State<InventoryPage> {
   void initState() {
     super.initState();
 
-    _loadData().then((value) {
-    });
+    _loadData().then((value) {});
   }
 
   @override
@@ -131,8 +130,10 @@ class _InventoryPageState extends State<InventoryPage> {
     final resp = await products.getProducts(user.userData.id);
 
     if (resp[0] == 1) {
-      final data = resp[1];
+      final data = resp[1].items;
       products.productsDB = data;
+      products.productsDBMap = resp[1].products;
+      products.productsSelect = resp[1].itemsSelect;
     } else {
       messageError(resp[1].toString(), 2);
     }
@@ -305,8 +306,10 @@ class _BodyInventoryState extends State<_BodyInventory> {
     final resp = await products.getProducts(user.userData.id);
 
     if (resp[0] == 1) {
-      final data = resp[1];
+      final data = resp[1].items;
       products.productsDB = data;
+      products.productsDBMap = resp[1].products;
+      products.productsSelect = resp[1].itemsSelect;
     } else {
       messageError(resp[1].toString(), 2);
     }
