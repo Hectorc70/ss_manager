@@ -1,4 +1,21 @@
+class Sales {
+  double total = 0.0;
+  List<SaleModel> items = [];
 
+  Sales();
+
+  Sales.fromFirebase(List<dynamic> jsonList) {
+    if (jsonList == null || jsonList == 0) return;
+
+    for (final item in jsonList) {
+      final sale =
+          SaleModel.fromJson(item.data() as Map<String, dynamic>, item.id);
+
+      total = total + double.parse(sale.total);
+      items.add(sale);
+    }
+  }
+}
 
 class SaleModel {
   final idDocument;

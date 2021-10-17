@@ -27,10 +27,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
-    _loadData().then((value) {
-      print('');
-    });
+    _loadData().then((value) {});
   }
 
   @override
@@ -95,16 +92,24 @@ class _HomePageState extends State<HomePage> {
   Future _loadData() async {
     final prefs = PreferencesUser();
     final user = Provider.of<UserProvider>(context, listen: false);
+    final sales = Provider.of<SaleProvider>(context, listen: false);
 
     final resp = await user.getDataUser(prefs.dataUser);
+    final data = await sales.getSalesToday(prefs.dataUser);
 
     if (resp[0] == 1) {
       user.userData = resp[1];
+    }
+
+    if (data[0] == 1) {
+      sales.salesTodayDB = data[1].items;
+      sales.totalToday = data[1].total;
     }
   }
 
   Widget _dataSaleToday(BuildContext context) {
     final widthScreen = MediaQuery.of(context).size.width;
+    final sales = Provider.of<SaleProvider>(context, listen: false);
     return Container(
       padding: EdgeInsets.only(left: 40.0),
       width: widthScreen,
@@ -118,7 +123,7 @@ class _HomePageState extends State<HomePage> {
             style: TextStyle(color: Colors.white, fontSize: 16.0),
           ),
           Text(
-            '\$ 50.0',
+            '\$ ${sales.totalToday.toString()}',
             style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
