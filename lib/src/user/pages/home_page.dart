@@ -141,20 +141,67 @@ class _BodyHome extends StatelessWidget {
     final colorP = Theme.of(context).colorScheme.secondaryVariant;
     final widthScreen = MediaQuery.of(context).size.width;
     final heightScreen = MediaQuery.of(context).size.height;
-    return Container(
-      alignment: AlignmentDirectional.center,
-      width: double.infinity,
-      child: Column(
-        children: [
-          NameSection(
-            textW: 'Ventas Recientes',
-            childWidget: ButtonTitleAdd(
-              functionAction: _addNewSale,
+    final sales = Provider.of<SaleProvider>(context, listen: false);
+
+    if (sales.salesTodayDB.length == 0) {
+      return Container(
+        alignment: AlignmentDirectional.center,
+        width: double.infinity,
+        child: Column(
+          children: [
+            NameSection(
+              textW: 'Ventas Recientes',
+              childWidget: ButtonTitleAdd(
+                functionAction: _addNewSale,
+              ),
             ),
-          )
-        ],
-      ),
-    );
+            SizedBox(
+              height: 50.0,
+            ),
+            Center(
+              child: RefreshIndicator(
+                  onRefresh: () async {}, child: Text('Sin Productos')),
+            )
+          ],
+        ),
+      );
+    } else {
+      return Container(
+        alignment: AlignmentDirectional.center,
+        width: double.infinity,
+        child: Column(
+          children: [
+            NameSection(
+              textW: 'Ventas Recientes',
+              childWidget: ButtonTitleAdd(
+                functionAction: _addNewSale,
+              ),
+            ),
+            SizedBox(
+              height: 5.0,
+            ),
+            Expanded(
+              child: RefreshIndicator(
+                  onRefresh: () async {},
+                  child: ListView.builder(
+                      itemCount: sales.salesTodayDB.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          children: [
+                            CardSale(
+                              title: sales.salesTodayDB[index].product,
+                            ),
+                            SizedBox(
+                              height: 10.0,
+                            )
+                          ],
+                        );
+                      })),
+            )
+          ],
+        ),
+      );
+    }
   }
 
   _addNewSale(BuildContext context) async {

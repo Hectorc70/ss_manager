@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class NameSection extends StatelessWidget {
@@ -139,5 +141,119 @@ class CardItem extends StatelessWidget {
             ],
           ),
         ));
+  }
+}
+
+class CardSale extends StatefulWidget {
+  CardSale({this.title, Key? key}) : super(key: key);
+
+  final title;
+  @override
+  _CardSaleState createState() => _CardSaleState();
+}
+
+class _CardSaleState extends State<CardSale> {
+  _colorRamdom() {
+    List<Color> colors = [
+      Color.fromRGBO(148, 197, 136, 1),
+      Color.fromRGBO(197, 136, 136, 1),
+      Color.fromRGBO(163, 136, 197, 1),
+      Color.fromRGBO(136, 171, 197, 1),
+    ];
+
+    final ramdom = Random();
+    final numIndex = ramdom.nextInt(4);
+    //print(colors[numIndex]);
+    return colors[numIndex];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colorTextName = Color.fromRGBO(119, 115, 115, 1);
+    final widthScreen = MediaQuery.of(context).size.width;
+    return Container(
+      width: widthScreen,
+      child: Stack(
+        children: [
+          Align(
+            alignment: AlignmentDirectional.centerEnd,
+            child: Container(
+              padding: EdgeInsetsDirectional.all(5.0),
+              width: widthScreen - 100.0,
+              height: 80,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(10.0),
+                  ),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                        color: Colors.grey.shade100,
+                        blurRadius: 10.0,
+                        spreadRadius: 5.0)
+                  ]),
+              child: Row(
+                children: [
+                  Text(
+                    widget.title,
+                    style: TextStyle(
+                        color: colorTextName,
+                        fontFamily: 'PoppinsBold',
+                        fontSize: 16.0),
+                  ),
+                  Expanded(child: SizedBox()),
+                  Column(
+                    children: [
+                      Text(
+                        '\$ data',
+                        style: TextStyle(
+                            color: colorTextName,
+                            fontFamily: 'PoppinsBold',
+                            fontSize: 16.0),
+                      ),
+                      Text(
+                        'data',
+                        style: TextStyle(
+                            color: colorTextName,
+                            fontFamily: 'Poppins',
+                            fontSize: 16.0),
+                      )
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 100.0,
+          ),
+          Container(
+            width: 70,
+            height: 70,
+            alignment: AlignmentDirectional.center,
+            decoration: BoxDecoration(
+              color: _colorRamdom(),
+              borderRadius: BorderRadius.all(
+                Radius.circular(35.0),
+              ),
+              boxShadow: <BoxShadow>[
+                BoxShadow(
+                    color: Colors.grey.shade100,
+                    blurRadius: 10.0,
+                    spreadRadius: 5.0)
+              ],
+            ),
+            child: Text(
+              '${widget.title[0]}',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'PoppinsBold',
+                  fontSize: 30.0),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
