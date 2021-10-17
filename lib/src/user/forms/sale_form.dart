@@ -3,7 +3,9 @@ import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:provider/provider.dart';
 import 'package:select_form_field/select_form_field.dart';
 import 'package:ss_manager/src/autenticacion/providers/user_provider.dart';
+import 'package:ss_manager/src/user/models/sales_model.dart';
 import 'package:ss_manager/src/user/providers/products_provider.dart';
+import 'package:ss_manager/src/user/providers/sales_provider.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
 import 'package:ss_manager/src/widgets/fields_widgets.dart';
 import 'package:ss_manager/src/widgets/utils_widgets.dart';
@@ -149,8 +151,31 @@ class SaleFormState extends State<SaleForm> {
   }
 
   _submitProduct(BuildContext context) async {
-    if (_formKey.currentState!.validate()) {}
+    if (_formKey.currentState!.validate()) {
+      final user = Provider.of<UserProvider>(context, listen: false);
+      final sale = Provider.of<SaleProvider>(context, listen: false);
+
+      SaleModel newSale = SaleModel.fromJson({
+        'product': controllerName.text,
+        'pieces': controllerPieces.text,
+        'total': controllerTotal.text,
+        'idUser': user.userData.id,
+      }, 'id');
+
+      sale.dataNewSale = newSale;
+      loaderView(context);
+      final resp = await sale.newSale();
+      Loader.hide();
+      if (resp[0] == 1) {
+        Navigator.of(context).pop();
+        messageOk('Venta Realizada', 2);
+      } else {
+        messageError(resp[1], 2);
+      }
+    }
   }
 
-  _cancelAction(BuildContext context) {}
+  _cancelAction(BuildContext context) {
+    Navigator.of(context).pop();
+  }
 }

@@ -22,6 +22,6 @@ class SaleModel {
         pieces: data['pieces'],
         total: data['total'],
         date: data['date'],
-        idUser: data['user'],
+        idUser: data['idUser'],
       );
 }

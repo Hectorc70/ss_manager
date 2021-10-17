@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:ss_manager/src/user/models/sales_model.dart';
 
 class SaleProvider extends ChangeNotifier {
-   CollectionReference _sales =
-      FirebaseFirestore.instance.collection('sales');
+  CollectionReference _sales = FirebaseFirestore.instance.collection('sales');
 
   SaleModel _newSale = SaleModel();
 
@@ -13,14 +12,15 @@ class SaleProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-  Future newProduct() {
+  Future newSale() {
+    final today = DateTime.now();
     return _sales
         .add({
           'product': _newSale.product,
           'total': _newSale.total,
           'pieces': _newSale.pieces,
-          'user':  _newSale.idUser,
+          'user': _newSale.idUser,
+          'date': today,
         })
         .then((value) => [1, 'Venta Agregada'])
         .catchError((onError) => [0, onError.toString()]);

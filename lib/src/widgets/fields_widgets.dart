@@ -231,6 +231,7 @@ class FieldSelectForm extends StatelessWidget {
               onChanged: (value) async {
                 await functionOnChanged(context, value);
               },
+              controller: controllerField,
               hintText: hintTextC,
               dialogCancelBtn: 'Cancelar',
               dialogTitle: labelTextInput,
