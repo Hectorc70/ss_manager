@@ -164,15 +164,26 @@ class SaleFormState extends State<SaleForm> {
         'idUser': user.userData.id,
       }, 'id');
 
-      sale.dataNewSale = newSale;
-      loaderView(context);
-      final resp = await sale.newSale();
-      Loader.hide();
-      if (resp[0] == 1) {
-        Navigator.of(context).pop();
-        messageOk('Venta Realizada', 2);
+      if (int.parse(controllerPieces.text) <=
+          int.parse(products.productsDBMap[controllerName.text]?.pieces)) {
+        sale.dataNewSale = newSale;
+        loaderView(context);
+        final resp = await sale.newSale();
+        final respEdit = await products.editProduct(
+            products.productsDBMap[controllerName.text]?.idDocument,
+            products.productsDBMap[controllerName.text]?.pieces,
+            controllerPieces.text);
+        Loader.hide();
+        if (resp[0] == 1) {
+          Navigator.of(context).pop();
+          messageOk('Venta Realizada', 2);
+        } else {
+          messageError(resp[1], 2);
+        }
       } else {
-        messageError(resp[1], 2);
+        messageError(
+            'Solo puedes Vender ${products.productsDBMap[controllerName.text]?.pieces} o menos',
+            2);
       }
     }
   }

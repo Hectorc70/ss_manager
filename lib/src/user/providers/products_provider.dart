@@ -48,6 +48,16 @@ class ProductsProvider extends ChangeNotifier {
         .catchError((onError) => [1, onError.toString()]);
   }
 
+  Future editProduct(idDoc, pieces, piecesSale) {
+    final newpieces = int.parse(pieces) - int.parse(piecesSale);
+
+    return _products
+        .doc(idDoc)
+        .update({'pieces': newpieces.toString()})
+        .then((value) => [0, 'Producto Editado'])
+        .catchError((onError) => [1, onError.toString()]);
+  }
+
   Future getProducts(idUser) async {
     return _products.where('user', isEqualTo: idUser).get().then((value) {
       Products data = Products.fromFirebase(value.docs);
