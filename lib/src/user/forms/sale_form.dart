@@ -169,7 +169,7 @@ class SaleFormState extends State<SaleForm> {
         sale.dataNewSale = newSale;
         loaderView(context);
         final resp = await sale.newSale();
-        final respEdit = await products.editProduct(
+        final respEdit = await products.editPieces(
             products.productsDBMap[controllerName.text]?.idDocument,
             products.productsDBMap[controllerName.text]?.pieces,
             controllerPieces.text);

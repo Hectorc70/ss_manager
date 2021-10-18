@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_manager/src/autenticacion/providers/user_provider.dart';
 import 'package:ss_manager/src/user/forms/product_form.dart';
@@ -228,7 +229,7 @@ class _BodyInventory extends StatefulWidget {
 class _BodyInventoryState extends State<_BodyInventory> {
   @override
   Widget build(BuildContext context) {
-    final products = Provider.of<ProductsProvider>(context, listen: false);
+    final products = Provider.of<ProductsProvider>(context);
     final colorIcons = const Color.fromRGBO(193, 199, 255, 1);
 
     if (products.productsDB.length == 0) {
@@ -290,7 +291,9 @@ class _BodyInventoryState extends State<_BodyInventory> {
                           pieces: products.productsDB[index].pieces,
                           nameProduct: products.productsDB[index].name,
                           price: products.productsDB[index].price,
-                          functionAction: _viewDetail,
+                          functionAction: () {
+                            _viewDetail(context, products.productsDB[index]);
+                          },
                         );
                       })),
             )
@@ -303,24 +306,30 @@ class _BodyInventoryState extends State<_BodyInventory> {
   Future _loadData() async {
     final products = Provider.of<ProductsProvider>(context, listen: false);
     final user = Provider.of<UserProvider>(context, listen: false);
-
-    if (products.productsDB.length == 0) {
-      final resp = await products.getProducts(user.userData.id);
-
-      if (resp[0] == 1) {
-        final data = resp[1].items;
-        products.productsDB = data;
-        products.productsDBMap = resp[1].products;
-        products.productsSelect = resp[1].itemsSelect;
-      } else {
-        messageError(resp[1].toString(), 2);
-      }
+    loaderView(context);
+    final resp = await products.getProducts(user.userData.id);
+    Loader.hide();
+    if (resp[0] == 1) {
+      final data = resp[1].items;
+      products.productsDB = data;
+      products.productsDBMap = resp[1].products;
+      products.productsSelect = resp[1].itemsSelect;
+    } else {
+      messageError(resp[1].toString(), 2);
     }
   }
 
   _addNewProduct(BuildContext context) async {
-    conteDialogBottom(context, ProductForm());
+    conteDialogBottom(context, ProductForm(type: 'new'));
   }
 
-  _viewDetail(BuildContext context) {}
+  _viewDetail(BuildContext context, product) {
+    final products = Provider.of<ProductsProvider>(context, listen: false);
+    products.selectProduct = product;
+    conteDialogBottom(
+        context,
+        ProductForm(
+          type: 'edit',
+        ));
+  }
 }

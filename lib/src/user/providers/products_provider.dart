@@ -12,6 +12,8 @@ class ProductsProvider extends ChangeNotifier {
   Map<String, ProductModel> _productsDBMap = {};
   List<Map<String, String>> _productsSelect = [];
 
+  ProductModel _selectProduct = ProductModel();
+
   set productsSelect(prods) {
     _productsSelect = prods;
     notifyListeners();
@@ -36,6 +38,13 @@ class ProductsProvider extends ChangeNotifier {
   Map<String, ProductModel> get productsDBMap => _productsDBMap;
   List<Map<String, String>> get productsSelect => _productsSelect;
 
+  set selectProduct(ProductModel prod) {
+    _selectProduct = prod;
+    notifyListeners();
+  }
+
+  ProductModel get selectProduct => _selectProduct;
+
   Future newProduct() {
     return _products
         .add({
@@ -48,12 +57,24 @@ class ProductsProvider extends ChangeNotifier {
         .catchError((onError) => [1, onError.toString()]);
   }
 
-  Future editProduct(idDoc, pieces, piecesSale) {
+  Future editPieces(idDoc, pieces, piecesSale) {
     final newpieces = int.parse(pieces) - int.parse(piecesSale);
 
     return _products
         .doc(idDoc)
         .update({'pieces': newpieces.toString()})
+        .then((value) => [0, 'Producto Editado'])
+        .catchError((onError) => [1, onError.toString()]);
+  }
+
+  Future editProduct(idDoc, data) {
+    return _products
+        .doc(idDoc)
+        .update({
+          'name': data['name'],
+          'price': data['price'],
+          'pieces': data['pieces'],
+        })
         .then((value) => [0, 'Producto Editado'])
         .catchError((onError) => [1, onError.toString()]);
   }

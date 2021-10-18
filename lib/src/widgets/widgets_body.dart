@@ -54,9 +54,7 @@ class CardItem extends StatelessWidget {
     final colorContePieces = Color.fromRGBO(42, 186, 186, 1);
     final colorTextName = Color.fromRGBO(119, 115, 115, 1);
     return TextButton(
-        onPressed: () async {
-          functionAction(context);
-        },
+        onPressed: functionAction,
         child: Container(
           width: widthScreen,
           height: heightWidget,
