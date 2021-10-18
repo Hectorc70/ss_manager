@@ -126,16 +126,17 @@ class _InventoryPageState extends State<InventoryPage> {
     setState(() {
       isLoading = true;
     });
+    if (products.productsDB.length == 0) {
+      final resp = await products.getProducts(user.userData.id);
 
-    final resp = await products.getProducts(user.userData.id);
-
-    if (resp[0] == 1) {
-      final data = resp[1].items;
-      products.productsDB = data;
-      products.productsDBMap = resp[1].products;
-      products.productsSelect = resp[1].itemsSelect;
-    } else {
-      messageError(resp[1].toString(), 2);
+      if (resp[0] == 1) {
+        final data = resp[1].items;
+        products.productsDB = data;
+        products.productsDBMap = resp[1].products;
+        products.productsSelect = resp[1].itemsSelect;
+      } else {
+        messageError(resp[1].toString(), 2);
+      }
     }
 
     setState(() {
@@ -303,15 +304,17 @@ class _BodyInventoryState extends State<_BodyInventory> {
     final products = Provider.of<ProductsProvider>(context, listen: false);
     final user = Provider.of<UserProvider>(context, listen: false);
 
-    final resp = await products.getProducts(user.userData.id);
+    if (products.productsDB.length == 0) {
+      final resp = await products.getProducts(user.userData.id);
 
-    if (resp[0] == 1) {
-      final data = resp[1].items;
-      products.productsDB = data;
-      products.productsDBMap = resp[1].products;
-      products.productsSelect = resp[1].itemsSelect;
-    } else {
-      messageError(resp[1].toString(), 2);
+      if (resp[0] == 1) {
+        final data = resp[1].items;
+        products.productsDB = data;
+        products.productsDBMap = resp[1].products;
+        products.productsSelect = resp[1].itemsSelect;
+      } else {
+        messageError(resp[1].toString(), 2);
+      }
     }
   }
 

@@ -95,15 +95,18 @@ class _HomePageState extends State<HomePage> {
     final sales = Provider.of<SaleProvider>(context, listen: false);
 
     final resp = await user.getDataUser(prefs.dataUser);
-    final data = await sales.getSalesToday(prefs.dataUser);
 
     if (resp[0] == 1) {
       user.userData = resp[1];
     }
 
-    if (data[0] == 1) {
-      sales.salesTodayDB = data[1].items;
-      sales.totalToday = data[1].total;
+    if (sales.salesTodayDB.length == 0) {
+      final data = await sales.getSalesToday(prefs.dataUser);
+
+      if (data[0] == 1) {
+        sales.salesTodayDB = data[1].items;
+        sales.totalToday = data[1].total;
+      }
     }
   }
 
@@ -141,7 +144,7 @@ class _BodyHome extends StatelessWidget {
     final colorP = Theme.of(context).colorScheme.secondaryVariant;
     final widthScreen = MediaQuery.of(context).size.width;
     final heightScreen = MediaQuery.of(context).size.height;
-    final sales = Provider.of<SaleProvider>(context, listen: false);
+    final sales = Provider.of<SaleProvider>(context);
 
     if (sales.salesTodayDB.length == 0) {
       return Container(

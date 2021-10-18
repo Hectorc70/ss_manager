@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_manager/src/user/forms/sale_form.dart';
 import 'package:ss_manager/src/user/providers/sales_provider.dart';
+import 'package:ss_manager/src/utils/preferences_user.dart';
 
 import 'package:ss_manager/src/widgets/bottom_nav_widget.dart';
 import 'package:ss_manager/src/widgets/buttons_widget.dart';
@@ -11,8 +12,33 @@ import 'package:ss_manager/src/widgets/page_widget.dart';
 import 'package:ss_manager/src/widgets/utils_widgets.dart';
 import 'package:ss_manager/src/widgets/widgets_body.dart';
 
-class SalePage extends StatelessWidget {
+class SalePage extends StatefulWidget {
+  @override
+  State<SalePage> createState() => _SalePageState();
+}
+
+class _SalePageState extends State<SalePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
+  @override
+  initState() {
+    _load().then((value) => null);
+    super.initState();
+  }
+
+  Future _load() async {
+    final prefs = PreferencesUser();
+    final sales = Provider.of<SaleProvider>(context, listen: false);
+
+    if (sales.salesTodayDB.length  == 0) {
+      final data = await sales.getSalesToday(prefs.dataUser);
+      if (data[0] == 1) {
+        sales.salesTodayDB = data[1].items;
+        sales.totalToday = data[1].total;
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final colorP = Theme.of(context).primaryColor;
@@ -58,7 +84,7 @@ class SalePage extends StatelessWidget {
                 childWidget: _Body(),
                 heightW: heightScreen,
                 widthtW: widthScreen,
-                paddingW: EdgeInsets.all(35.0),
+                paddingW: EdgeInsets.all(0.0),
               ),
             ],
           ),
@@ -76,6 +102,7 @@ class _Body extends StatelessWidget {
     final colorP = Theme.of(context).colorScheme.secondaryVariant;
     final widthScreen = MediaQuery.of(context).size.width;
     final heightScreen = MediaQuery.of(context).size.height;
+    final sales = Provider.of<SaleProvider>(context);
     return Container(
       alignment: AlignmentDirectional.center,
       width: double.infinity,
@@ -90,6 +117,29 @@ class _Body extends StatelessWidget {
           SizedBox(
             height: 30.0,
           ),
+          Expanded(
+            child: RefreshIndicator(
+                onRefresh: () async {},
+                child: ListView.builder(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 10.0),
+                    itemCount: sales.salesTodayDB.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return Column(
+                        children: [
+                          CardSale(
+                            title: sales.salesTodayDB[index].product,
+                            pieces: sales.salesTodayDB[index].pieces,
+                            total: sales.salesTodayDB[index].total,
+                            functionAction: () {},
+                          ),
+                          SizedBox(
+                            height: 10.0,
+                          )
+                        ],
+                      );
+                    })),
+          )
         ],
       ),
     );
