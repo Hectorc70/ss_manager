@@ -20,6 +20,7 @@ class Sales {
 class SaleModel {
   final idDocument;
   final product;
+  final idProduct;
   final pieces;
   final total;
   final date;
@@ -27,6 +28,7 @@ class SaleModel {
   SaleModel({
     this.idDocument,
     this.product,
+    this.idProduct,
     this.pieces,
     this.total,
     this.date,
@@ -36,6 +38,7 @@ class SaleModel {
   factory SaleModel.fromJson(Map<String, dynamic> data, id) => SaleModel(
         idDocument: id,
         product: data['product'],
+        idProduct: data['idProduct'],
         pieces: data['pieces'],
         total: data['total'],
         date: data['date'],

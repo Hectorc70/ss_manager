@@ -145,9 +145,13 @@ class CardItem extends StatelessWidget {
 }
 
 class CardSale extends StatefulWidget {
-  CardSale({this.title, Key? key}) : super(key: key);
+  CardSale({this.title, this.total, this.pieces, this.functionAction, Key? key})
+      : super(key: key);
 
   final title;
+  final total;
+  final pieces;
+  final functionAction;
   @override
   _CardSaleState createState() => _CardSaleState();
 }
@@ -176,54 +180,60 @@ class _CardSaleState extends State<CardSale> {
       child: Stack(
         children: [
           Align(
-            alignment: AlignmentDirectional.centerEnd,
-            child: Container(
-              padding: EdgeInsetsDirectional.all(5.0),
-              width: widthScreen - 100.0,
-              height: 80,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(
-                    Radius.circular(10.0),
-                  ),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        color: Colors.grey.shade100,
-                        blurRadius: 10.0,
-                        spreadRadius: 5.0)
-                  ]),
-              child: Row(
-                children: [
-                  Text(
-                    widget.title,
-                    style: TextStyle(
-                        color: colorTextName,
-                        fontFamily: 'PoppinsBold',
-                        fontSize: 16.0),
-                  ),
-                  Expanded(child: SizedBox()),
-                  Column(
+              alignment: AlignmentDirectional.centerEnd,
+              child: TextButton(
+                onPressed: widget.functionAction,
+                child: Container(
+                  padding: EdgeInsetsDirectional.all(5.0),
+                  width: widthScreen - 80.0,
+                  height: 80,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(10.0),
+                      ),
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                            color: Colors.grey.shade100,
+                            blurRadius: 10.0,
+                            spreadRadius: 5.0)
+                      ]),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      SizedBox(
+                        width: 50.0,
+                      ),
                       Text(
-                        '\$ data',
+                        widget.title,
                         style: TextStyle(
                             color: colorTextName,
                             fontFamily: 'PoppinsBold',
                             fontSize: 16.0),
                       ),
-                      Text(
-                        'data',
-                        style: TextStyle(
-                            color: colorTextName,
-                            fontFamily: 'Poppins',
-                            fontSize: 16.0),
+                      Expanded(child: SizedBox()),
+                      Column(
+                        children: [
+                          Text(
+                            '\$ ${widget.total}',
+                            style: TextStyle(
+                                color: colorTextName,
+                                fontFamily: 'PoppinsBold',
+                                fontSize: 18.0),
+                          ),
+                          Text(
+                            'X ${widget.pieces}',
+                            style: TextStyle(
+                                color: colorTextName,
+                                fontFamily: 'Poppins',
+                                fontSize: 16.0),
+                          )
+                        ],
                       )
                     ],
-                  )
-                ],
-              ),
-            ),
-          ),
+                  ),
+                ),
+              )),
           SizedBox(
             width: 100.0,
           ),
@@ -236,12 +246,6 @@ class _CardSaleState extends State<CardSale> {
               borderRadius: BorderRadius.all(
                 Radius.circular(35.0),
               ),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                    color: Colors.grey.shade100,
-                    blurRadius: 10.0,
-                    spreadRadius: 5.0)
-              ],
             ),
             child: Text(
               '${widget.title[0]}',

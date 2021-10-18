@@ -33,6 +33,7 @@ class SaleProvider extends ChangeNotifier {
     return _sales
         .add({
           'product': _newSale.product,
+          'idProduct': _newSale.product,
           'total': _newSale.total,
           'pieces': _newSale.pieces,
           'user': _newSale.idUser,

@@ -154,9 +154,11 @@ class SaleFormState extends State<SaleForm> {
     if (_formKey.currentState!.validate()) {
       final user = Provider.of<UserProvider>(context, listen: false);
       final sale = Provider.of<SaleProvider>(context, listen: false);
+      final products = Provider.of<ProductsProvider>(context, listen: false);
 
       SaleModel newSale = SaleModel.fromJson({
-        'product': controllerName.text,
+        'product': products.productsDBMap[controllerName.text]?.name,
+        'idProduct': controllerName.text,
         'pieces': controllerPieces.text,
         'total': controllerTotal.text,
         'idUser': user.userData.id,

@@ -79,7 +79,7 @@ class _HomePageState extends State<HomePage> {
               childWidget: _BodyHome(),
               heightW: heightScreen,
               widthtW: widthScreen,
-              paddingW: EdgeInsets.all(35.0),
+              paddingW: EdgeInsets.all(0.0),
             )
           ]),
           bottomNavigationBar: BottomNavBarCustom(),
@@ -184,12 +184,17 @@ class _BodyHome extends StatelessWidget {
               child: RefreshIndicator(
                   onRefresh: () async {},
                   child: ListView.builder(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 10.0),
                       itemCount: sales.salesTodayDB.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Column(
                           children: [
                             CardSale(
                               title: sales.salesTodayDB[index].product,
+                              pieces: sales.salesTodayDB[index].pieces,
+                              total: sales.salesTodayDB[index].total,
+                              functionAction: () {},
                             ),
                             SizedBox(
                               height: 10.0,
