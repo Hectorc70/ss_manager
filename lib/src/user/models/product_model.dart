@@ -1,5 +1,9 @@
+import 'package:flutter/foundation.dart';
+
 class Products {
   List<ProductModel> items = [];
+  List<Map<String, String>> itemsSelect = [];
+  Map<String, ProductModel> products = {};
 
   Products();
 
@@ -7,7 +11,14 @@ class Products {
     if (jsonList == null || jsonList == 0) return;
 
     for (final item in jsonList) {
-      final mun = ProductModel.fromJson(item.data() as Map<String, dynamic>, item.id);
+      final mun =
+          ProductModel.fromJson(item.data() as Map<String, dynamic>, item.id);
+      Map<String, String> data = {
+        'value': mun.idDocument,
+        'label': mun.name,
+      };
+      products[mun.idDocument] = mun;
+      itemsSelect.add(data);
       items.add(mun);
     }
   }

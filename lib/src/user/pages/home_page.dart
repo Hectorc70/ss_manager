@@ -27,10 +27,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-
-    _loadData().then((value) {
-      print('');
-    });
+    _loadData().then((value) {});
   }
 
   @override
@@ -82,7 +79,7 @@ class _HomePageState extends State<HomePage> {
               childWidget: _BodyHome(),
               heightW: heightScreen,
               widthtW: widthScreen,
-              paddingW: EdgeInsets.all(35.0),
+              paddingW: EdgeInsets.all(0.0),
             )
           ]),
           bottomNavigationBar: BottomNavBarCustom(),
@@ -95,16 +92,27 @@ class _HomePageState extends State<HomePage> {
   Future _loadData() async {
     final prefs = PreferencesUser();
     final user = Provider.of<UserProvider>(context, listen: false);
+    final sales = Provider.of<SaleProvider>(context, listen: false);
 
     final resp = await user.getDataUser(prefs.dataUser);
 
     if (resp[0] == 1) {
       user.userData = resp[1];
     }
+
+    if (sales.salesTodayDB.length == 0) {
+      final data = await sales.getSalesToday(prefs.dataUser);
+
+      if (data[0] == 1) {
+        sales.salesTodayDB = data[1].items;
+        sales.totalToday = data[1].total;
+      }
+    }
   }
 
   Widget _dataSaleToday(BuildContext context) {
     final widthScreen = MediaQuery.of(context).size.width;
+    final sales = Provider.of<SaleProvider>(context, listen: false);
     return Container(
       padding: EdgeInsets.only(left: 40.0),
       width: widthScreen,
@@ -118,7 +126,7 @@ class _HomePageState extends State<HomePage> {
             style: TextStyle(color: Colors.white, fontSize: 16.0),
           ),
           Text(
-            '\$ 50.0',
+            '\$ ${sales.totalToday.toString()}',
             style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.w600,
@@ -136,20 +144,72 @@ class _BodyHome extends StatelessWidget {
     final colorP = Theme.of(context).colorScheme.secondaryVariant;
     final widthScreen = MediaQuery.of(context).size.width;
     final heightScreen = MediaQuery.of(context).size.height;
-    return Container(
-      alignment: AlignmentDirectional.center,
-      width: double.infinity,
-      child: Column(
-        children: [
-          NameSection(
-            textW: 'Ventas Recientes',
-            childWidget: ButtonTitleAdd(
-              functionAction: _addNewSale,
+    final sales = Provider.of<SaleProvider>(context);
+
+    if (sales.salesTodayDB.length == 0) {
+      return Container(
+        alignment: AlignmentDirectional.center,
+        width: double.infinity,
+        child: Column(
+          children: [
+            NameSection(
+              textW: 'Ventas Recientes',
+              childWidget: ButtonTitleAdd(
+                functionAction: _addNewSale,
+              ),
             ),
-          )
-        ],
-      ),
-    );
+            SizedBox(
+              height: 50.0,
+            ),
+            Center(
+              child: RefreshIndicator(
+                  onRefresh: () async {}, child: Text('Sin Productos')),
+            )
+          ],
+        ),
+      );
+    } else {
+      return Container(
+        alignment: AlignmentDirectional.center,
+        width: double.infinity,
+        child: Column(
+          children: [
+            NameSection(
+              textW: 'Ventas Recientes',
+              childWidget: ButtonTitleAdd(
+                functionAction: _addNewSale,
+              ),
+            ),
+            SizedBox(
+              height: 5.0,
+            ),
+            Expanded(
+              child: RefreshIndicator(
+                  onRefresh: () async {},
+                  child: ListView.builder(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 10.0),
+                      itemCount: sales.salesTodayDB.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          children: [
+                            CardSale(
+                              title: sales.salesTodayDB[index].product,
+                              pieces: sales.salesTodayDB[index].pieces,
+                              total: sales.salesTodayDB[index].total,
+                              functionAction: () {},
+                            ),
+                            SizedBox(
+                              height: 10.0,
+                            )
+                          ],
+                        );
+                      })),
+            )
+          ],
+        ),
+      );
+    }
   }
 
   _addNewSale(BuildContext context) async {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:provider/provider.dart';
 import 'package:ss_manager/src/autenticacion/providers/autenticacion_provider.dart';
 import 'package:ss_manager/src/autenticacion/providers/user_provider.dart';
@@ -9,8 +10,9 @@ import 'package:ss_manager/src/widgets/fields_widgets.dart';
 import 'package:ss_manager/src/widgets/utils_widgets.dart';
 
 class ProductForm extends StatefulWidget {
-  ProductForm({Key? key}) : super(key: key);
+  ProductForm({this.type, Key? key}) : super(key: key);
 
+  final type;
   @override
   _ProductFormState createState() => _ProductFormState();
 }
@@ -24,9 +26,8 @@ class _ProductFormState extends State<ProductForm> {
 
   @override
   void initState() {
+    _loadData().then((value) => null);
     super.initState();
-    controllerMount.text = '0.0';
-    controllerPieces.text = '0';
   }
 
   void dispose() {
@@ -34,6 +35,19 @@ class _ProductFormState extends State<ProductForm> {
     controllerMount.dispose();
     controllerPieces.dispose();
     super.dispose();
+  }
+
+  Future _loadData() async {
+    final products = Provider.of<ProductsProvider>(context, listen: false);
+    final select = products.selectProduct;
+    if (select.name != null) {
+      controllerName.text = select.name;
+      controllerMount.text = select.price;
+      controllerPieces.text = select.pieces;
+    } else {
+      controllerMount.text = '0.0';
+      controllerPieces.text = '0';
+    }
   }
 
   @override
@@ -88,7 +102,7 @@ class _ProductFormState extends State<ProductForm> {
                     Expanded(child: SizedBox()),
                     ButtonFormOk(
                       textName: 'Guardar',
-                      functionAction: _submitProduct,
+                      functionAction: _validate,
                     ),
                   ],
                 )
@@ -133,7 +147,17 @@ class _ProductFormState extends State<ProductForm> {
   }
 
   _cancel() {
+    final products = Provider.of<ProductsProvider>(context, listen: false);
+    products.selectProduct = ProductModel();
     Navigator.of(context).pop();
+  }
+
+  _validate(BuildContext context) async {
+    if (widget.type == 'edit') {
+      await _editProduct(context);
+    } else {
+      await _submitProduct(context);
+    }
   }
 
   _submitProduct(BuildContext context) async {
@@ -149,7 +173,7 @@ class _ProductFormState extends State<ProductForm> {
       }, 'id');
 
       products.dataNewProduct = productNew;
-      final resp = await products.newProduct(user.userData);
+      final resp = await products.newProduct();
 
       if (resp[0] == 0) {
         Navigator.of(context).pop();
@@ -157,6 +181,36 @@ class _ProductFormState extends State<ProductForm> {
       } else {
         messageError(resp[1], 2);
       }
+    }
+  }
+
+  Future _editProduct(BuildContext context) async {
+    final products = Provider.of<ProductsProvider>(context, listen: false);
+    final user = Provider.of<UserProvider>(context, listen: false);
+
+    if (products.selectProduct.idDocument != null) {
+      Map<String, dynamic> data = {
+        'name': controllerName.text,
+        'price': controllerMount.text,
+        'pieces': controllerPieces.text,
+      };
+      loaderView(context);
+      await products.editProduct(products.selectProduct.idDocument, data);
+      Loader.hide();
+
+      loaderView(context);
+      final resp = await products.getProducts(user.userData.id);
+      Loader.hide();
+      if (resp[0] == 1) {
+        final data = resp[1].items;
+        products.productsDB = data;
+        products.productsDBMap = resp[1].products;
+        products.productsSelect = resp[1].itemsSelect;
+      } else {
+        messageError(resp[1].toString(), 2);
+      }
+      Navigator.of(context).pop();
+      //products.selectProduct = ProductModel();
     }
   }
 }

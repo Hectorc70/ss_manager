@@ -187,6 +187,7 @@ class FieldSelectForm extends StatelessWidget {
       @required this.labelTextInput,
       @required this.controllerField,
       @required this.items,
+      this.functionOnChanged,
       this.typeDrop = SelectFormFieldType.dialog,
       Key? key})
       : super(key: key);
@@ -194,7 +195,8 @@ class FieldSelectForm extends StatelessWidget {
   final hintTextC;
   final labelTextInput;
   final controllerField;
-  List<Map<String, String>>? items;
+  final functionOnChanged;
+  final items;
   SelectFormFieldType typeDrop;
 
   @override
@@ -226,29 +228,21 @@ class FieldSelectForm extends StatelessWidget {
             ),
           ),
           SelectFormField(
-            hintText: hintTextC,
-            dialogCancelBtn: 'Cancelar',
-            dialogTitle: labelTextInput,
-            dialogSearchHint: 'Buscar',
-            enableSearch: true,
-            type: typeDrop,
-            style: TextStyle(
-              color: Color.fromRGBO(119, 115, 115, 1),
-            ),
-            decoration: InputDecoration(border: InputBorder.none),
-            items: [
-              {'value': 'd', 'label': 'd'}
-            ],
-          )
+              onChanged: (value) async {
+                await functionOnChanged(context, value);
+              },
+              controller: controllerField,
+              hintText: hintTextC,
+              dialogCancelBtn: 'Cancelar',
+              dialogTitle: labelTextInput,
+              dialogSearchHint: 'Buscar',
+              enableSearch: true,
+              type: typeDrop,
+              style: TextStyle(
+                color: Color.fromRGBO(119, 115, 115, 1),
+              ),
+              decoration: InputDecoration(border: InputBorder.none),
+              items: items)
         ]));
-  }
-}
-
-class SelectFormFiel extends StatelessWidget {
-  const SelectFormFiel({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }
